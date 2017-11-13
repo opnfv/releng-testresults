@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_f6d84181",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-11-13T02:03:50Z",
+      "side": 1,
+      "message": "please delete this",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 8
+      },
+      "revId": "aff018a6227421f3219652d4f84cfc71c1b0f905",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_36baa90a",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-11-13T02:03:50Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 4
+      },
+      "revId": "aff018a6227421f3219652d4f84cfc71c1b0f905",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f6bfa1fa",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-11-13T02:03:50Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 10
+      },
+      "revId": "aff018a6227421f3219652d4f84cfc71c1b0f905",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_76d43147",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-11-13T02:03:50Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 7
+      },
+      "revId": "aff018a6227421f3219652d4f84cfc71c1b0f905",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d6cb7da3",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-11-13T02:03:50Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 14
+      },
+      "revId": "aff018a6227421f3219652d4f84cfc71c1b0f905",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_56bf6dfb",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-11-13T02:03:50Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 4
+      },
+      "revId": "aff018a6227421f3219652d4f84cfc71c1b0f905",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b6ceb9b2",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-11-13T02:03:50Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 13
+      },
+      "revId": "aff018a6227421f3219652d4f84cfc71c1b0f905",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_16c5e58d",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-11-13T02:03:50Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 44
+      },
+      "revId": "aff018a6227421f3219652d4f84cfc71c1b0f905",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
