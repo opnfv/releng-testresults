@@ -14,7 +14,9 @@ module.exports = function (grunt) {
 					base: './',
 					middleware: function(connect, options, middlewares) {
 						middlewares.unshift(function(req, res, next) {
-							if (req.method.toUpperCase() == 'POST') req.method='GET';
+							if (req.method.toUpperCase() == 'POST' || req.method.toUpperCase() == "PUT"){
+								req.method='GET';
+							}
 							return next();
 						});
 						return middlewares;
@@ -118,6 +120,7 @@ module.exports = function (grunt) {
 		        coverageDir: '../../../opnfv_testapi/tests/UI/coverage',
 		        args: {
 					specs: ['../../../opnfv_testapi/tests/UI/e2e/podsControllerSpec.js',
+							'../../../opnfv_testapi/tests/UI/e2e/projectsControllerSpec.js',
 							'../../../opnfv_testapi/tests/UI/e2e/projectControllerSpec.js']
 		        }
 		    },

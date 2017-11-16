@@ -78,10 +78,10 @@ class GenericApiHandler(web.RequestHandler):
     @check.valid_token
     @check.no_body
     @check.miss_fields
+    @check.new_not_exists
     @check.is_authorized
     @check.values_check
     @check.carriers_exist
-    @check.new_not_exists
     def _create(self, **kwargs):
         """
         :param miss_checks: [miss1, miss2]
@@ -179,6 +179,7 @@ class GenericApiHandler(web.RequestHandler):
     @web.asynchronous
     @gen.coroutine
     @check.not_exist
+    @check.is_authorized
     def _delete(self, data, query=None):
         yield dbapi.db_delete(self.table, query)
         self.finish_request()
@@ -186,8 +187,10 @@ class GenericApiHandler(web.RequestHandler):
     @web.asynchronous
     @gen.coroutine
     @check.no_body
+    @check.valid_token
     @check.not_exist
     @check.updated_one_not_exist
+    @check.is_authorized
     def _update(self, data, query=None, **kwargs):
         data = self.table_cls.from_dict(data)
         update_req = self._update_requests(data)

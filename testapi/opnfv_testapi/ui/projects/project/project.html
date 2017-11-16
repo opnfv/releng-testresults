@@ -1,0 +1,25 @@
+<div ng-show="ctrl.data" class="projects-table" style="margin-top:24px; margin-left:8px;">
+    <table class="table">
+            <tbody>
+                <tr> <td class="col-md-3">Name</td> <td class="col-md-9">{{ctrl.data.name}}</td> </tr>
+                <tr> <td>Description</td> <td>{{ctrl.data.description}}</td> </tr>
+                <tr> <td>Creation date</td> <td>{{ctrl.data.creation_date}}</td> </tr>
+            </tbody>
+    </table>
+</div>
+
+<div class="row" style="margin-bottom:24px;"></div>
+<div class="project-create col-md-3" style="margin-top:10px" ng-class="{ 'hidden': ! ((auth.projectNames.length>0) &&
+    auth.isAuthenticated) }">
+        <button type="submit" class="btn btn-primary" ng-click="ctrl.openDeleteModal()">Delete Project</button>
+        <button type="submit" class="btn btn-primary" ng-click="ctrl.openUpdateModal()">Update Project</button>
+</div>
+<div ng-show="ctrl.showError" class="alert alert-danger col-md-9" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{ctrl.error}}
+</div>
+<div ng-show="ctrl.showSuccess" class="alert alert-success col-md-9" role="alert">
+    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+    Update Success
+</div>

@@ -28,10 +28,17 @@ def is_authorized(method):
             user_info = yield dbapi.db_find_one('users', {'user': testapi_id})
             if not user_info:
                 raises.Unauthorized(message.not_lfid())
-            kwargs['owner'] = testapi_id
+            if "owner" in kwargs:
+                kwargs['owner'] = testapi_id
             if self.table in ['projects']:
                 query = kwargs.get('query')
-                query_data = query()
+                if type(query) is not dict:
+                    query_data = query()
+                else:
+                    if self.json_args is None:
+                        query_data = query
+                    else:
+                        query_data = self.json_args
                 group = "opnfv-gerrit-" + query_data['name'] + "-submitters"
                 if group not in user_info['groups']:
                     raises.Unauthorized(message.no_permission())
