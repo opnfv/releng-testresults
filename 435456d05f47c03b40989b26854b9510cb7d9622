@@ -1,0 +1,118 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_6ca3bd4f",
+        "filename": "testapi/3rd_party/static/testapi-ui/shared/alerts/confirmModalFactory.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-11-16T10:41:49Z",
+      "side": 1,
+      "message": "missing \u0027/\u0027, please use absolute path, or else \u0027http://localhost:8000/shared/alerts/confirmModal.html\u0027 not found will be returned",
+      "revId": "435456d05f47c03b40989b26854b9510cb7d9622",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ec498db8",
+        "filename": "testapi/opnfv_testapi/handlers/base_handlers.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-11-16T10:41:49Z",
+      "side": 1,
+      "message": "token is only used for results, hence, is not necessary to decorate update operation",
+      "revId": "435456d05f47c03b40989b26854b9510cb7d9622",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_acd665c1",
+        "filename": "testapi/opnfv_testapi/tests/UI/e2e/projectControllerSpec.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-11-16T10:41:49Z",
+      "side": 1,
+      "message": "please specify what kind of user?",
+      "revId": "435456d05f47c03b40989b26854b9510cb7d9622",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ece06d98",
+        "filename": "testapi/opnfv_testapi/tests/UI/e2e/projectControllerSpec.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-11-16T10:41:49Z",
+      "side": 1,
+      "message": "anonymous user?",
+      "range": {
+        "startLine": 103,
+        "startChar": 37,
+        "endLine": 103,
+        "endChar": 51
+      },
+      "revId": "435456d05f47c03b40989b26854b9510cb7d9622",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0ce671b4",
+        "filename": "testapi/opnfv_testapi/tests/UI/e2e/projectControllerSpec.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-11-16T10:41:49Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "435456d05f47c03b40989b26854b9510cb7d9622",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2ccb751f",
+        "filename": "testapi/opnfv_testapi/tests/UI/e2e/projectControllerSpec.js",
+        "patchSetId": 2
+      },
+      "lineNbr": 255,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-11-16T10:41:49Z",
+      "side": 1,
+      "message": "anonymous user?",
+      "range": {
+        "startLine": 255,
+        "startChar": 37,
+        "endLine": 255,
+        "endChar": 46
+      },
+      "revId": "435456d05f47c03b40989b26854b9510cb7d9622",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
