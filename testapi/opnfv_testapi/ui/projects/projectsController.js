@@ -33,6 +33,7 @@
         var ctrl = this;
         ctrl.url = testapiApiUrl + '/projects';
         ctrl.create = create;
+        ctrl.update = update;
 
         ctrl.createRequirements = [
             {label: 'name', type: 'text', required: true},
@@ -57,6 +58,7 @@
                 ctrl.projectsRequest =
                     $http.post(projects_url, body).success(function (data){
                         ctrl.showSuccess = true ;
+                        ctrl.update();
                     })
                     .error(function (data) {
                         ctrl.showError = true;
@@ -70,5 +72,23 @@
                 ctrl.error = 'Name is missing.'
             }
         }
+
+        /**
+         * This will contact the TestAPI to get a listing of declared projects.
+         */
+        function update() {
+            ctrl.showError = false;
+            ctrl.projectsRequest =
+                $http.get(ctrl.url).success(function (data) {
+                    ctrl.data = data;
+                }).error(function (error) {
+                    ctrl.data = null;
+                    ctrl.showError = true;
+                    ctrl.error =
+                        'Error retrieving projects from server: ' +
+                        angular.toJson(error);
+                });
+        }
+        ctrl.update();
     }
 })();

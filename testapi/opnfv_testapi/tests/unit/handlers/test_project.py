@@ -110,21 +110,25 @@ class TestProjectUpdate(TestProjectBase):
     def test_withoutBody(self):
         return None, 'noBody'
 
+    @executor.mock_valid_lfid()
     @executor.update(httplib.NOT_FOUND, message.not_found_base)
     def test_notFound(self):
         return self.req_e, 'notFound'
 
+    @executor.mock_valid_lfid()
     @executor.update(httplib.FORBIDDEN, message.exist_base)
     def test_newNameExist(self):
         return self.req_e, self.req_d.name
 
+    @executor.mock_valid_lfid()
     @executor.update(httplib.FORBIDDEN, message.no_update())
     def test_noUpdate(self):
         return self.req_d, self.req_d.name
 
+    @executor.mock_valid_lfid()
     @executor.update(httplib.OK, '_assert_update')
     def test_success(self):
-        req = project_models.ProjectUpdateRequest('newName', 'new description')
+        req = project_models.ProjectUpdateRequest('apex', 'apex test')
         return req, self.req_d.name
 
     def _assert_update(self, req, body):
@@ -145,6 +149,7 @@ class TestProjectDelete(TestProjectBase):
     def test_notFound(self):
         return 'notFound'
 
+    @executor.mock_valid_lfid()
     @executor.delete(httplib.OK, '_assert_delete')
     def test_success(self):
         return self.req_d.name

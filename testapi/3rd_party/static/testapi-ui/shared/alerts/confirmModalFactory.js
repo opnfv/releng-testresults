@@ -13,7 +13,7 @@
     function confirmModal($uibModal) {
         return function(text, successHandler) {
             $uibModal.open({
-                templateUrl: '/shared/alerts/confirmModal.html',
+                templateUrl: 'testapi-ui/shared/alerts/confirmModal.html',
                 controller: 'CustomConfirmModalController as confirmModal',
                 size: 'md',
                 resolve: {

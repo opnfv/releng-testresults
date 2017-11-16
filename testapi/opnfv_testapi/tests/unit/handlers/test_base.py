@@ -61,7 +61,8 @@ class TestBase(testing.AsyncHTTPTestCase):
                                        'opnfv-testapi-users',
                                        'opnfv-gerrit-functest-submitters',
                                        'opnfv-gerrit-qtip-submitters',
-                                       'opnfv-gerrit-qtip-contributors']
+                                       'opnfv-gerrit-qtip-contributors',
+                                       'opnfv-gerrit-apex-submitters']
                                    })
 
     def tearDown(self):

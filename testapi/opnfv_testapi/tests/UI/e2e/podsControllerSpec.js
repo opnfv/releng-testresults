@@ -19,6 +19,9 @@ describe('testing the Pods page for anonymous user', function () {
 			}
 		  }]);
 	});
+	afterEach(function(){
+		mock.teardown();
+	});
 
 	it( 'should navigate to pods link ', function() {
 		browser.get(baseURL);
@@ -126,6 +129,9 @@ describe('testing the Pods page for authorized user', function () {
 				}
 			}
 		]);
+	});
+	afterEach(function(){
+		mock.teardown();
 	});
 
 	it('create button is visible for authorized user', function () {
