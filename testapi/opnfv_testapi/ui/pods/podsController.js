@@ -78,6 +78,7 @@
          */
         function create() {
             ctrl.showError = false;
+            ctrl.showSuccess = false;
 
             if(ctrl.name != ""){
                 var pods_url = ctrl.url;
@@ -88,12 +89,11 @@
                     details: ctrl.details
                 };
                 ctrl.podsRequest =
-                    $http.post(pods_url, body).error(function (data, status) {
+                    $http.post(pods_url, body).success(function (data) {
+                        ctrl.showSuccess = true ;
+                    }).catch(function (data)  {
                         ctrl.showError = true;
-                        if(status == 403){
-                            ctrl.error =
-                                'Error creating the new pod from server: Pod\'s name already exists'
-                        }
+                        ctrl.error = "Error creating the new pod from server: " + data.statusText;
                     });
             }
             else{
@@ -110,12 +110,10 @@
             ctrl.podsRequest =
                 $http.get(ctrl.url).success(function (data) {
                     ctrl.data = data;
-                }).error(function (error) {
+                }).catch(function (data) {
                     ctrl.data = null;
                     ctrl.showError = true;
-                    ctrl.error =
-                        'Error retrieving pods from server: ' +
-                        angular.toJson(error);
+                    ctrl.error = 'Error retrieving pods from server: ' + data.statusText;
                 });
         }
     }
