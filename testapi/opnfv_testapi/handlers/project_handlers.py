@@ -6,6 +6,8 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+import re
+from datetime import datetime
 
 from opnfv_testapi.handlers import base_handlers
 from opnfv_testapi.models import project_models
@@ -20,16 +22,57 @@ class GenericProjectHandler(base_handlers.GenericApiHandler):
         self.table = 'projects'
         self.table_cls = project_models.Project
 
+    def set_query(self):
+        query = dict()
+        date_range = dict()
+        query['public'] = {'$not': {'$eq': 'false'}}
+        for k in self.request.query_arguments.keys():
+            v = self.get_query_argument(k)
+            if k == 'name':
+                query['name'] = re.compile(v)
+            elif k == 'start':
+                date_range.update({'$gte': str(v)})
+            elif k == 'end':
+                date_range.update({'$lt': str(v)})
+            if date_range:
+                query['creation_date'] = date_range
+            # if $lt is not provided,
+            # empty/None/null/'' creation_date will also be returned
+            if 'creation_date' in query and '$lt' not in query['creation_date']:
+                query['creation_date'].update({'$lt': str(datetime.now())})
+        return query
+
 
 class ProjectCLHandler(GenericProjectHandler):
-    @swagger.operation(nickname="listAllProjects")
+    @swagger.operation(nickname="listProjects")
     def get(self):
         """
-            @description: list all projects
-            @return 200: return all projects, empty list is no project exist
-            @rtype: L{Projects}
+            @description: Retrieve result(s) for a project
+                          on a specific details.
+            @notes: Retrieve result(s) for a project on a specific details.
+                Available filters for this request are :
+                 - name : project name
+                 - start : starting time in 2016-11-16
+                 - end : ending time in 2016-11-20
+
+                GET /projects?name=functest&start=2016-11-16&\
+                to=2017-11-20
+            @return 200: all projects consist with query,
+                         empty list if no result is found
+            @param name: project name
+            @type name: L{string}
+            @in name: query
+            @required name: False
+            @param start: i.e. 2016-01-01 or 2016-01-01 00:01:23
+            @type start: L{string}
+            @in start: query
+            @required start: False
+            @param end: i.e. 2016-01-01 or 2016-01-01 00:01:23
+            @type end: L{string}
+            @in end: query
+            @required end: False
         """
-        self._list()
+        self._list(query=self.set_query())
 
     @swagger.operation(nickname="createProject")
     def post(self):

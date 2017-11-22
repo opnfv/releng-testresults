@@ -8,6 +8,9 @@
 ##############################################################################
 import httplib
 import unittest
+from datetime import datetime
+from datetime import timedelta
+import urllib
 
 from opnfv_testapi.common import message
 from opnfv_testapi.models import project_models
@@ -25,6 +28,9 @@ class TestProjectBase(base.TestBase):
         self.get_res = project_models.Project
         self.list_res = project_models.Projects
         self.update_res = project_models.Project
+        self.start = str(datetime.now())
+        self.end = str(datetime.now() + timedelta(minutes=1))
+        self.name = 'functest'
         self.basePath = '/api/v1/projects'
 
     def assert_body(self, project, req=None):
@@ -89,12 +95,41 @@ class TestProjectGet(TestProjectBase):
     def test_list(self):
         return None
 
+    @executor.query(httplib.OK, '_query_success', 1)
+    def test_queryName(self):
+        return self._set_query('name')
+
+    @executor.query(httplib.OK, '_query_success', 2)
+    def test_queryStart(self):
+        return self._set_query('start')
+
+    @executor.query(httplib.OK, '_query_success', 2)
+    def test_queryEnd(self):
+        return self._set_query('end')
+
+    @executor.query(httplib.OK, '_query_success', 1)
+    def test_queryAll(self):
+        return self._set_query('name', 'start', 'end')
+
     def _assert_list(self, body):
         for project in body.projects:
             if self.req_d.name == project.name:
                 self.assert_body(project)
             else:
                 self.assert_body(project, self.req_e)
+
+    def _set_query(self, *args, **kwargs):
+        def get_value(arg):
+            return self.__getattribute__(arg)
+        query = []
+        for arg in args:
+            query.append((arg, get_value(arg)))
+        for k, v in kwargs.iteritems():
+            query.append((k, v))
+        return urllib.urlencode(query)
+
+    def _query_success(self, body, number):
+        self.assertEqual(number, len(body.projects))
 
 
 class TestProjectUpdate(TestProjectBase):
@@ -105,6 +140,11 @@ class TestProjectUpdate(TestProjectBase):
         _, get_res = self.get(self.req_d.name)
         self.index_d = get_res._id
         self.create_e()
+
+    @executor.update(httplib.BAD_REQUEST, message.not_login())
+    def test_notlogin(self):
+        req = project_models.ProjectUpdateRequest('apex', 'apex test')
+        return req, self.req_d.name
 
     @executor.update(httplib.BAD_REQUEST, message.no_body())
     def test_withoutBody(self):
@@ -144,6 +184,10 @@ class TestProjectDelete(TestProjectBase):
     def setUp(self):
         super(TestProjectDelete, self).setUp()
         self.create_d()
+
+    @executor.delete(httplib.BAD_REQUEST, message.not_login())
+    def test_notlogin(self):
+        return self.req_d.name
 
     @executor.delete(httplib.NOT_FOUND, message.not_found_base)
     def test_notFound(self):

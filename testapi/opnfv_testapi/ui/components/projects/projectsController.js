@@ -34,6 +34,8 @@
         ctrl.url = testapiApiUrl + '/projects';
         ctrl.create = create;
         ctrl.update = update;
+        ctrl.open = open;
+        ctrl.clearFilters = clearFilters;
 
         ctrl.createRequirements = [
             {label: 'name', type: 'text', required: true},
@@ -42,7 +44,7 @@
 
         ctrl.name = '';
         ctrl.details = '';
-
+        ctrl.filterName='';
         /**
          * This will contact the TestAPI to create a new project.
          */
@@ -59,10 +61,9 @@
                     $http.post(projects_url, body).success(function (data){
                         ctrl.showSuccess = true ;
                         ctrl.update();
-                    })
-                    .error(function (data) {
+                    }).catch(function (data) {
                         ctrl.showError = true;
-                        ctrl.error = 'Error creating the new Project from server:' + angular.toJson(data);
+                        ctrl.error = 'Error creating the new Project from server:' + data.statusText;
                     });
                 ctrl.name = "";
                 ctrl.description="";
@@ -78,17 +79,53 @@
          */
         function update() {
             ctrl.showError = false;
-            ctrl.projectsRequest =
-                $http.get(ctrl.url).success(function (data) {
+            var content_url = ctrl.url + '?';
+            var start = $filter('date')(ctrl.startDate, 'yyyy-MM-dd');
+            var name  = ctrl.filterName;
+            if(name){
+                content_url = content_url + 'name=' +
+                name + '&';
+            }
+            if (start) {
+                content_url = content_url + 'start=' +
+                start + "&";
+            }
+            var end = $filter('date')(ctrl.endDate, 'yyyy-MM-dd');
+            if (end) {
+                content_url = content_url + 'end=' +
+                end;
+            }
+            ctrl.resultsRequest =
+                $http.get(content_url).success(function (data) {
                     ctrl.data = data;
-                }).error(function (error) {
+                }).catch(function (data)  {
                     ctrl.data = null;
                     ctrl.showError = true;
-                    ctrl.error =
-                        'Error retrieving projects from server: ' +
-                        angular.toJson(error);
+                    ctrl.error = "Error retrieving results listing from server: " + data.statusText;
                 });
         }
-        ctrl.update();
+
+        /**
+         * This is called when the date filter calendar is opened. It
+         * does some event handling, and sets a scope variable so the UI
+         * knows which calendar was opened.
+         * @param {Object} $event - The Event object
+         * @param {String} openVar - Tells which calendar was opened
+         */
+        function open($event, openVar) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            ctrl[openVar] = true;
+        }
+
+        /**
+         * This function will clear all filters and update the results
+         * listing.
+         */
+        function clearFilters() {
+            ctrl.startDate = null;
+            ctrl.endDate = null;
+            ctrl.update();
+        }
     }
 })();
