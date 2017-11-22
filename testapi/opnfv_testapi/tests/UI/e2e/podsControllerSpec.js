@@ -171,7 +171,7 @@ describe('testing the Pods page for authorized user', function () {
 		details.sendKeys('DemoDetails');
 		var buttonCreate = element(by.buttonText('Create'));
 		buttonCreate.click();
-		expect(element(by.cssContainingText(".alert","Error creating the new pod from server: Pod's name already exists")).isDisplayed()).toBe(true);
+		expect(element(by.cssContainingText(".alert","Error creating the new pod from server: undefined")).isDisplayed()).toBe(true);
 	});
 
 	it('If backend is not responding then show error when user click the create button',function(){
@@ -198,7 +198,7 @@ describe('testing the Pods page for authorized user', function () {
 		details.sendKeys('DemoDetails');
 		var buttonCreate = element(by.buttonText('Create'));
 		buttonCreate.click().then(function(){
-			expect(element(by.css('.alert.alert-danger.ng-binding.ng-scope'))
+			expect(element(by.css('.alert.alert-danger.ng-binding'))
 			.isDisplayed()).toBe(true);
 		});
 	});

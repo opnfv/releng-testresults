@@ -27,8 +27,17 @@
             </div>
         </div>
 
-        <div class="col-md-3" style="margin-top:12px; margin-left:8px;">
+        <div class="col-md-1" style="margin-top:12px;">
             <button type="submit" class="btn btn-primary" ng-click="ctrl.create()">Create</button>
+        </div>
+        <div ng-show="ctrl.showError" class="col-md-11 alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            {{ctrl.error}}
+        </div>
+        <div ng-show="ctrl.showSuccess" class="col-md-11 alert alert-success" role="alert">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+            Create Success
         </div>
     </div>
 </div>
@@ -69,7 +78,7 @@
     </table>
 </div>
 <br>
-<div ng-show="ctrl.showError" class="alert alert-danger" role="alert">
+<div ng-show="ctrl.showError" class="alert alert-danger" ng-class="{ 'hidden': auth.isAuthenticated }" role="alert">
     <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
     <span class="sr-only">Error:</span>
     {{ctrl.error}}

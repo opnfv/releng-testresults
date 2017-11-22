@@ -15,7 +15,7 @@ class Raiser(object):
     code = httplib.OK
 
     def __init__(self, reason):
-        raise web.HTTPError(self.code, reason)
+        raise web.HTTPError(self.code, reason=reason)
 
 
 class BadRequest(Raiser):

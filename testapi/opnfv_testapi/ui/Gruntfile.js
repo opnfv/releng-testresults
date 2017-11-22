@@ -27,17 +27,11 @@ module.exports = function (grunt) {
 		copy: {
 			assets: {
 			  expand: true,
-			  cwd: 'assets',
+			  cwd: '../../3rd_party/static/testapi-ui/assets',
 			  src: '**',
 			  dest: 'testapi-ui/assets',
 			},
 			components: {
-				expand: true,
-				cwd: '../../../opnfv_testapi/ui',
-				src: '**',
-				dest: 'components',
-			},
-			copyComponents: {
 				expand: true,
 				cwd: 'components',
 				src: '**',
@@ -91,7 +85,7 @@ module.exports = function (grunt) {
 			    }
 			},
 			deleteFiles: {
-				command: 'rm -r testapi-ui && rm -r components',
+				command: 'rm -r testapi-ui',
 				options: {
 			      async: false
 			    }
@@ -110,28 +104,28 @@ module.exports = function (grunt) {
 	    },
 		karma: {
 			unit: {
-				configFile: '../../../opnfv_testapi/tests/UI/karma.conf.js'
+				configFile: 'karma.conf.js'
 			}
 		},
 		protractor_coverage: {
 		    options: {
 		        keepAlive: true,
 		        noColor: false,
-		        coverageDir: '../../../opnfv_testapi/tests/UI/coverage',
+		        coverageDir: '../tests/UI/coverage',
 		        args: {
-					specs: ['../../../opnfv_testapi/tests/UI/e2e/podsControllerSpec.js',
-							'../../../opnfv_testapi/tests/UI/e2e/projectsControllerSpec.js',
-							'../../../opnfv_testapi/tests/UI/e2e/projectControllerSpec.js']
+					specs: ['../tests/UI/e2e/podsControllerSpec.js',
+							'../tests/UI/e2e/projectsControllerSpec.js',
+							'../tests/UI/e2e/projectControllerSpec.js']
 		        }
 		    },
 		    local: {
 		        options: {
-		            configFile: '../../../opnfv_testapi/tests/UI/protractor-conf.js'
+		            configFile: '../tests/UI/protractor-conf.js'
 		        }
 		    }
 		},
 		makeReport: {
-	        src: '../../../opnfv_testapi/tests/UI/coverage/*.json',
+	        src: '../tests/UI/coverage/*.json',
 	        options: {
 	            print: 'detail'
 	        }
@@ -143,7 +137,6 @@ module.exports = function (grunt) {
 	grunt.registerTask('e2e', [
 		'copy:assets',
 		'copy:components',
-		'copy:copyComponents',
 		'copy:shared',
 		'copy:filesPng',
 		'copy:filesIco',
@@ -157,6 +150,5 @@ module.exports = function (grunt) {
 		'protractor_coverage',
 		'makeReport',
 		'shell:deleteFiles'
-
 	]);
 }
