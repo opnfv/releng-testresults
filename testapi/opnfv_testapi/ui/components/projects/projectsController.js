@@ -34,6 +34,7 @@
         ctrl.url = testapiApiUrl + '/projects';
         ctrl.create = create;
         ctrl.update = update;
+        ctrl.clearFilters = clearFilters;
 
         ctrl.createRequirements = [
             {label: 'name', type: 'text', required: true},
@@ -42,13 +43,13 @@
 
         ctrl.name = '';
         ctrl.details = '';
-
+        ctrl.filterName='';
         /**
          * This will contact the TestAPI to create a new project.
          */
         function create() {
-            ctrl.showError = false;
-            ctrl.showSuccess = false;
+            ctrl.showCreateError = false;
+            ctrl.showCreateSuccess = false;
             if(ctrl.name != ""){
                 var projects_url = ctrl.url;
                 var body = {
@@ -57,18 +58,17 @@
                 };
                 ctrl.projectsRequest =
                     $http.post(projects_url, body).success(function (data){
-                        ctrl.showSuccess = true ;
+                        ctrl.showCreateSuccess = true ;
                         ctrl.update();
-                    })
-                    .error(function (data) {
-                        ctrl.showError = true;
-                        ctrl.error = 'Error creating the new Project from server:' + angular.toJson(data);
+                    }).catch(function (data) {
+                        ctrl.showCreateError = true;
+                        ctrl.error = data.statusText;
                     });
                 ctrl.name = "";
                 ctrl.description="";
             }
             else{
-                ctrl.showError = true;
+                ctrl.showCreateError = true;
                 ctrl.error = 'Name is missing.'
             }
         }
@@ -77,18 +77,31 @@
          * This will contact the TestAPI to get a listing of declared projects.
          */
         function update() {
-            ctrl.showError = false;
-            ctrl.projectsRequest =
-                $http.get(ctrl.url).success(function (data) {
+            ctrl.showUpdateError = false;
+            var content_url = ctrl.url + '?';
+            var name  = ctrl.filterName;
+            if(name){
+                content_url = content_url + 'name=' +
+                name;
+            }
+            ctrl.resultsRequest =
+                $http.get(content_url).success(function (data) {
                     ctrl.data = data;
-                }).error(function (error) {
+                }).catch(function (data)  {
                     ctrl.data = null;
-                    ctrl.showError = true;
-                    ctrl.error =
-                        'Error retrieving projects from server: ' +
-                        angular.toJson(error);
+                    ctrl.showUpdateError = true;
+                    ctrl.error = data.statusText;
                 });
         }
-        ctrl.update();
+
+        /**
+         * This function will clear all filters and update the projects
+         * listing.
+         */
+        function clearFilters() {
+            ctrl.filterName = null;
+            ctrl.showUpdateError = false;
+            ctrl.update();
+        }
     }
 })();

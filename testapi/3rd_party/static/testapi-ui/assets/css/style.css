@@ -226,3 +226,9 @@ a.glyphicon {
 .modal-body .row {
   margin-bottom: 10px;
 }
+
+.alert{
+  background-color: white;
+  border-color: white;
+  margin-top: 5px;
+}
