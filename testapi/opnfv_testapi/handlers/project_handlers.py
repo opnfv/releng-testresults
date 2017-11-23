@@ -6,6 +6,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
+import re
 
 from opnfv_testapi.handlers import base_handlers
 from opnfv_testapi.models import project_models
@@ -20,16 +21,33 @@ class GenericProjectHandler(base_handlers.GenericApiHandler):
         self.table = 'projects'
         self.table_cls = project_models.Project
 
+    def set_query(self):
+        query = dict()
+        for k in self.request.query_arguments.keys():
+            v = self.get_query_argument(k)
+            if k == 'name':
+                query['name'] = re.compile(v)
+        return query
+
 
 class ProjectCLHandler(GenericProjectHandler):
-    @swagger.operation(nickname="listAllProjects")
+    @swagger.operation(nickname="listProjects")
     def get(self):
         """
-            @description: list all projects
-            @return 200: return all projects, empty list is no project exist
-            @rtype: L{Projects}
+            @description: Retrieve project(s) on a specific details.
+            @notes: Retrieve project(s) on a specific details.
+                Available filters for this request are :
+                 - name : project name
+
+                GET /projects?name=functest
+            @return 200: all projects consist with query,
+                         empty list if no result is found
+            @param name: project name
+            @type name: L{string}
+            @in name: query
+            @required name: False
         """
-        self._list()
+        self._list(query=self.set_query())
 
     @swagger.operation(nickname="createProject")
     def post(self):
