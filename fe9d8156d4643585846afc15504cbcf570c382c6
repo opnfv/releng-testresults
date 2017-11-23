@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_1cfdf23a",
+        "filename": "testapi/opnfv_testapi/handlers/project_handlers.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-11-23T08:48:11Z",
+      "side": 1,
+      "message": "how about making the query case insensitive.",
+      "range": {
+        "startLine": 29,
+        "startChar": 32,
+        "endLine": 29,
+        "endChar": 45
+      },
+      "revId": "fe9d8156d4643585846afc15504cbcf570c382c6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bcfde63d",
+        "filename": "testapi/opnfv_testapi/ui/components/projects/projects.html",
+        "patchSetId": 4
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-11-23T08:48:11Z",
+      "side": 1,
+      "message": "when create failed, there will be two error message, one is right behind the create button, the other is at the bottom. I think the problem is induced from here",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 14
+      },
+      "revId": "fe9d8156d4643585846afc15504cbcf570c382c6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_fcf76e57",
+        "filename": "testapi/opnfv_testapi/ui/components/projects/projectsController.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-11-23T08:48:11Z",
+      "side": 1,
+      "message": "error message is too long, I would suggest deleting the prompt",
+      "range": {
+        "startLine": 65,
+        "startChar": 38,
+        "endLine": 65,
+        "endChar": 81
+      },
+      "revId": "fe9d8156d4643585846afc15504cbcf570c382c6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5c965af1",
+        "filename": "testapi/opnfv_testapi/ui/components/projects/projectsController.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-11-23T08:48:11Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 93,
+        "startChar": 34,
+        "endLine": 93,
+        "endChar": 81
+      },
+      "revId": "fe9d8156d4643585846afc15504cbcf570c382c6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
