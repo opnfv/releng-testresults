@@ -11,15 +11,12 @@
 <div class="row" style="margin-bottom:24px;"></div>
 <div class="project-create col-md-3" style="margin-top:10px" ng-class="{ 'hidden': ! ((auth.projectNames.length>0) &&
     auth.isAuthenticated) }">
-        <button type="submit" class="btn btn-primary" ng-click="ctrl.openDeleteModal()">Delete Project</button>
+        <button type="submit" style="margin-right:18px;" class="btn btn-primary" ng-click="ctrl.openDeleteModal()">Delete Project</button>
         <button type="submit" class="btn btn-primary" ng-click="ctrl.openUpdateModal()">Update Project</button>
 </div>
+<div ng-include src="'testapi-ui/components/projects/project/testcases/testCases.html'"></div>
 <div ng-show="ctrl.showError" class="alert alert-danger col-md-9" role="alert">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
         <span class="sr-only">Error:</span>
         {{ctrl.error}}
-</div>
-<div ng-show="ctrl.showSuccess" class="alert alert-success col-md-9" role="alert">
-    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-    Update Success
 </div>

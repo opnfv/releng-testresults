@@ -1,0 +1,52 @@
+<div ng-controller="TestCasesController as testCaseCtrl">
+   <div class="col-md-3" style="margin-top:10px">
+            <button type="submit" class="btn btn-primary" ng-click="testCaseCtrl.openCreateModal()">Create Test Case</button>
+    </div>
+    <div class="row" style="margin-bottom:24px;"></div>
+    <div ng-show="testCaseCtrl.testCases" class="pods-table" style="margin-top:24px; margin-left:8px;">
+        <h3 style="margin-bottom:10px">Test Cases</h3>
+        <table ng-data="testCaseCtrl.testCases.testcases" ng-show="testCaseCtrl.testCases" class="table table-striped table-hover">
+            <tbody>
+                <tr ng-repeat-start="(index, testcase) in testCaseCtrl.testCases.testcases">
+                    <td>
+                        <div class="col-md-6" style="margin-top:5px">
+                        <a ng-click="showPod = !showPod">{{ testcase.name }}</a>
+                        </div>
+                        <div class="col-md-6">
+                                <div class="project-create"  ng-class="{ 'hidden': ! (
+                                        auth.isAuthenticated) }">
+                                    <div class="col-md-3" style="margin-right:10px">
+                                        <button type="submit" class="btn btn-primary" ng-click="testCaseCtrl.openDeleteTestModal(testcase.name)">Delete Test Case</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button type="submit" class="btn btn-primary" ng-click="testCaseCtrl.openUpdateTestModal(testcase.name)">Update Test Case</button>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="show-pod" ng-class="{ 'hidden': ! showPod }" style="margin-left:24px;">
+                            <div class="col-md-6">
+                                <p>
+                                    Description: {{ testcase.description }}<br>
+                                    Run: {{ testcase.run }}<br>
+                                    Tags: {{ testcase.tags }}<br>
+                                    Creation Date: {{ testcase.creation_date }}<br>
+                                    Dependencies: {{ testcase.dependencies }}<br>
+                                    Tier: {{ testcase.tier }}<br>
+                                    Trust: {{ testcase.trust }}<br>
+                                    Blocking: {{ testcase.blocking }}<br>
+                                    URL: {{ testcase.url }}<br>
+                                    Version: {{ testcase.version }}<br>
+                                    Criteria: {{ testcase.criteria }}<br>
+                                    Domains: {{ testcase.domains }}<br>
+                                    Catalog Description: {{ testcase.catalog_description }}
+                                </p>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr ng-repeat-end=>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

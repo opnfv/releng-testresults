@@ -33,7 +33,7 @@
         raiseAlert, confirmModal) {
         var ctrl = this;
         ctrl.name = $state.params['name'];
-        ctrl.url = testapiApiUrl + '/projects/' + ctrl.name;
+        ctrl.url = testapiApiUrl + '/projects/' ;
 
         ctrl.loadDetails = loadDetails;
         ctrl.deleteProject = deleteProject;
@@ -49,21 +49,20 @@
             ctrl.showError = false;
             ctrl.showSuccess = false;
             if(ctrl.name != ""){
-                var projects_url = ctrl.url;
+                var projects_url = ctrl.url + ctrl.name;
                 var body = {
                     name: name,
                     description: description
                 };
                 ctrl.projectsRequest =
                     $http.put(projects_url, body).success(function (data){
-                        ctrl.showSuccess = true ;
+                        $state.go('project', { name : body.name })
                     })
-                    .error(function (data) {
+                    .catch(function (data) {
                         ctrl.showError = true;
-                        ctrl.error = 'Error updating the existing Project from server: ' + angular.toJson(data);
+                        ctrl.error = data.statusText;
                     });
-                ctrl.name = "";
-                ctrl.description="";
+
             }
             else{
                 ctrl.showError = true;
@@ -78,15 +77,12 @@
             ctrl.showError = false;
             ctrl.showSuccess = false;
             ctrl.projectsRequest =
-            $http.delete(ctrl.url).success(function (data) {
+            $http.delete(ctrl.url + ctrl.name).success(function (data) {
                 $state.go('projects', {}, {reload: true});
-                ctrl.showSuccess = true ;
 
-            }).error(function (error) {
+            }).catch(function (data) {
                 ctrl.showError = true;
-                ctrl.error =
-                    'Error deleting project from server: ' +
-                    angular.toJson(error);
+                ctrl.error = data.statusText;
             });
         }
 
@@ -95,7 +91,7 @@
          * message
          */
         function openDeleteModal() {
-            confirmModal("Delete",ctrl.deleteProject);
+            confirmModal("Delete", ctrl.deleteProject, null);
         }
 
         /**
@@ -105,7 +101,7 @@
         function openUpdateModal(){
                 $uibModal.open({
                     templateUrl: 'testapi-ui/components/projects/project/updateModal.html',
-                    controller: 'ModalInstanceCtrl as updateModal',
+                    controller: 'TestModalInstanceCtrl as updateModal',
                     size: 'md',
                     resolve: {
                         data: function () {
@@ -125,14 +121,12 @@
         function loadDetails() {
             ctrl.showError = false;
             ctrl.projectsRequest =
-                $http.get(ctrl.url).success(function (data) {
+                $http.get(ctrl.url + ctrl.name).success(function (data) {
                     ctrl.data = data;
-                }).error(function (error) {
+                }).catch(function (data) {
                     ctrl.data = null;
                     ctrl.showError = true;
-                    ctrl.error =
-                        'Error retrieving projects from server: ' +
-                        angular.toJson(error);
+                    ctrl.error = data.statusText;
                 });
         }
         ctrl.loadDetails();
@@ -144,9 +138,9 @@
      * This controller is for the update modal where a user can update
      * the project information.
      */
-    angular.module('testapiApp').controller('ModalInstanceCtrl', ModalInstanceCtrl);
-    ModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'data'];
-    function ModalInstanceCtrl($scope, $uibModalInstance, data) {
+    angular.module('testapiApp').controller('TestModalInstanceCtrl', TestModalInstanceCtrl);
+    TestModalInstanceCtrl.$inject = ['$scope', '$uibModalInstance', 'data'];
+    function TestModalInstanceCtrl($scope, $uibModalInstance, data) {
         var ctrl = this;
         ctrl.confirm = confirm;
         ctrl.cancel = cancel;

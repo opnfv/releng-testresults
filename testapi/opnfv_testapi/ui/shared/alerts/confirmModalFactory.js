@@ -11,7 +11,7 @@
      * Opens confirm modal dialog with input textbox
      */
     function confirmModal($uibModal) {
-        return function(text, successHandler) {
+        return function(text, successHandler, name) {
             $uibModal.open({
                 templateUrl: '/testapi-ui/shared/alerts/confirmModal.html',
                 controller: 'CustomConfirmModalController as confirmModal',
@@ -20,7 +20,8 @@
                     data: function () {
                         return {
                             text: text,
-                            successHandler: successHandler
+                            successHandler: successHandler,
+                            name: name
                         };
                     }
                 }
@@ -53,7 +54,7 @@
         function confirm() {
             $uibModalInstance.close();
             if (angular.isDefined(ctrl.data.successHandler)) {
-                ctrl.data.successHandler(ctrl.inputText);
+                ctrl.data.successHandler(ctrl.data.name);
             }
         }
 

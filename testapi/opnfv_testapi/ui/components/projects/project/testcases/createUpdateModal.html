@@ -1,0 +1,35 @@
+<div class="modal-header"><h3 class="modal-title">Confirm</h3></div>
+<div class="modal-body">
+    <div class="form-group">
+        <h4>{{modalCtrl.data.text}}</h4>
+        <div class="row">
+            <div ng-repeat="require in modalCtrl.createRequirements">
+                <div class="create-project col-md-4" style="margin-top:5px;margin-bottom:5px">
+                        <label for="cpid">{{require.label|capitalize}}: </label>
+                        <a ng-if="require.type == 'text'">
+                            <input type="text" dynamic-model="'modalCtrl.testcase.' + require.label"/>
+                        </a>
+                        <a ng-if="require.type == 'textarea'">
+                            <textarea rows="2" cols="50" dynamic-model="'modalCtrl.testcase.' + require.label">
+                            </textarea>
+                        </a>
+                </div>
+            </div>
+            <div class="col-md-11  col-sm-11 col-xs-11">
+                <div ng-show="modalCtrl.showError" class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error:</span>
+                    {{modalCtrl.error}}
+                </div>
+                <div ng-show="modalCtrl.showSuccess" class="alert alert-success" role="alert">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    Create Success
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="modalCtrl.confirm()">Ok</button>
+    <button class="btn btn-default" ng-click="modalCtrl.cancel()">Cancel</button>
+</div>
