@@ -93,7 +93,7 @@
                         ctrl.showSuccess = true ;
                     }).catch(function (data)  {
                         ctrl.showError = true;
-                        ctrl.error = "Error creating the new pod from server: " + data.statusText;
+                        ctrl.error = data.statusText;
                     });
             }
             else{
@@ -110,12 +110,10 @@
             ctrl.podsRequest =
                 $http.get(ctrl.url).success(function (data) {
                     ctrl.data = data;
-                }).error(function (error) {
+                }).catch(function (data) {
                     ctrl.data = null;
                     ctrl.showError = true;
-                    ctrl.error =
-                        'Error retrieving pods from server: ' +
-                        angular.toJson(error);
+                    ctrl.error = data.statusText;
                 });
         }
     }

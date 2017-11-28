@@ -181,13 +181,11 @@
                     ctrl.data = data;
                     ctrl.totalItems = ctrl.data.pagination.total_pages * ctrl.itemsPerPage;
                     ctrl.currentPage = ctrl.data.pagination.current_page;
-                }).error(function (error) {
+                }).catch(function (data) {
                     ctrl.data = null;
                     ctrl.totalItems = 0;
                     ctrl.showError = true;
-                    ctrl.error =
-                        'Error retrieving results listing from server: ' +
-                        angular.toJson(error);
+                    ctrl.error = data.statusText;
                 });
         }
 
@@ -290,12 +288,10 @@
                             ctrl.products[prod.id] = prod;
                         }
                     });
-                }).error(function (error) {
+                }).catch(function (data) {
                     ctrl.products = null;
                     ctrl.showError = true;
-                    ctrl.error =
-                        'Error retrieving Products listing from server: ' +
-                        angular.toJson(error);
+                    ctrl.error = data.statusText;
                 });
         }
 

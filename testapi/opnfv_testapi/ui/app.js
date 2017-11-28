@@ -119,14 +119,15 @@
         .run(setup);
 
     setup.$inject = [
-        '$http', '$rootScope', '$window', '$state', 'testapiApiUrl'
+        '$http', '$rootScope', '$window', '$state', 'testapiApiUrl',
+        'authenticate'
     ];
 
     /**
      * Set up the app with injections into $rootscope. This is mainly for auth
      * functions.
      */
-    function setup($http, $rootScope, $window, $state, testapiApiUrl) {
+    function setup($http, $rootScope, $window, $state, testapiApiUrl, authenticate) {
 
         $rootScope.auth = {};
         $rootScope.auth.doSignIn = doSignIn;
@@ -160,7 +161,11 @@
                 success(function (data) {
                     $rootScope.auth.currentUser = data;
                     $rootScope.auth.isAuthenticated = true;
-                    $rootScope.auth.projectNames = $rootScope.auth.doSubmitterCheck(data.groups);
+                    if(authenticate){
+                        $rootScope.auth.projectNames = $rootScope.auth.doSubmitterCheck(data.groups);
+                    }else{
+                        $rootScope.auth.projectNames = ['test'];
+                    }
                 }).
                 error(function () {
                     $rootScope.auth.currentUser = null;
