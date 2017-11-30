@@ -57,22 +57,11 @@ class PodGURHandler(GenericPodHandler):
         """
         self._get_one(query={'name': pod_name})
 
+    @swagger.operation(nickname='deletePodByName')
     def delete(self, pod_name):
-        """ Remove a POD
-
-        # check for an existing pod to be deleted
-        mongo_dict = yield self.db.pods.find_one(
-            {'name': pod_name})
-        pod = TestProject.pod(mongo_dict)
-        if pod is None:
-            raise HTTPError(HTTP_NOT_FOUND,
-                            "{} could not be found as a pod to be deleted"
-                            .format(pod_name))
-
-        # just delete it, or maybe save it elsewhere in a future
-        res = yield self.db.projects.remove(
-            {'name': pod_name})
-
-        self.finish_request(answer)
         """
-        pass
+            @description: delete a pods by pods_name
+            @return 200: delete success
+            @raise 404: pods not exist
+        """
+        self._delete(query={'name': pod_name})

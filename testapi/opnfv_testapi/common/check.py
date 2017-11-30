@@ -28,7 +28,7 @@ def is_authorized(method):
             user_info = yield dbapi.db_find_one('users', {'user': testapi_id})
             if not user_info:
                 raises.Unauthorized(message.not_lfid())
-            if "owner" in kwargs:
+            if method.__name__ == "_create":
                 kwargs['owner'] = testapi_id
             if self.table in ['projects']:
                 query = kwargs.get('query')
