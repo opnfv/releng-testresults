@@ -28,7 +28,7 @@ def is_authorized(method):
             user_info = yield dbapi.db_find_one('users', {'user': testapi_id})
             if not user_info:
                 raises.Unauthorized(message.not_lfid())
-            if "owner" in kwargs:
+            if method.__name__ == "_create":
                 kwargs['owner'] = testapi_id
             if self.table in ['projects']:
                 query = kwargs.get('query')
@@ -137,9 +137,9 @@ def new_not_exists(xstep):
             query_data = query()
             if self.table == 'pods':
                 if query_data.get('name') is not None:
-                    query_data['name'] = re.compile(query_data.get('name'),
-                                                    re.IGNORECASE)
+                    query_data['name'] = re.compile('\\b' + query_data.get('name') + '\\b', re.IGNORECASE)
             to_data = yield dbapi.db_find_one(self.table, query_data)
+            print to_data
             if to_data:
                 raises.Forbidden(message.exist(self.table, query()))
         ret = yield gen.coroutine(xstep)(self, *args, **kwargs)

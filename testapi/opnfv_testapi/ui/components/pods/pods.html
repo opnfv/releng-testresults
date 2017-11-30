@@ -3,83 +3,88 @@
     Querying pods is open to everybody.<br>
     But only login users are granted the privilege to create the new pod.
 </p>
-
 <div class="row" style="margin-bottom:24px;"></div>
-
-<div class="pod-create" ng-class="{ 'hidden': ! auth.isAuthenticated }">
-    <h4>Create</h4>
-    <div class="row">
-        <div ng-repeat="require in ctrl.createRequirements">
-            <div class="create-pod" style="margin-left:24px;">
-                <p class="input-group">
-                    <label for="cpid">{{require.label|capitalize}}: </label>
-                    <a ng-if="require.type == 'select'">
-                        <select dynamic-model="'ctrl.' + require.label" ng-options="option for option in require.selects"></select>
-                    </a>
-                    <a ng-if="require.type == 'text'">
-                        <input type="text" dynamic-model="'ctrl.' + require.label"/>
-                    </a>
-                    <a ng-if="require.type == 'textarea'">
-                        <textarea rows="2" cols="50" dynamic-model="'ctrl.' + require.label">
-                        </textarea>
-                    </a>
-                </p>
-            </div>
-        </div>
-
-        <div class="col-md-1" style="margin-top:12px;">
-            <button type="submit" class="btn btn-primary" ng-click="ctrl.create()">Create</button>
-        </div>
-        <div ng-show="ctrl.showError" class="col-md-11 alert alert-danger" role="alert">
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            <span class="sr-only">Error:</span>
-            {{ctrl.error}}
-        </div>
-        <div ng-show="ctrl.showSuccess" class="col-md-11 alert alert-success" role="alert">
-            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-            Create Success
-        </div>
-    </div>
-</div>
-
-<div class="pods-filters" style="margin-top:36px;">
-    <h4>Filters</h4>
-    <div class="row">
-        <div class="col-md-3" style="margin-top:12px; margin-left:8px;">
-            <button type="submit" class="btn btn-primary" ng-click="ctrl.update()">Filter</button>
-            <button type="submit" class="btn btn-primary btn-danger" ng-click="ctrl.clearFilters()">Clear</button>
-        </div>
-    </div>
-</div>
-
 <div cg-busy="{promise:ctrl.authRequest,message:'Loading'}"></div>
 <div cg-busy="{promise:ctrl.podsRequest,message:'Loading'}"></div>
-
-<div ng-show="ctrl.data" class="pods-table" style="margin-top:24px; margin-left:8px;">
-    <table ng-data="ctrl.data.pods" ng-show="ctrl.data" class="table table-striped table-hover">
-        <tbody>
-            <tr ng-repeat-start="(index, pod) in ctrl.data.pods">
-                <td>
-                    <a href="#" ng-click="showPod = !showPod">{{pod.name}}</a>
-                    <div class="show-pod" ng-class="{ 'hidden': ! showPod }" style="margin-left:24px;">
-                        <p>
-                            owner: {{pod.owner}}<br>
-                            role: {{pod.role}}<br>
-                            mode: {{pod.mode}}<br>
-                            create_date: {{pod.creation_date}}<br>
-                            details: {{pod.details}}
-                        </p>
-                    </div>
-                </td>
-            </tr>
-            <tr ng-repeat-end=>
-            </tr>
-        </tbody>
-    </table>
-</div>
 <br>
-<div ng-show="ctrl.showError" class="alert alert-danger" ng-class="{ 'hidden': auth.isAuthenticated }" role="alert">
-    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-    <span class="sr-only">Error:</span>
-    {{ctrl.error}}
+<div class="row podTable" style="vertical-align:middle">
+        <div class="col-sm-1 pull-right" ng-class="{ 'hidden': !auth.isAuthenticated }" >
+                <button type="button" class="btn btn-danger" ng-click="ctrl.openBatchDeleteModal()">
+                  <i class="fa fa-minus"></i> Delete</button>
+        </div>
+        <div class="col-sm-1 pull-right"  ng-class="{ 'hidden': !auth.isAuthenticated }">
+            <button type="button" class="btn btn-success" ng-click="ctrl.openCreateModal()">
+              <i class="fa fa-plus"></i> Create</button>
+        </div>
+        <div class="col-sm-1 pull-right">
+            <button type="button" class="btn btn-success" ng-click="ctrl.listPods()">
+              <i class="fa fa-search"></i> Filter</button>
+        </div>
+        <div class="col-sm-3 pull-right">
+            <span style="margin-top:6px">Search:&nbsp;&nbsp;</span>
+            <input type="text" class="form-control search" ngModel="filter" placeholder="Search String">
+          </div>
+        <div class="col-md-3 row pull-right">
+            <span style="margin-top:6px">Filter:&nbsp;&nbsp;</span>
+            <select ng-model="ctrl.filter" class="form-control">
+                    <option value="name">Name</option>
+                    <option value="owner">Owner</option>
+            </select>
+        </div>
+</div>
+<div class="col-md-12">
+    <div ng-show="ctrl.showError" class="col-md-12 alert alert-danger" role="alert">
+        <span class="pull-right">&nbsp;{{ctrl.error}}</span>
+        <span class="glyphicon glyphicon-exclamation-sign pull-right" aria-hidden="true" >Error:</span>
+    </div>
+    <div ng-show="ctrl.showSuccess" class="col-md-12 alert alert-success" role="alert">
+        <span class="pull-right">&nbsp;{{ctrl.success}}</span>
+        <span class="glyphicon glyphicon-ok pull-right" aria-hidden="true"></span>
+    </div>
+</div>
+<div class="col-md-12" style="padding-right:0px">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover"  ng-data="ctrl.data.pods">
+        <thead>
+        <tr style="
+        text-align: center;">
+            <th>Bulk Select</th>
+            <th>Name</th>
+            <th>Details</th>
+            <th>Role</th>
+            <th>Mode</th>
+            <th>CreatedAt</th>
+            <th>Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat-start="(index, pod) in ctrl.data.pods" style="padding:9px">
+            <td>
+            <div class="text-center">
+                    <input type="checkbox" value="{{pod.name}}"  ng-model="ctrl.checkBox[index]" >
+                </div>
+            </td>
+            <td>{{pod.name}}</td>
+            <td style="width:20%;">{{pod.details}}</td>
+            <td>{{pod.role}}</td>
+            <td>{{pod.mode}}</td>
+            <td>
+                {{pod.creation_date}}
+            </td>
+            <td>
+        <span class="podTable-col">
+            <a class="text-warning" title="Edit" ng-class="{ 'hidden': !auth.isAuthenticated }" >
+                <i class="fa fa-pencil-square-o"></i></a>
+            <a class="text-danger"  ng-click="ctrl.openDeleteModal(pod.name)" title="Delete" ng-class="{ 'hidden': !auth.isAuthenticated }">
+                <i class="fa fa-trash-o"></i></a>
+            <a class="text-info" ><i class="fa fa-eye"></i></a>
+        </span>
+            </td>
+        </tr>
+        <tr ng-repeat-end=>
+        </tr>
+        </tbody>
+        </table>
+    </div>
+    </div>
 </div>

@@ -20,7 +20,8 @@
         .controller('PodsController', PodsController);
 
     PodsController.$inject = [
-        '$scope', '$http', '$filter', '$state', 'testapiApiUrl','raiseAlert'
+        '$scope', '$http', '$filter', '$state', '$window', '$uibModal', 'testapiApiUrl','raiseAlert',
+        'confirmModal'
     ];
 
     /**
@@ -28,29 +29,23 @@
      * This controller is for the '/pods' page where a user can browse
      * through pods declared in TestAPI.
      */
-    function PodsController($scope, $http, $filter, $state, testapiApiUrl,
-        raiseAlert) {
+    function PodsController($scope, $http, $filter, $state, $window, $uibModal, testapiApiUrl,
+        raiseAlert, confirmModal) {
         var ctrl = this;
         ctrl.url = testapiApiUrl + '/pods';
+        ctrl.checkBox = []
+        ctrl.checkBoxList = [];
 
         ctrl.create = create;
-        ctrl.update = update;
+        ctrl.listPods = listPods;
         ctrl.open = open;
+        ctrl.filter = 'name'
         ctrl.clearFilters = clearFilters;
-
-        ctrl.roles = ['community-ci', 'production-ci'];
-        ctrl.modes = ['metal', 'virtual'];
-        ctrl.createRequirements = [
-            {label: 'name', type: 'text', required: true},
-            {label: 'mode', type: 'select', selects: ctrl.modes},
-            {label: 'role', type: 'select', selects: ctrl.roles},
-            {label: 'details', type: 'textarea', required: false}
-        ];
-
-        ctrl.name = '';
-        ctrl.role = 'community-ci';
-        ctrl.mode = 'metal';
-        ctrl.details = '';
+        ctrl.openDeleteModal = openDeleteModal
+        ctrl.openBatchDeleteModal = openBatchDeleteModal
+        ctrl.openCreateModal = openCreateModal
+        ctrl.podDelete = podDelete
+        ctrl.batchDelete = batchDelete;
 
         /**
          * This is called when the date filter calendar is opened. It
@@ -70,27 +65,29 @@
          * listing.
          */
         function clearFilters() {
-            ctrl.update();
+            ctrl.listPods();
         }
 
         /**
          * This will contact the TestAPI to create a new pod.
          */
-        function create() {
+        function create(pod) {
             ctrl.showError = false;
             ctrl.showSuccess = false;
-
-            if(ctrl.name != ""){
+            console.log(pod);
+            if(pod.name != ""){
                 var pods_url = ctrl.url;
                 var body = {
-                    name: ctrl.name,
-                    mode: ctrl.mode,
-                    role: ctrl.role,
-                    details: ctrl.details
+                    name: pod.name,
+                    mode: pod.mode,
+                    role: pod.role,
+                    details: pod.details
                 };
                 ctrl.podsRequest =
                     $http.post(pods_url, body).success(function (data) {
                         ctrl.showSuccess = true ;
+                        ctrl.success = "Create Success"
+                        ctrl.listPods();
                     }).catch(function (data)  {
                         ctrl.showError = true;
                         ctrl.error = "Error creating the new pod from server: " + data.statusText;
@@ -105,11 +102,12 @@
         /**
          * This will contact the TestAPI to get a listing of declared pods.
          */
-        function update() {
+        function listPods() {
             ctrl.showError = false;
             ctrl.podsRequest =
                 $http.get(ctrl.url).success(function (data) {
                     ctrl.data = data;
+                    // mapNametoRandom
                 }).error(function (error) {
                     ctrl.data = null;
                     ctrl.showError = true;
@@ -118,5 +116,148 @@
                         angular.toJson(error);
                 });
         }
+
+        /**
+         * This will contact the TestAPI to delete a pod for given
+         * name.
+         */
+        function podDelete(podName){
+            var pods_url = ctrl.url + "/" + podName
+            $http.delete(pods_url).success(function(){
+                ctrl.showSuccess = true ;
+                ctrl.success = "Delete Success"
+                ctrl.listPods();
+            }).catch(function (data)  {
+                ctrl.showError = true;
+                ctrl.error = data.statusText;
+            });
+        }
+
+        /**
+         * This will  delete list of pods.
+         */
+        function batchDelete(){
+            var index;
+            var checkedBox = [];
+            console.log(ctrl.checkBox)
+            for(index in ctrl.checkBox){
+                if(!ctrl.showError){
+                    if(ctrl.checkBox[index]){
+                        podDelete(ctrl.data.pods[index].name);
+                    }
+                }
+            }
+            ctrl.checkBox = []
+        }
+
+        /**
+         * This will open the modal that will show the batch delete confirm
+         * message
+         */
+        function openBatchDeleteModal() {
+            confirmModal("Delete",ctrl.batchDelete);
+        }
+
+        /**
+         * This will open the modal that will show the delete confirm
+         * message
+         */
+        function openDeleteModal(name) {
+            console.log(name)
+            confirmModal("Delete", ctrl.podDelete, name);
+        }
+
+        /**
+         * This will open the modal that will show the create
+         * view
+         */
+        function openCreateModal(){
+            $uibModal.open({
+                templateUrl: 'testapi-ui/components/pods/modals/createModal.html',
+                controller: 'PodModalCtrl as PodModalCtrl',
+                size: 'md',
+                resolve: {
+                    data: function () {
+                        return {
+                            text: "Create",
+                            successHandler: ctrl.create,
+                        };
+                    }
+                }
+            });
+        }
+
+        // function openUpdateModal(podName){
+        //     $uibModal.open({
+        //         templateUrl: 'testapi-ui/components/pods/modals/createModal.html',
+        //         controller: 'PodModalCtrl as PodModalCtrl',
+        //         size: 'md',
+        //         resolve: {
+        //             data: function () {
+        //                 return {
+        //                     text: "Update",
+        //                     successHandler: ctrl.update,
+        //                     // pod: ctrl.
+        //                 };
+        //             }
+        //         }
+        //     });
+        // }
+        ctrl.listPods();
     }
+
+
+    /**
+     * TestAPI Pod Modal Controller
+     * This controller is for the create modal where a user can create
+     * the project information and for the edit modal where user can
+     * edit the pods details
+     */
+    angular.module('testapiApp').controller('PodModalCtrl', PodModalCtrl);
+    PodModalCtrl.$inject = ['$scope', '$uibModalInstance', 'data'];
+    function PodModalCtrl($scope, $uibModalInstance, data) {
+        var ctrl = this;
+        ctrl.confirm = confirm;
+        ctrl.cancel = cancel;
+        ctrl.data = angular.copy(data);
+        ctrl.roles = ['community-ci', 'production-ci'];
+        ctrl.modes = ['metal', 'virtual'];
+        ctrl.createRequirements = [
+            {label: 'name', type: 'text', required: true},
+            {label: 'mode', type: 'select', selects: ctrl.modes},
+            {label: 'role', type: 'select', selects: ctrl.roles},
+            {label: 'details', type: 'textarea', required: false}
+        ];
+        ctrl.pod = {
+            name : '',
+            role : 'community-ci',
+            mode : 'metal',
+            details : ''
+        }
+
+        if(ctrl.data.pod){
+            ctrl.pod = ctrl.data.pod
+        }
+
+        /**
+         * Initiate confirmation and call the success handler with the
+         * inputs.
+         */
+        function confirm() {
+            $uibModalInstance.close();
+            if (angular.isDefined(ctrl.data.successHandler)) {
+                ctrl.data.successHandler(ctrl.pod);
+            }
+        }
+
+        /**
+         * Close the confirm modal without initiating changes.
+         */
+        function cancel() {
+            $uibModalInstance.dismiss('cancel');
+        }
+    }
+
+
 })();
+
