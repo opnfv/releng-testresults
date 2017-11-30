@@ -232,3 +232,40 @@ a.glyphicon {
   border-color: white;
   margin-top: 5px;
 }
+
+.table > tbody > tr > td > div {
+  padding: 8px;
+  line-height: 1.52857;
+  vertical-align: top;
+}
+
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.podTable-col {
+  font-size: 20px !important;
+}
+.podTable-col a:not(:first-child) {
+  margin-left: 10px;
+}
+.podTable {
+  padding: 10px 0;
+  margin: 10px 0;
+  background-color: #fff;
+}
+
+.podTable .search {
+  width: 150px;
+}
+
+.podTable >div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: right;
+  margin: 10px 0;
+}
