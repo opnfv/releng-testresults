@@ -7,7 +7,7 @@
 <div cg-busy="{promise:ctrl.authRequest,message:'Loading'}"></div>
 <div cg-busy="{promise:ctrl.podsRequest,message:'Loading'}"></div>
 <br>
-<div class="row podTable" style="vertical-align:middle">
+<div class="row podsTable" style="vertical-align:middle">
         <div class="col-sm-1 pull-right" ng-class="{ 'hidden': !auth.isAuthenticated }" >
                 <button type="button" class="btn btn-danger" ng-click="ctrl.openBatchDeleteModal()">
                   <i class="fa fa-minus"></i> Delete</button>
@@ -53,7 +53,7 @@
             <th>Details</th>
             <th>Role</th>
             <th>Mode</th>
-            <th>CreatedAt</th>
+            <th>Created at</th>
             <th>Operation</th>
         </tr>
         </thead>
@@ -72,12 +72,12 @@
                 {{pod.creation_date}}
             </td>
             <td>
-        <span class="podTable-col">
+        <span class="podsTable-col">
             <a class="text-warning" title="Edit" ng-class="{ 'hidden': !auth.isAuthenticated }" >
                 <i class="fa fa-pencil-square-o"></i></a>
             <a class="text-danger"  ng-click="ctrl.openDeleteModal(pod.name)" title="Delete" ng-class="{ 'hidden': !auth.isAuthenticated }">
                 <i class="fa fa-trash-o"></i></a>
-            <a class="text-info" ><i class="fa fa-eye"></i></a>
+            <a class="text-info" ng-click="ctrl.viewPod(pod.name)"><i class="fa fa-eye"></i></a>
         </span>
             </td>
         </tr>

@@ -243,23 +243,23 @@ a.glyphicon {
     vertical-align: middle;
 }
 
-.podTable-col {
+.podsTable-col {
   font-size: 20px !important;
 }
-.podTable-col a:not(:first-child) {
+.podsTable-col a:not(:first-child) {
   margin-left: 10px;
 }
-.podTable {
+.podsTable {
   padding: 10px 0;
   margin: 10px 0;
   background-color: #fff;
 }
 
-.podTable .search {
+.podsTable .search {
   width: 150px;
 }
 
-.podTable >div {
+.podsTable >div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -268,4 +268,16 @@ a.glyphicon {
       -ms-flex-align: center;
           align-items: right;
   margin: 10px 0;
+}
+
+.podsTableTd {
+  border-top:none!important;
+  float: right!important;
+  padding-bottom:0px!important;
+  font-weight:bold;
+}
+
+.podsTableLeftTd{
+  border-top:none!important;
+  padding-bottom:0px!important;
 }

@@ -46,6 +46,7 @@
         ctrl.openCreateModal = openCreateModal
         ctrl.podDelete = podDelete
         ctrl.batchDelete = batchDelete;
+        ctrl.viewPod = viewPod
 
         /**
          * This is called when the date filter calendar is opened. It
@@ -117,6 +118,10 @@
                 });
         }
 
+        function viewPod(name){
+            console.log('hello');
+            $state.go('pod', {'name':name}, {reload: true});
+        }
         /**
          * This will contact the TestAPI to delete a pod for given
          * name.

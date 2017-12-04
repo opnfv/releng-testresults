@@ -64,6 +64,11 @@
                 templateUrl: 'testapi-ui/components/pods/pods.html',
                 controller: 'PodsController as ctrl'
             }).
+            state('pod', {
+                url: '/pods/:name',
+                templateUrl: 'testapi-ui/components/pods/pod/pod.html',
+                controller: 'PodController as ctrl'
+            }).
             state('projects', {
                 url: '/projects',
                 templateUrl: 'testapi-ui/components/projects/projects.html',
