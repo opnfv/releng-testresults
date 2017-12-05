@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_25708ca4",
+        "filename": "testapi/opnfv_testapi/ui/components/pods/pod/pod.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-12-05T00:00:07Z",
+      "side": 1,
+      "message": "the recommended order is id/name/owner/role/mode/created at/details",
+      "revId": "47b72c81277d6f8953476dfa6bde83d553cfc4a9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c551e00f",
+        "filename": "testapi/opnfv_testapi/ui/components/pods/pods.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-12-05T00:00:07Z",
+      "side": 1,
+      "message": "please remove details from pods page",
+      "range": {
+        "startLine": 53,
+        "startChar": 12,
+        "endLine": 53,
+        "endChar": 28
+      },
+      "revId": "47b72c81277d6f8953476dfa6bde83d553cfc4a9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2559ac36",
+        "filename": "testapi/opnfv_testapi/ui/components/pods/pods.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-12-05T00:00:07Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 56,
+        "startChar": 16,
+        "endLine": 56,
+        "endChar": 26
+      },
+      "revId": "47b72c81277d6f8953476dfa6bde83d553cfc4a9",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
