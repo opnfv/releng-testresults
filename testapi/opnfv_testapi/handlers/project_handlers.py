@@ -21,14 +21,6 @@ class GenericProjectHandler(base_handlers.GenericApiHandler):
         self.table = 'projects'
         self.table_cls = project_models.Project
 
-    def set_query(self):
-        query = dict()
-        for k in self.request.query_arguments.keys():
-            v = self.get_query_argument(k)
-            if k == 'name':
-                query['name'] = re.compile(v, re.IGNORECASE)
-        return query
-
 
 class ProjectCLHandler(GenericProjectHandler):
     @swagger.operation(nickname="listProjects")
@@ -47,7 +39,7 @@ class ProjectCLHandler(GenericProjectHandler):
             @in name: query
             @required name: False
         """
-        self._list(query=self.set_query())
+        self._list()
 
     @swagger.operation(nickname="createProject")
     def post(self):

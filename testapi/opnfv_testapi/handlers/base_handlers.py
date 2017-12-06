@@ -103,7 +103,8 @@ class GenericApiHandler(web.RequestHandler):
 
     @web.asynchronous
     @gen.coroutine
-    def _list(self, query=None, res_op=None, *args, **kwargs):
+    @check.query_by_name
+    def _list(self, query=None, res_op=None, **kwargs):
         sort = kwargs.get('sort')
         page = kwargs.get('page', 0)
         last = kwargs.get('last', 0)
