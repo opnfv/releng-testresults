@@ -158,3 +158,17 @@ def updated_one_not_exist(xstep):
         ret = yield gen.coroutine(xstep)(self, data, *args, **kwargs)
         raise gen.Return(ret)
     return wrap
+
+
+def query_by_name(xstep):
+    @functools.wraps(xstep)
+    def wrap(self, *args, **kwargs):
+        if 'name' in self.request.query_arguments.keys():
+            query = kwargs.get('query', {})
+            query.update({'name': re.compile(self.get_query_argument('name'), re.IGNORECASE)})
+            kwargs.update({'query': query})
+
+        ret = yield gen.coroutine(xstep)(self, *args, **kwargs)
+        raise gen.Return(ret)
+
+    return wrap

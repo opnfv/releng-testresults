@@ -103,7 +103,8 @@ class GenericApiHandler(web.RequestHandler):
 
     @web.asynchronous
     @gen.coroutine
-    def _list(self, query=None, res_op=None, *args, **kwargs):
+    @check.query_by_name
+    def _list(self, query=None, **kwargs):
         sort = kwargs.get('sort')
         page = kwargs.get('page', 0)
         last = kwargs.get('last', 0)
@@ -131,10 +132,7 @@ class GenericApiHandler(web.RequestHandler):
             cursor = dbapi.db_aggregate(self.table, pipelines)
             while (yield cursor.fetch_next):
                 data.append(self.format_data(cursor.next_object()))
-        if res_op is None:
-            res = {self.table: data}
-        else:
-            res = res_op(data, *args)
+        res = {self.table: data}
         if page > 0:
             res.update({
                 'pagination': {
