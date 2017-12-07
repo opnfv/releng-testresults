@@ -46,7 +46,6 @@
         ctrl.cancel = cancel;
 
         ctrl.data = angular.copy(data);
-        console.log(ctrl.data)
         /**
          * Initiate confirmation and call the success handler with the
          * input text.
