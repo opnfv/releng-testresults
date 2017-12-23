@@ -79,6 +79,11 @@
                 templateUrl: 'testapi-ui/components/projects/project/project.html',
                 controller: 'ProjectController as ctrl'
             }).
+            state('testCase', {
+                url: '/projects/:project_name/:name',
+                templateUrl: 'testapi-ui/components/projects/project/testCases/testCase/testCase.html',
+                controller: 'TestCaseController as ctrl'
+            }).
             state('results', {
                 url: '/results',
                 templateUrl: 'testapi-ui/components/results/results.html',
