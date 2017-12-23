@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_1baf8195",
+        "filename": "testapi/opnfv_testapi/tests/UI/e2e/testCasesControllerSpec.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-12-23T09:41:33Z",
+      "side": 1,
+      "message": "please use spaces instead of tab, and please change all the positions using tab",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 1
+      },
+      "revId": "1502f25937e11bc719e6125343eba2e40cc29460",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3baa4585",
+        "filename": "testapi/opnfv_testapi/tests/UI/e2e/testCasesControllerSpec.js",
+        "patchSetId": 4
+      },
+      "lineNbr": 487,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-12-23T09:41:33Z",
+      "side": 1,
+      "message": "please use spaces instead of tab",
+      "range": {
+        "startLine": 487,
+        "startChar": 0,
+        "endLine": 487,
+        "endChar": 2
+      },
+      "revId": "1502f25937e11bc719e6125343eba2e40cc29460",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
