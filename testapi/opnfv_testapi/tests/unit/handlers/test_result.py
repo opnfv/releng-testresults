@@ -52,6 +52,7 @@ class Details(object):
 
 
 class TestResultBase(base.TestBase):
+    @executor.mock_valid_lfid()
     def setUp(self):
         super(TestResultBase, self).setUp()
         self.pod = self.pod_d.name

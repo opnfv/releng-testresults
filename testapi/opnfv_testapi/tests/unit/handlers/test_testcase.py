@@ -57,21 +57,26 @@ class TestCaseBase(base.TestBase):
         self.assertIsNotNone(new._id)
         self.assertIsNotNone(new.creation_date)
 
+    @executor.mock_valid_lfid()
     def create_d(self):
         return super(TestCaseBase, self).create_d(self.project)
 
+    @executor.mock_valid_lfid()
     def create_e(self):
         return super(TestCaseBase, self).create_e(self.project)
 
     def get(self, case=None):
         return super(TestCaseBase, self).get(self.project, case)
 
+    @executor.mock_valid_lfid()
     def create(self, req=None, *args):
         return super(TestCaseBase, self).create(req, self.project)
 
+    @executor.mock_valid_lfid()
     def update(self, new=None, case=None):
         return super(TestCaseBase, self).update(new, self.project, case)
 
+    @executor.mock_valid_lfid()
     def delete(self, case):
         return super(TestCaseBase, self).delete(self.project, case)
 
