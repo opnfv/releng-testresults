@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_bb6ad57e",
+        "filename": "testapi/opnfv_testapi/ui/components/projects/project/testCases/modals/testCaseModal.html",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-12-23T06:05:17Z",
+      "side": 1,
+      "message": "4 spaces",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 8
+      },
+      "revId": "d4ae62cea55d1d11978298aaeb6dc04358bee585",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9b6711b7",
+        "filename": "testapi/opnfv_testapi/ui/components/projects/project/testCases/modals/testCaseModal.html",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2017-12-23T06:05:17Z",
+      "side": 1,
+      "message": "should be no spaces?",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 4
+      },
+      "revId": "d4ae62cea55d1d11978298aaeb6dc04358bee585",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
