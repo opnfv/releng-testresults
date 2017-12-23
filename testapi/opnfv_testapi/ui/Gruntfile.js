@@ -14,9 +14,11 @@ module.exports = function (grunt) {
 					base: './',
 					middleware: function(connect, options, middlewares) {
 						middlewares.unshift(function(req, res, next) {
-							if (req.method.toUpperCase() == 'POST' || req.method.toUpperCase() == "PUT"){
-								req.method='GET';
-							}
+							if (req.method.toUpperCase() == 'POST' || req.method.toUpperCase() == "PUT" ||
+								req.method.toUpperCase() == "DELETE")
+								{
+									req.method='GET';
+								}
 							return next();
 						});
 						return middlewares;
@@ -113,9 +115,7 @@ module.exports = function (grunt) {
 		        noColor: false,
 		        coverageDir: '../tests/UI/coverage',
 		        args: {
-					specs: ['../tests/UI/e2e/podsControllerSpec.js',
-							'../tests/UI/e2e/projectsControllerSpec.js',
-							'../tests/UI/e2e/projectControllerSpec.js']
+					specs: ['../tests/UI/e2e/testCasesControllerSpec.js']
 		        }
 		    },
 		    local: {
