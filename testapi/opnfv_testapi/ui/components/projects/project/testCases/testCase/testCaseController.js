@@ -17,9 +17,9 @@
 
     angular
         .module('testapiApp')
-        .controller('ProjectController', ProjectController);
+        .controller('TestCaseController', TestCaseController);
 
-        ProjectController.$inject = [
+        TestCaseController.$inject = [
         '$scope', '$http', '$filter', '$state', '$window', '$uibModal', 'testapiApiUrl','raiseAlert',
         'confirmModal'
     ];
@@ -29,11 +29,12 @@
      * This controller is for the '/projects' page where a user can browse
      * through projects declared in TestAPI.
      */
-    function ProjectController($scope, $http, $filter, $state, $window, $uibModal, testapiApiUrl,
+    function TestCaseController($scope, $http, $filter, $state, $window, $uibModal, testapiApiUrl,
         raiseAlert, confirmModal) {
         var ctrl = this;
         ctrl.name = $state.params['name'];
-        ctrl.url = testapiApiUrl + '/projects/' + ctrl.name;
+        ctrl.projectName = $state.params['project_name'];
+        ctrl.url = testapiApiUrl + '/projects/' + ctrl.projectName + "/cases/" + ctrl.name;
 
         ctrl.loadDetails = loadDetails;
 
