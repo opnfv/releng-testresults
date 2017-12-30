@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_03a9d790",
+        "filename": "testapi/opnfv_testapi/ui/components/results/results.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 6939
+      },
+      "writtenOn": "2017-12-30T08:38:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_8024bdc5",
+      "range": {
+        "startLine": 68,
+        "startChar": 35,
+        "endLine": 68,
+        "endChar": 39
+      },
+      "revId": "0c409d3406b21069d88bb1ad65efa2101af97105",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_e02dc9a9",
         "filename": "testapi/opnfv_testapi/ui/components/results/results.html",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2017-12-29T08:53:49Z",
       "side": 1,
       "message": "no filter based on trust_indicator",
+      "range": {
+        "startLine": 79,
+        "startChar": 35,
+        "endLine": 79,
+        "endChar": 50
+      },
+      "revId": "0c409d3406b21069d88bb1ad65efa2101af97105",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_23a4dbb8",
+        "filename": "testapi/opnfv_testapi/ui/components/results/results.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 6939
+      },
+      "writtenOn": "2017-12-30T08:38:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_e02dc9a9",
       "range": {
         "startLine": 79,
         "startChar": 35,
