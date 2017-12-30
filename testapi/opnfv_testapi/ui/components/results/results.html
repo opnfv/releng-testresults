@@ -18,15 +18,28 @@
 </div>
 </form>
 <div class="row" style="margin-bottom:24px;"></div>
-<div class="result-filters">
-    <h4>Filters</h4>
-    <div class="row">
-        <div class="col-md-3">
-            <label for="cpid">Start Date</label>
-            <p class="input-group">
+<div class="result-filters" style="border-top: none;">
+    <div class="row podTable" style="vertical-align:middle">
+            <div class="col-sm-1 pull-right">
+                    <button type="button" class="btn btn-danger" ng-click="ctrl.clearFilters()">
+                      <i class="fa fa-search"></i> Clear
+                    </button>
+            </div>
+        <div class="col-sm-1 pull-right">
+            <button type="button" class="btn btn-success" ng-click="ctrl.filterList()">
+              <i class="fa fa-search"></i> Filter</button>
+        </div>
+        <div class="col-sm-2 pull-right" ng-class="{'hidden': ctrl.filter=='start_date' || ctrl.filter=='end_date'}">
+            <span style="margin-top:6px">Search:&nbsp;&nbsp;</span>
+            <input type="text" class="form-control search" style="display:inline;width:105px;padding-left:6px;"
+                ng-Model="ctrl.filterText" placeholder="Search String">
+        </div>
+        <div class="col-sm-3 pull-right" style="width:20%" ng-class="{'hidden': ctrl.filter!='start_date'}">
+            <span style="margin-top:6px">Start&nbsp;Date:&nbsp;&nbsp;</span>
+            <p class="input-group" style="width:48%;display:inline-flex;">
                 <input type="text" class="form-control"
                     uib-datepicker-popup="{{ctrl.format}}"
-                    ng-model="ctrl.startDate" is-open="ctrl.startOpen"
+                    ng-model="ctrl.filterText" is-open="ctrl.startOpen"
                     close-text="Close" />
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="ctrl.open($event, 'startOpen')">
@@ -35,12 +48,12 @@
                 </span>
             </p>
         </div>
-        <div class="col-md-3">
-            <label for="cpid">End Date</label>
-            <p class="input-group">
+        <div class="col-sm-3 pull-right" style="width:20%" ng-class="{'hidden': ctrl.filter!='end_date'}">
+            <span style="margin-top:6px">End&nbsp;Date:&nbsp;&nbsp;</span>
+            <p class="input-group" style="width:48%;display:inline-flex;">
                 <input type="text" class="form-control"
                     uib-datepicker-popup="{{ctrl.format}}"
-                    ng-model="ctrl.endDate" is-open="ctrl.endOpen"
+                    ng-model="ctrl.filterText" is-open="ctrl.endOpen"
                     close-text="Close" />
                 <span class="input-group-btn">
                     <button type="button" class="btn btn-default" ng-click="ctrl.open($event, 'endOpen')">
@@ -49,9 +62,29 @@
                 </span>
             </p>
         </div>
-        <div class="col-md-3" style="margin-top:24px;">
-            <button type="submit" class="btn btn-primary" ng-click="ctrl.update()">Filter</button>
-            <button type="submit" class="btn btn-primary btn-danger" ng-click="ctrl.clearFilters()">Clear</button>
+        <div class="col-md-2 row pull-right" style="width: 20%;">
+            <span style="margin-top:6px">Filter:&nbsp;&nbsp;</span>
+            <select ng-model="ctrl.filter" class="form-control" style="display:inline; width:150px;">
+                    <option value="pod" ng-disabled="ctrl.testFilter('pod')" >Pod Name</option>
+                    <option value="project" ng-disabled="ctrl.testFilter('project')" >Project Name</option>
+                    <option value="case" ng-disabled="ctrl.testFilter('case')">Case Name</option>
+                    <option value="installer" ng-disabled="ctrl.testFilter('installer')">Installer</option>
+                    <option value="version" ng-disabled="ctrl.testFilter('version')">Version</option>
+                    <option value="scenario" ng-disabled="ctrl.testFilter('scenario')">Scenario</option>
+                    <option value="build_tag" ng-disabled="ctrl.testFilter('build_tag')">Build Tag</option>
+                    <option value="criteria" ng-disabled="ctrl.testFilter('criteria')">Criteria</option>
+                    <option value="start_date" ng-disabled="ctrl.testFilter('start_date')">Start Date</option>
+                    <option value="end_date" ng-disabled="ctrl.testFilter('end_date')">End Date</option>
+            </select>
+        </div>
+
+        <div class='filter-box'>
+            <div class='filter-tag' ng-repeat="(key, tag) in ctrl.tagArray">
+                {{key}}&nbsp:&nbsp{{tag}}
+                <div class='delete-tag' ng-click='ctrl.deleteTag(key)'>
+                    &times;
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -103,7 +136,7 @@
             boundary-links="true"
             rotate="false"
             num-pages="ctrl.numPages"
-            ng-change="ctrl.update()">
+            ng-change="ctrl.filterList()">
         </uib-pagination>
     </div>
 </div>

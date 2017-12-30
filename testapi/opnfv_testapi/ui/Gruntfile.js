@@ -115,7 +115,8 @@ module.exports = function (grunt) {
 		        noColor: false,
 		        coverageDir: '../tests/UI/coverage',
 		        args: {
-					specs: ['../tests/UI/e2e/testCasesControllerSpec.js']
+					specs: ['../tests/UI/e2e/testCasesControllerSpec.js',
+							'../tests/UI/e2e/resultsControllerSpec.js']
 		        }
 		    },
 		    local: {

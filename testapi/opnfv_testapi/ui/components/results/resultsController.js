@@ -51,7 +51,6 @@
         var ctrl = this;
 
         ctrl.uploadFile=uploadFile;
-        ctrl.update = update;
         ctrl.open = open;
         ctrl.clearFilters = clearFilters;
         ctrl.associateMeta = associateMeta;
@@ -60,6 +59,11 @@
         ctrl.associateProductVersion = associateProductVersion;
         ctrl.getProductVersions = getProductVersions;
         ctrl.prepVersionEdit = prepVersionEdit;
+        ctrl.deleteTag = deleteTag;
+        ctrl.filterList= filterList;
+        ctrl.testFilter = testFilter
+
+        ctrl.tagArray = {}
 
         /** Mappings of Interop WG components to marketing program names. */
         ctrl.targetMappings = {
@@ -104,8 +108,7 @@
             $state.go('home');
         }
 
-        ctrl.pageHeader = ctrl.isUserResults ?
-            'Private test results' : 'Community test results';
+        ctrl.pageHeader = "Test Results"
 
         ctrl.pageParagraph = ctrl.isUserResults ?
             'Your most recently uploaded test results are listed here.' :
@@ -118,10 +121,24 @@
 
         if (ctrl.isUserResults) {
             ctrl.authRequest = $scope.auth.doSignCheck()
-                .then(ctrl.update);
+                .then(ctrl.filterList);
             // ctrl.getUserProducts();
         } else {
-            ctrl.update();
+            ctrl.filterList();
+        }
+
+        function deleteTag(index){
+            delete  ctrl.tagArray[index];
+            ctrl.filterList();
+        }
+
+        function testFilter(text){
+            for (var filter in ctrl.tagArray){
+                if(text==filter){
+                    return true;
+                }
+            }
+            return false;
         }
 
 
@@ -138,7 +155,7 @@
            .success(function(data){
               var id = data.href.substr(data.href.lastIndexOf('/')+1);
               ctrl.uploadState = "Upload succeed. Result id is " + id;
-              ctrl.update();
+              ctrl.filterList();
            })
 
            .error(function(data, status){
@@ -159,37 +176,50 @@
          * This will contact the TestAPI API to get a listing of test run
          * results.
          */
-        function update() {
+        function filterList(){
+            if(ctrl.filter && ctrl.filterText!=""){
+                ctrl.tagArray[ctrl.filter] =  ctrl.filterText;
+            }
             ctrl.showError = false;
-            // Construct the API URL based on user-specified filters.
             var content_url = testapiApiUrl + '/results' +
                 '?page=' + ctrl.currentPage;
-            var start = $filter('date')(ctrl.startDate, 'yyyy-MM-dd');
-            if (start) {
-                content_url =
-                    content_url + '&from=' + start + ' 00:00:00';
-            }
-            var end = $filter('date')(ctrl.endDate, 'yyyy-MM-dd');
-            if (end) {
-                content_url = content_url + '&to=' + end + ' 23:59:59';
-            }
-            if (ctrl.isUserResults) {
-                content_url = content_url + '&signed';
+            for(var key in ctrl.tagArray){
+                if(key=="start_date"){
+                    var start = $filter('date')(ctrl.tagArray[key], 'yyyy-MM-dd');
+                    if (start) {
+                        content_url =
+                            content_url + '&from=' + start + ' 00:00:00';
+                    }
+                }
+                else if(key=="end_date"){
+                    var end = $filter('date')(ctrl.tagArray[key], 'yyyy-MM-dd');
+                    if (end) {
+                        content_url = content_url + '&to=' + end + ' 23:59:59';
+                    }
+                }
+                else{
+                    content_url = content_url + "&" + key + "=" + ctrl.tagArray[key]
+                }
+                if (ctrl.isUserResults) {
+                    content_url = content_url + '&signed';
+                }
             }
             ctrl.resultsRequest =
-                $http.get(content_url).success(function (data) {
-                    ctrl.data = data;
-                    ctrl.totalItems = ctrl.data.pagination.total_pages * ctrl.itemsPerPage;
-                    ctrl.currentPage = ctrl.data.pagination.current_page;
-                }).error(function (error) {
-                    ctrl.data = null;
-                    ctrl.totalItems = 0;
-                    ctrl.showError = true;
-                    ctrl.error =
-                        'Error retrieving results listing from server: ' +
-                        angular.toJson(error);
-                });
+                    $http.get(content_url).success(function (data) {
+                        ctrl.data = data;
+                        ctrl.totalItems = ctrl.data.pagination.total_pages * ctrl.itemsPerPage;
+                        ctrl.currentPage = ctrl.data.pagination.current_page;
+                    }).error(function (error) {
+                        ctrl.data = null;
+                        ctrl.totalItems = 0;
+                        ctrl.showError = true;
+                        ctrl.error =
+                            'Error retrieving results listing from server: ' +
+                            angular.toJson(error);
+                    });
+            ctrl.filterText = ''
         }
+        ctrl.filterList();
 
         /**
          * This is called when the date filter calendar is opened. It
@@ -209,9 +239,9 @@
          * listing.
          */
         function clearFilters() {
-            ctrl.startDate = null;
-            ctrl.endDate = null;
-            ctrl.update();
+            ctrl.tagArray = {}
+            ctrl.filter = undefined
+            ctrl.filterList();
         }
 
         /**
