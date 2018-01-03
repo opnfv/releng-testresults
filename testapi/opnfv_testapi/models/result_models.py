@@ -31,6 +31,14 @@ class TI(base_models.ModelBase):
         self.current = current
         self.histories = list()
 
+    def __eq__(self, other):
+        return (self.current == other.current and self._histories_eq(other))
+
+    def _histories_eq(self, other):
+        hs_equal = all(self.histories[i] == other.histories[i]
+                       for i in range(len(self.histories)))
+        return len(self.histories) == len(other.histories) and hs_equal
+
     @staticmethod
     def attr_parser():
         return {'histories': TIHistory}
@@ -72,6 +80,16 @@ class ResultCreateRequest(base_models.ModelBase):
         self.public = public
         self.trust_indicator = trust_indicator if trust_indicator else TI(0)
 
+    def __eq__(self, other):
+        simple_equal = all(getattr(self, k) == getattr(other, k)
+                           for k in self.format().keys()
+                           if k not in ['_id', 'trust_indicator'])
+        return simple_equal and self.trust_indicator == other.trust_indicator
+
+    @staticmethod
+    def attr_parser():
+        return {'trust_indicator': TI}
+
 
 @swagger.model()
 class ResultUpdateRequest(base_models.ModelBase):
@@ -84,35 +102,14 @@ class ResultUpdateRequest(base_models.ModelBase):
 
 
 @swagger.model()
-class TestResult(base_models.ModelBase):
+class TestResult(ResultCreateRequest):
     """
         @property trust_indicator: used for long duration test case
         @ptype trust_indicator: L{TI}
     """
-    def __init__(self, _id=None, case_name=None, project_name=None,
-                 pod_name=None, installer=None, version=None,
-                 start_date=None, stop_date=None, details=None,
-                 build_tag=None, scenario=None, criteria=None,
-                 user=None, public="true", trust_indicator=None):
+    def __init__(self, _id=None, **kwargs):
+        super(TestResult, self).__init__(**kwargs)
         self._id = _id
-        self.case_name = case_name
-        self.project_name = project_name
-        self.pod_name = pod_name
-        self.installer = installer
-        self.version = version
-        self.start_date = start_date
-        self.stop_date = stop_date
-        self.details = details
-        self.build_tag = build_tag
-        self.scenario = scenario
-        self.criteria = criteria
-        self.user = user
-        self.public = public
-        self.trust_indicator = trust_indicator
-
-    @staticmethod
-    def attr_parser():
-        return {'trust_indicator': TI}
 
 
 @swagger.model()
