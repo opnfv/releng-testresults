@@ -12,116 +12,35 @@ from datetime import timedelta
 import httplib
 import json
 import urllib
-import unittest
 
 from opnfv_testapi.common import message
-from opnfv_testapi.models import result_models
-from opnfv_testapi.models import testcase_models
+from opnfv_testapi.models import result_models as rm
 from opnfv_testapi.tests.unit import executor
 from opnfv_testapi.tests.unit import fake_pymongo
 from opnfv_testapi.tests.unit.handlers import test_base as base
-
-
-class Details(object):
-    def __init__(self, timestart=None, duration=None, status=None):
-        self.timestart = timestart
-        self.duration = duration
-        self.status = status
-        self.items = [{'item1': 1}, {'item2': 2}]
-
-    def format(self):
-        return {
-            "timestart": self.timestart,
-            "duration": self.duration,
-            "status": self.status,
-            'items': [{'item1': 1}, {'item2': 2}]
-        }
-
-    @staticmethod
-    def from_dict(a_dict):
-
-        if a_dict is None:
-            return None
-
-        t = Details()
-        t.timestart = a_dict.get('timestart')
-        t.duration = a_dict.get('duration')
-        t.status = a_dict.get('status')
-        t.items = a_dict.get('items')
-        return t
 
 
 class TestResultBase(base.TestBase):
     @executor.mock_valid_lfid()
     def setUp(self):
         super(TestResultBase, self).setUp()
-        self.pod = self.pod_d.name
-        self.project = 'functest'
-        self.case = 'vPing'
-        self.installer = 'fuel'
-        self.version = 'C'
-        self.build_tag = 'v3.0'
-        self.scenario = 'odl-l2'
-        self.criteria = 'PASS'
-        self.trust_indicator = result_models.TI(0.7)
-        self.start_date = str(datetime.now())
-        self.stop_date = str(datetime.now() + timedelta(minutes=1))
-        self.update_date = str(datetime.now() + timedelta(days=1))
-        self.update_step = -0.05
-        self.details = Details(timestart='0', duration='9s', status='OK')
-        self.req_d = result_models.ResultCreateRequest(
-            pod_name=self.pod,
-            project_name=self.project,
-            case_name=self.case,
-            installer=self.installer,
-            version=self.version,
-            start_date=self.start_date,
-            stop_date=self.stop_date,
-            details=self.details.format(),
-            build_tag=self.build_tag,
-            scenario=self.scenario,
-            criteria=self.criteria,
-            trust_indicator=self.trust_indicator)
-        self.get_res = result_models.TestResult
-        self.list_res = result_models.TestResults
-        self.update_res = result_models.TestResult
+        self.req_d = rm.ResultCreateRequest.from_dict(
+            self.load_json('test_result'))
+        self.req_d.start_date = str(datetime.now())
+        self.req_d.stop_date = str(datetime.now() + timedelta(minutes=1))
+        self.get_res = rm.TestResult
+        self.list_res = rm.TestResults
+        self.update_res = rm.TestResult
         self.basePath = '/api/v1/results'
-        fake_pymongo.projects.insert(self.project_e.format())
-        self.req_testcase = testcase_models.TestcaseCreateRequest(
-            self.case,
-            '/cases/vping',
-            'vping-ssh test')
-        fake_pymongo.pods.insert(self.pod_d.format())
-        self.create_help('/api/v1/projects/%s/cases',
-                         self.req_testcase,
-                         self.project)
+        fake_pymongo.pods.insert({'name': self.req_d.pod_name})
+        fake_pymongo.projects.insert({'name': self.req_d.project_name})
+        fake_pymongo.testcases.insert({'name': self.req_d.case_name,
+                                       'project_name': self.req_d.project_name})
 
     def assert_res(self, result, req=None):
         if req is None:
             req = self.req_d
-        self.assertEqual(result.pod_name, req.pod_name)
-        self.assertEqual(result.project_name, req.project_name)
-        self.assertEqual(result.case_name, req.case_name)
-        self.assertEqual(result.installer, req.installer)
-        self.assertEqual(result.version, req.version)
-        details_req = Details.from_dict(req.details)
-        details_res = Details.from_dict(result.details)
-        self.assertEqual(details_res.duration, details_req.duration)
-        self.assertEqual(details_res.timestart, details_req.timestart)
-        self.assertEqual(details_res.status, details_req.status)
-        self.assertEqual(details_res.items, details_req.items)
-        self.assertEqual(result.build_tag, req.build_tag)
-        self.assertEqual(result.scenario, req.scenario)
-        self.assertEqual(result.criteria, req.criteria)
-        self.assertEqual(result.start_date, req.start_date)
-        self.assertEqual(result.stop_date, req.stop_date)
-        self.assertIsNotNone(result._id)
-        ti = result.trust_indicator
-        self.assertEqual(ti.current, req.trust_indicator.current)
-        if ti.histories:
-            history = ti.histories[0]
-            self.assertEqual(history.date, self.update_date)
-            self.assertEqual(history.step, self.update_step)
+        self.assertEqual(result, req)
 
     def _create_d(self):
         _, res = self.create_d()
@@ -204,17 +123,8 @@ class TestResultCreate(TestResultBase):
 
     @executor.create(httplib.OK, '_assert_no_ti')
     def test_no_ti(self):
-        req = result_models.ResultCreateRequest(pod_name=self.pod,
-                                                project_name=self.project,
-                                                case_name=self.case,
-                                                installer=self.installer,
-                                                version=self.version,
-                                                start_date=self.start_date,
-                                                stop_date=self.stop_date,
-                                                details=self.details.format(),
-                                                build_tag=self.build_tag,
-                                                scenario=self.scenario,
-                                                criteria=self.criteria)
+        req = copy.deepcopy(self.req_d)
+        req.trust_indicator = rm.TI(0)
         self.actual_req = req
         return req
 
@@ -370,8 +280,13 @@ class TestResultGet(TestResultBase):
 
     def _set_query(self, *args, **kwargs):
         def get_value(arg):
-            return self.__getattribute__(arg) \
-                if arg != 'trust_indicator' else self.trust_indicator.current
+            if arg in ['pod', 'project', 'case']:
+                return getattr(self.req_d, arg + '_name')
+            elif arg == 'trust_indicator':
+                return self.req_d.trust_indicator.current
+            else:
+                return getattr(self.req_d, arg)
+
         query = []
         for arg in args:
             query.append((arg, get_value(arg)))
@@ -387,24 +302,15 @@ class TestResultUpdate(TestResultBase):
 
     @executor.update(httplib.OK, '_assert_update_ti')
     def test_success(self):
-        new_ti = copy.deepcopy(self.trust_indicator)
-        new_ti.current += self.update_step
-        new_ti.histories.append(
-            result_models.TIHistory(self.update_date, self.update_step))
-        new_data = copy.deepcopy(self.req_d)
-        new_data.trust_indicator = new_ti
-        update = result_models.ResultUpdateRequest(trust_indicator=new_ti)
-        self.update_req = new_data
+        update_date = str(datetime.now() + timedelta(days=1))
+        update_step = -0.05
+        self.after_update = copy.deepcopy(self.req_d)
+        self.after_update.trust_indicator.current += update_step
+        self.after_update.trust_indicator.histories.append(
+            rm.TIHistory(update_date, update_step))
+        update = rm.ResultUpdateRequest(
+            trust_indicator=self.after_update.trust_indicator)
         return update, self.req_d_id
 
     def _assert_update_ti(self, request, body):
-        ti = body.trust_indicator
-        self.assertEqual(ti.current, request.trust_indicator.current)
-        if ti.histories:
-            history = ti.histories[0]
-            self.assertEqual(history.date, self.update_date)
-            self.assertEqual(history.step, self.update_step)
-
-
-if __name__ == '__main__':
-    unittest.main()
+        self.assert_res(body, self.after_update)
