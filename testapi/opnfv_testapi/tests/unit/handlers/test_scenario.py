@@ -1,9 +1,6 @@
+from datetime import datetime
 import functools
 import httplib
-import json
-import os
-
-from datetime import datetime
 
 from opnfv_testapi.common import message
 import opnfv_testapi.models.scenario_models as models
@@ -20,22 +17,8 @@ class TestScenarioBase(base.TestBase):
         self.get_res = models.Scenario
         self.list_res = models.Scenarios
         self.basePath = '/api/v1/scenarios'
-        self.req_d = self._load_request('scenario-c1.json')
-        self.req_2 = self._load_request('scenario-c2.json')
-
-    def tearDown(self):
-        pass
-
-    def assert_body(self, project, req=None):
-        pass
-
-    @staticmethod
-    def _load_request(f_req):
-        abs_file = os.path.join(os.path.dirname(__file__), f_req)
-        with open(abs_file, 'r') as f:
-            loader = json.load(f)
-            f.close()
-        return loader
+        self.req_d = self.load_json('scenario-c1')
+        self.req_2 = self.load_json('scenario-c2')
 
     def create_return_name(self, req):
         _, res = self.create(req)
