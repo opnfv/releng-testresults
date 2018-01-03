@@ -24,7 +24,8 @@ class ModelBase(object):
 
     def __eq__(self, other):
         res = all(getattr(self, k) == getattr(other, k)
-                  for k in self.format().keys() if k != '_id')
+                  for k in self.format().keys()
+                  if k not in ['_id', 'creation_date'])
         return res
 
     def format(self):
@@ -41,15 +42,16 @@ class ModelBase(object):
         attr_parser = cls.attr_parser()
         t = cls()
         for k, v in a_dict.iteritems():
-            value = v
-            if isinstance(v, dict) and k in attr_parser:
-                value = attr_parser[k].from_dict(v)
-            elif isinstance(v, list) and k in attr_parser:
-                value = []
-                for item in v:
-                    value.append(attr_parser[k].from_dict(item))
+            if k in t.__dict__:
+                value = v
+                if isinstance(v, dict) and k in attr_parser:
+                    value = attr_parser[k].from_dict(v)
+                elif isinstance(v, list) and k in attr_parser:
+                    value = []
+                    for item in v:
+                        value.append(attr_parser[k].from_dict(item))
 
-            t.__setattr__(k, value)
+                t.__setattr__(k, value)
 
         return t
 

@@ -18,7 +18,7 @@ from opnfv_testapi.tornado_swagger import swagger
 
 @swagger.model()
 class PodCreateRequest(base_models.ModelBase):
-    def __init__(self, name, mode='', details='', role=""):
+    def __init__(self, name='', mode='', details='', role=""):
         self.name = name
         self.mode = mode
         self.details = details
@@ -26,17 +26,12 @@ class PodCreateRequest(base_models.ModelBase):
 
 
 @swagger.model()
-class Pod(base_models.ModelBase):
-    def __init__(self,
-                 name='', mode='', details='',
-                 role="", _id='', create_date='', owner=''):
-        self.name = name
-        self.mode = mode
-        self.details = details
-        self.role = role
-        self._id = _id
-        self.creation_date = create_date
-        self.owner = owner
+class Pod(PodCreateRequest):
+    def __init__(self, **kwargs):
+        self._id = kwargs.pop('_id', '')
+        self.creation_date = kwargs.pop('creation_date', '')
+        self.owner = kwargs.pop('owner', '')
+        super(Pod, self).__init__(**kwargs)
 
 
 @swagger.model()

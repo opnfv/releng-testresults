@@ -7,10 +7,9 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 import httplib
-import unittest
 
 from opnfv_testapi.common import message
-from opnfv_testapi.models import pod_models
+from opnfv_testapi.models import pod_models as pm
 from opnfv_testapi.tests.unit import executor
 from opnfv_testapi.tests.unit import fake_pymongo
 from opnfv_testapi.tests.unit.handlers import test_base as base
@@ -19,26 +18,16 @@ from opnfv_testapi.tests.unit.handlers import test_base as base
 class TestPodBase(base.TestBase):
     def setUp(self):
         super(TestPodBase, self).setUp()
-        self.get_res = pod_models.Pod
-        self.list_res = pod_models.Pods
+        self.get_res = pm.Pod
+        self.list_res = pm.Pods
         self.basePath = '/api/v1/pods'
-        self.req_d = pod_models.PodCreateRequest(name=self.pod_d.name,
-                                                 mode=self.pod_d.mode,
-                                                 details=self.pod_d.details,
-                                                 role=self.pod_d.role)
-        self.req_e = pod_models.PodCreateRequest(name=self.pod_e.name,
-                                                 mode=self.pod_e.mode,
-                                                 details=self.pod_e.details,
-                                                 role=self.pod_e.role)
+        self.req_d = pm.PodCreateRequest.from_dict(self.pod_d.format())
+        self.req_e = pm.PodCreateRequest.from_dict(self.pod_e.format())
 
     def assert_get_body(self, pod, req=None):
         if not req:
             req = self.req_d
-        self.assertEqual(pod.owner, 'ValidUser')
-        self.assertEqual(pod.name, req.name)
-        self.assertEqual(pod.mode, req.mode)
-        self.assertEqual(pod.details, req.details)
-        self.assertEqual(pod.role, req.role)
+        self.assertEqual(pod, pm.Pod(owner='ValidUser', **req.format()))
         self.assertIsNotNone(pod.creation_date)
         self.assertIsNotNone(pod._id)
 
@@ -61,12 +50,12 @@ class TestPodCreate(TestPodBase):
     @executor.mock_valid_lfid()
     @executor.create(httplib.BAD_REQUEST, message.missing('name'))
     def test_emptyName(self):
-        return pod_models.PodCreateRequest('')
+        return pm.PodCreateRequest('')
 
     @executor.mock_valid_lfid()
     @executor.create(httplib.BAD_REQUEST, message.missing('name'))
     def test_noneName(self):
-        return pod_models.PodCreateRequest(None)
+        return pm.PodCreateRequest(None)
 
     @executor.mock_valid_lfid()
     @executor.create(httplib.OK, 'assert_create_body')
@@ -99,7 +88,7 @@ class TestPodGet(TestPodBase):
 
     @executor.get(httplib.OK, 'assert_get_body')
     def test_getOne(self):
-        return self.pod_d.name
+        return self.req_d.name
 
     @executor.get(httplib.OK, '_assert_list')
     def test_list(self):
@@ -108,11 +97,7 @@ class TestPodGet(TestPodBase):
     def _assert_list(self, body):
         self.assertEqual(len(body.pods), 2)
         for pod in body.pods:
-            if self.pod_d.name == pod.name:
+            if self.req_d.name == pod.name:
                 self.assert_get_body(pod)
             else:
-                self.assert_get_body(pod, self.pod_e)
-
-
-if __name__ == '__main__':
-    unittest.main()
+                self.assert_get_body(pod, self.req_e)
