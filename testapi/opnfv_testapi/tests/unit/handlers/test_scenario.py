@@ -1,12 +1,9 @@
+from datetime import datetime
 import functools
 import httplib
-import json
-import os
-
-from datetime import datetime
 
 from opnfv_testapi.common import message
-import opnfv_testapi.models.scenario_models as models
+import opnfv_testapi.models.scenario_models as sm
 from opnfv_testapi.tests.unit.handlers import test_base as base
 
 
@@ -17,25 +14,11 @@ def _none_default(check, default):
 class TestScenarioBase(base.TestBase):
     def setUp(self):
         super(TestScenarioBase, self).setUp()
-        self.get_res = models.Scenario
-        self.list_res = models.Scenarios
+        self.get_res = sm.Scenario
+        self.list_res = sm.Scenarios
         self.basePath = '/api/v1/scenarios'
-        self.req_d = self._load_request('scenario-c1.json')
-        self.req_2 = self._load_request('scenario-c2.json')
-
-    def tearDown(self):
-        pass
-
-    def assert_body(self, project, req=None):
-        pass
-
-    @staticmethod
-    def _load_request(f_req):
-        abs_file = os.path.join(os.path.dirname(__file__), f_req)
-        with open(abs_file, 'r') as f:
-            loader = json.load(f)
-            f.close()
-        return loader
+        self.req_d = self.load_json('scenario-c1')
+        self.req_2 = self.load_json('scenario-c2')
 
     def create_return_name(self, req):
         _, res = self.create(req)
@@ -47,7 +30,7 @@ class TestScenarioBase(base.TestBase):
             req = self.req_d
         self.assertIsNotNone(scenario._id)
         self.assertIsNotNone(scenario.creation_date)
-        self.assertEqual(scenario, models.Scenario.from_dict(req))
+        self.assertEqual(scenario, sm.Scenario.from_dict(req))
 
     @staticmethod
     def set_query(*args):
@@ -67,13 +50,13 @@ class TestScenarioCreate(TestScenarioBase):
         self.assertEqual(code, httplib.BAD_REQUEST)
 
     def test_emptyName(self):
-        req_empty = models.ScenarioCreateRequest('')
+        req_empty = sm.ScenarioCreateRequest('')
         (code, body) = self.create(req_empty)
         self.assertEqual(code, httplib.BAD_REQUEST)
         self.assertIn(message.missing('name'), body)
 
     def test_noneName(self):
-        req_none = models.ScenarioCreateRequest(None)
+        req_none = sm.ScenarioCreateRequest(None)
         (code, body) = self.create(req_none)
         self.assertEqual(code, httplib.BAD_REQUEST)
         self.assertIn(message.missing('name'), body)
@@ -201,7 +184,7 @@ class TestScenarioUpdate(TestScenarioBase):
 
     @update_partial('_add', '_success')
     def test_addScore(self):
-        add = models.ScenarioScore(date=str(datetime.now()), score='11/12')
+        add = sm.ScenarioScore(date=str(datetime.now()), score='11/12')
         projects = self.req_d['installers'][0]['versions'][0]['projects']
         functest = filter(lambda f: f['project'] == 'functest', projects)[0]
         functest['scores'].append(add.format())
@@ -212,7 +195,7 @@ class TestScenarioUpdate(TestScenarioBase):
 
     @update_partial('_add', '_success')
     def test_addTrustIndicator(self):
-        add = models.ScenarioTI(date=str(datetime.now()), status='gold')
+        add = sm.ScenarioTI(date=str(datetime.now()), status='gold')
         projects = self.req_d['installers'][0]['versions'][0]['projects']
         functest = filter(lambda f: f['project'] == 'functest', projects)[0]
         functest['trust_indicators'].append(add.format())
@@ -256,40 +239,40 @@ class TestScenarioUpdate(TestScenarioBase):
     @update_url_fixture('projects')
     @update_partial('_add', '_success')
     def test_addProjects_succ(self):
-        add = models.ScenarioProject(project='qtip').format()
+        add = sm.ScenarioProject(project='qtip').format()
         self.req_d['installers'][0]['versions'][0]['projects'].append(add)
         return [add]
 
     @update_url_fixture('projects')
     @update_partial('_add', '_conflict')
     def test_addProjects_already_exist(self):
-        add = models.ScenarioProject(project='functest').format()
+        add = sm.ScenarioProject(project='functest').format()
         return [add]
 
     @update_url_fixture('projects')
     @update_partial('_add', '_bad_request')
     def test_addProjects_bad_schema(self):
-        add = models.ScenarioProject(project='functest').format()
+        add = sm.ScenarioProject(project='functest').format()
         add['score'] = None
         return [add]
 
     @update_url_fixture('projects')
     @update_partial('_update', '_success')
     def test_updateProjects_succ(self):
-        update = models.ScenarioProject(project='qtip').format()
+        update = sm.ScenarioProject(project='qtip').format()
         self.req_d['installers'][0]['versions'][0]['projects'] = [update]
         return [update]
 
     @update_url_fixture('projects')
     @update_partial('_update', '_conflict')
     def test_updateProjects_duplicated(self):
-        update = models.ScenarioProject(project='qtip').format()
+        update = sm.ScenarioProject(project='qtip').format()
         return [update, update]
 
     @update_url_fixture('projects')
     @update_partial('_update', '_bad_request')
     def test_updateProjects_bad_schema(self):
-        update = models.ScenarioProject(project='functest').format()
+        update = sm.ScenarioProject(project='functest').format()
         update['score'] = None
         return [update]
 
@@ -307,47 +290,47 @@ class TestScenarioUpdate(TestScenarioBase):
     @update_partial('_update', '_success')
     def test_changeOwner(self):
         new_owner = 'new_owner'
-        update = models.ScenarioChangeOwnerRequest(new_owner).format()
+        update = sm.ScenarioChangeOwnerRequest(new_owner).format()
         self.req_d['installers'][0]['versions'][0]['owner'] = new_owner
         return update
 
     @update_url_fixture('versions')
     @update_partial('_add', '_success')
     def test_addVersions_succ(self):
-        add = models.ScenarioVersion(version='Euphrates').format()
+        add = sm.ScenarioVersion(version='Euphrates').format()
         self.req_d['installers'][0]['versions'].append(add)
         return [add]
 
     @update_url_fixture('versions')
     @update_partial('_add', '_conflict')
     def test_addVersions_already_exist(self):
-        add = models.ScenarioVersion(version='master').format()
+        add = sm.ScenarioVersion(version='master').format()
         return [add]
 
     @update_url_fixture('versions')
     @update_partial('_add', '_bad_request')
     def test_addVersions_bad_schema(self):
-        add = models.ScenarioVersion(version='euphrates').format()
+        add = sm.ScenarioVersion(version='euphrates').format()
         add['notexist'] = None
         return [add]
 
     @update_url_fixture('versions')
     @update_partial('_update', '_success')
     def test_updateVersions_succ(self):
-        update = models.ScenarioVersion(version='euphrates').format()
+        update = sm.ScenarioVersion(version='euphrates').format()
         self.req_d['installers'][0]['versions'] = [update]
         return [update]
 
     @update_url_fixture('versions')
     @update_partial('_update', '_conflict')
     def test_updateVersions_duplicated(self):
-        update = models.ScenarioVersion(version='euphrates').format()
+        update = sm.ScenarioVersion(version='euphrates').format()
         return [update, update]
 
     @update_url_fixture('versions')
     @update_partial('_update', '_bad_request')
     def test_updateVersions_bad_schema(self):
-        update = models.ScenarioVersion(version='euphrates').format()
+        update = sm.ScenarioVersion(version='euphrates').format()
         update['not_owner'] = 'Iam'
         return [update]
 
@@ -364,40 +347,40 @@ class TestScenarioUpdate(TestScenarioBase):
     @update_url_fixture('installers')
     @update_partial('_add', '_success')
     def test_addInstallers_succ(self):
-        add = models.ScenarioInstaller(installer='daisy').format()
+        add = sm.ScenarioInstaller(installer='daisy').format()
         self.req_d['installers'].append(add)
         return [add]
 
     @update_url_fixture('installers')
     @update_partial('_add', '_conflict')
     def test_addInstallers_already_exist(self):
-        add = models.ScenarioInstaller(installer='apex').format()
+        add = sm.ScenarioInstaller(installer='apex').format()
         return [add]
 
     @update_url_fixture('installers')
     @update_partial('_add', '_bad_request')
     def test_addInstallers_bad_schema(self):
-        add = models.ScenarioInstaller(installer='daisy').format()
+        add = sm.ScenarioInstaller(installer='daisy').format()
         add['not_exist'] = 'not_exist'
         return [add]
 
     @update_url_fixture('installers')
     @update_partial('_update', '_success')
     def test_updateInstallers_succ(self):
-        update = models.ScenarioInstaller(installer='daisy').format()
+        update = sm.ScenarioInstaller(installer='daisy').format()
         self.req_d['installers'] = [update]
         return [update]
 
     @update_url_fixture('installers')
     @update_partial('_update', '_conflict')
     def test_updateInstallers_duplicated(self):
-        update = models.ScenarioInstaller(installer='daisy').format()
+        update = sm.ScenarioInstaller(installer='daisy').format()
         return [update, update]
 
     @update_url_fixture('installers')
     @update_partial('_update', '_bad_request')
     def test_updateInstallers_bad_schema(self):
-        update = models.ScenarioInstaller(installer='daisy').format()
+        update = sm.ScenarioInstaller(installer='daisy').format()
         update['not_exist'] = 'not_exist'
         return [update]
 
@@ -415,7 +398,7 @@ class TestScenarioUpdate(TestScenarioBase):
     @update_partial('_update', '_success')
     def test_renameScenario(self):
         new_name = 'new_scenario_name'
-        update = models.ScenarioUpdateRequest(name=new_name)
+        update = sm.ScenarioUpdateRequest(name=new_name)
         self.req_d['name'] = new_name
         return update
 
@@ -423,7 +406,7 @@ class TestScenarioUpdate(TestScenarioBase):
     @update_partial('_update', '_forbidden')
     def test_renameScenario_exist(self):
         new_name = self.req_d['name']
-        update = models.ScenarioUpdateRequest(name=new_name)
+        update = sm.ScenarioUpdateRequest(name=new_name)
         return update
 
     def _add(self, update_req):
