@@ -6,12 +6,10 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-import copy
 import httplib
-import unittest
 
 from opnfv_testapi.common import message
-from opnfv_testapi.models import testcase_models
+from opnfv_testapi.models import testcase_models as tcm
 from opnfv_testapi.tests.unit import executor
 from opnfv_testapi.tests.unit import fake_pymongo
 from opnfv_testapi.tests.unit.handlers import test_base as base
@@ -21,41 +19,35 @@ class TestCaseBase(base.TestBase):
     def setUp(self):
         super(TestCaseBase, self).setUp()
         self.project = 'functest'
-        self.req_d = testcase_models.TestcaseCreateRequest('vping_1',
-                                                           '/cases/vping_1',
-                                                           'vping-ssh test')
-        self.req_e = testcase_models.TestcaseCreateRequest('doctor_1',
-                                                           '/cases/doctor_1',
-                                                           'create doctor')
-        self.update_d = testcase_models.TestcaseUpdateRequest('vping_1',
-                                                              'vping-ssh test',
-                                                              'functest')
-        self.update_e = testcase_models.TestcaseUpdateRequest('doctor_1',
-                                                              'create doctor',
-                                                              'functest')
-        self.get_res = testcase_models.Testcase
-        self.list_res = testcase_models.Testcases
-        self.update_res = testcase_models.Testcase
+        self.req_d = tcm.TestcaseCreateRequest.from_dict(
+            self.load_json('testcase_d'))
+        self.req_e = tcm.TestcaseCreateRequest.from_dict(
+            self.load_json('testcase_e'))
+        self.update_req = tcm.TestcaseUpdateRequest(project_name=self.project,
+                                                    **self.req_e.format())
+
+        self.get_res = tcm.Testcase
+        self.list_res = tcm.Testcases
+        self.update_res = tcm.Testcase
         self.basePath = '/api/v1/projects/%s/cases'
         fake_pymongo.projects.insert(self.project_e.format())
+        print self.req_d.format()
 
     def assert_body(self, case, req=None):
         if not req:
             req = self.req_d
-        self.assertEqual(case.name, req.name)
-        self.assertEqual(case.description, req.description)
-        self.assertEqual(case.url, req.url)
+        self.assertEqual(req,
+                         tcm.TestcaseCreateRequest.from_dict(case.format()))
+        self.assertEqual(case.project_name, self.project)
         self.assertIsNotNone(case._id)
         self.assertIsNotNone(case.creation_date)
 
-    def assert_update_body(self, old, new, req=None):
+    def assert_update_body(self, new_record, req=None):
         if not req:
             req = self.req_d
-        self.assertEqual(new.name, req.name)
-        self.assertEqual(new.description, req.description)
-        self.assertEqual(new.url, old.url)
-        self.assertIsNotNone(new._id)
-        self.assertIsNotNone(new.creation_date)
+        self.assertEqual(req, new_record)
+        self.assertIsNotNone(new_record._id)
+        self.assertIsNotNone(new_record.creation_date)
 
     @executor.mock_valid_lfid()
     def create_d(self):
@@ -93,12 +85,12 @@ class TestCaseCreate(TestCaseBase):
 
     @executor.create(httplib.BAD_REQUEST, message.missing('name'))
     def test_emptyName(self):
-        req_empty = testcase_models.TestcaseCreateRequest('')
+        req_empty = tcm.TestcaseCreateRequest('')
         return req_empty
 
     @executor.create(httplib.BAD_REQUEST, message.missing('name'))
     def test_noneName(self):
-        req_none = testcase_models.TestcaseCreateRequest(None)
+        req_none = tcm.TestcaseCreateRequest(None)
         return req_none
 
     @executor.create(httplib.OK, '_assert_success')
@@ -151,31 +143,33 @@ class TestCaseUpdate(TestCaseBase):
 
     @executor.update(httplib.NOT_FOUND, message.not_found_base)
     def test_notFound(self):
-        return self.update_e, 'notFound'
+        update = tcm.TestcaseUpdateRequest(description='update description')
+        return update, 'notFound'
 
     @executor.update(httplib.FORBIDDEN, message.exist_base)
     def test_newNameExist(self):
         self.create_e()
-        return self.update_e, self.req_d.name
+        return self.update_req, self.req_d.name
 
     @executor.update(httplib.FORBIDDEN, message.no_update())
     def test_noUpdate(self):
-        return self.update_d, self.req_d.name
+        update = tcm.TestcaseUpdateRequest(project_name=self.project,
+                                           **self.req_d.format())
+        return update, self.req_d.name
 
     @executor.update(httplib.OK, '_update_success')
     def test_success(self):
-        return self.update_e, self.req_d.name
+        return self.update_req, self.req_d.name
 
     @executor.update(httplib.OK, '_update_success')
     def test_with_dollar(self):
-        update = copy.deepcopy(self.update_d)
-        update.description = {'2. change': 'dollar change'}
-        return update, self.req_d.name
+        self.update_req.description = {'2. change': 'dollar change'}
+        return self.update_req, self.req_d.name
 
     def _update_success(self, request, body):
-        self.assert_update_body(self.req_d, body, request)
+        self.assert_update_body(body, request)
         _, new_body = self.get(request.name)
-        self.assert_update_body(self.req_d, new_body, request)
+        self.assert_update_body(new_body, request)
 
 
 class TestCaseDelete(TestCaseBase):
@@ -195,7 +189,3 @@ class TestCaseDelete(TestCaseBase):
         self.assertEqual(body, '')
         code, body = self.get(self.req_d.name)
         self.assertEqual(code, httplib.NOT_FOUND)
-
-
-if __name__ == '__main__':
-    unittest.main()

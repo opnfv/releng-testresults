@@ -24,7 +24,8 @@ class ModelBase(object):
 
     def __eq__(self, other):
         res = all(getattr(self, k) == getattr(other, k)
-                  for k in self.format().keys() if k != '_id')
+                  for k in self.format().keys()
+                  if k not in ['_id', 'creation_date'])
         return res
 
     def format(self):

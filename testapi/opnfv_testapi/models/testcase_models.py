@@ -12,10 +12,20 @@ from opnfv_testapi.tornado_swagger import swagger
 
 @swagger.model()
 class TestcaseCreateRequest(base_models.ModelBase):
-    def __init__(self, name, url=None, description=None,
-                 catalog_description=None, tier=None, ci_loop=None,
-                 criteria=None, blocking=None, dependencies=None, run=None,
-                 domains=None, tags=None, version=None):
+    def __init__(self, name=None,
+                 url=None,
+                 description=None,
+                 catalog_description=None,
+                 tier=None,
+                 ci_loop=None,
+                 criteria=None,
+                 blocking=None,
+                 dependencies=None,
+                 run=None,
+                 domains=None,
+                 tags=None,
+                 version=None,
+                 trust='Silver'):
         self.name = name
         self.url = url
         self.description = description
@@ -29,56 +39,21 @@ class TestcaseCreateRequest(base_models.ModelBase):
         self.domains = domains
         self.tags = tags
         self.version = version
-        self.trust = "Silver"
-
-
-@swagger.model()
-class TestcaseUpdateRequest(base_models.ModelBase):
-    def __init__(self, name=None, description=None, project_name=None,
-                 catalog_description=None, tier=None, ci_loop=None,
-                 criteria=None, blocking=None, dependencies=None, run=None,
-                 domains=None, tags=None, version=None, trust=None):
-        self.name = name
-        self.description = description
-        self.catalog_description = catalog_description
-        self.project_name = project_name
-        self.tier = tier
-        self.ci_loop = ci_loop
-        self.criteria = criteria
-        self.blocking = blocking
-        self.dependencies = dependencies
-        self.run = run
-        self.domains = domains
-        self.tags = tags
-        self.version = version
         self.trust = trust
 
 
 @swagger.model()
-class Testcase(base_models.ModelBase):
-    def __init__(self, _id=None, name=None, project_name=None,
-                 description=None, url=None, creation_date=None,
-                 catalog_description=None, tier=None, ci_loop=None,
-                 criteria=None, blocking=None, dependencies=None, run=None,
-                 domains=None, tags=None, version=None,
-                 trust=None):
+class TestcaseUpdateRequest(TestcaseCreateRequest):
+    def __init__(self, **kwargs):
+        self.project_name = kwargs.pop('project_name', '')
+        super(TestcaseUpdateRequest, self).__init__(**kwargs)
+
+
+@swagger.model()
+class Testcase(TestcaseCreateRequest):
+    def __init__(self, _id=None, **kwargs):
         self._id = None
-        self.name = None
-        self.project_name = None
-        self.description = None
-        self.catalog_description = None
-        self.url = None
-        self.creation_date = None
-        self.tier = None
-        self.ci_loop = None
-        self.criteria = None
-        self.blocking = None
-        self.dependencies = None
-        self.run = None
-        self.domains = None
-        self.tags = None
-        self.version = None
-        self.trust = None
+        super(Testcase, self).__init__(**kwargs)
 
 
 @swagger.model()
