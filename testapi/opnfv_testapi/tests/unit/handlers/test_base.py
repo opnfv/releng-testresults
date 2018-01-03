@@ -81,6 +81,16 @@ class TestBase(testing.AsyncHTTPTestCase):
         self.config_patcher.start()
         self.db_patcher.start()
 
+    @staticmethod
+    def load_json(json_file):
+        abs_file = path.join(path.dirname(__file__),
+                             '../templates',
+                             json_file + '.json')
+        with open(abs_file, 'r') as f:
+            loader = json.load(f)
+            f.close()
+        return loader
+
     def get_app(self):
         from opnfv_testapi.cmd import server
         return server.make_app()
@@ -210,4 +220,5 @@ class TestBase(testing.AsyncHTTPTestCase):
         fake_pymongo.projects.clear()
         fake_pymongo.testcases.clear()
         fake_pymongo.results.clear()
+        fake_pymongo.deployresults.clear()
         fake_pymongo.scenarios.clear()
