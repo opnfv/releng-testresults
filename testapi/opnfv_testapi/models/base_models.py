@@ -22,6 +22,11 @@ from opnfv_testapi.tornado_swagger import swagger
 
 class ModelBase(object):
 
+    def __eq__(self, other):
+        res = all(getattr(self, k) == getattr(other, k)
+                  for k in self.format().keys() if k != '_id')
+        return res
+
     def format(self):
         return self._format(['_id'])
 

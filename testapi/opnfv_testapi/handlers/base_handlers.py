@@ -47,6 +47,7 @@ class GenericApiHandler(web.RequestHandler):
         self.db_testcases = 'testcases'
         self.db_results = 'results'
         self.db_scenarios = 'scenarios'
+        self.db_deployresults = 'deployresults'
         self.auth = self.settings["auth"]
 
     def prepare(self):
@@ -92,7 +93,7 @@ class GenericApiHandler(web.RequestHandler):
             if k != 'query':
                 data.__setattr__(k, v)
 
-        if self.table != 'results':
+        if 'results' not in self.table:
             data.creation_date = datetime.now()
         _id = yield dbapi.db_save(self.table, data.format())
         if 'name' in self.json_args:

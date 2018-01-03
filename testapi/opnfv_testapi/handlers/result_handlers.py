@@ -58,6 +58,8 @@ class GenericResultHandler(base_handlers.GenericApiHandler):
                 date_range.update({'$gte': str(v)})
             elif k == 'to':
                 date_range.update({'$lt': str(v)})
+            elif 'build_id' in k:
+                query[k] = self.get_int(k, v)
             elif k == 'signed':
                 username = self.get_secure_cookie(constants.TESTAPI_ID)
                 role = self.get_secure_cookie(constants.ROLE)
@@ -76,6 +78,26 @@ class GenericResultHandler(base_handlers.GenericApiHandler):
                 query['start_date'].update({'$lt': str(datetime.now())})
 
         return query
+
+    def get(self):
+        def descend_limit():
+            descend = self.get_query_argument('descend', 'true')
+            return -1 if descend.lower() == 'true' else 1
+
+        def last_limit():
+            return self.get_int('last', self.get_query_argument('last', 0))
+
+        def page_limit():
+            return self.get_int('page', self.get_query_argument('page', 1))
+
+        limitations = {
+            'sort': {'_id': descend_limit()},
+            'last': last_limit(),
+            'page': page_limit(),
+            'per_page': CONF.api_results_per_page
+        }
+
+        self._list(query=self.set_query(), **limitations)
 
 
 class ResultsCLHandler(GenericResultHandler):
@@ -171,24 +193,7 @@ class ResultsCLHandler(GenericResultHandler):
             @in descend: query
             @required descend: False
         """
-        def descend_limit():
-            descend = self.get_query_argument('descend', 'true')
-            return -1 if descend.lower() == 'true' else 1
-
-        def last_limit():
-            return self.get_int('last', self.get_query_argument('last', 0))
-
-        def page_limit():
-            return self.get_int('page', self.get_query_argument('page', 1))
-
-        limitations = {
-            'sort': {'_id': descend_limit()},
-            'last': last_limit(),
-            'page': page_limit(),
-            'per_page': CONF.api_results_per_page
-        }
-
-        self._list(query=self.set_query(), **limitations)
+        super(ResultsCLHandler, self).get()
 
     @swagger.operation(nickname="createTestResult")
     def post(self):
@@ -202,9 +207,6 @@ class ResultsCLHandler(GenericResultHandler):
             @raise 404: pod/project/testcase not exist
             @raise 400: body/pod_name/project_name/case_name not provided
         """
-        self._post()
-
-    def _post(self):
         def pod_query():
             return {'name': self.json_args.get('pod_name')}
 
@@ -255,7 +257,7 @@ class ResultsUploadHandler(ResultsCLHandler):
         if openid:
             self.json_args['user'] = openid
 
-        super(ResultsUploadHandler, self)._post()
+        super(ResultsUploadHandler, self).post()
 
 
 class ResultsGURHandler(GenericResultHandler):

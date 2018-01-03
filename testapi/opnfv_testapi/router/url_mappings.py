@@ -10,6 +10,7 @@ import tornado.web
 
 from opnfv_testapi.common.config import CONF
 from opnfv_testapi.handlers import base_handlers
+from opnfv_testapi.handlers import deploy_result_handlers as deploy_handlers
 from opnfv_testapi.handlers import pod_handlers
 from opnfv_testapi.handlers import project_handlers
 from opnfv_testapi.handlers import result_handlers
@@ -50,6 +51,7 @@ mappings = [
     (r"/api/v1/results", result_handlers.ResultsCLHandler),
     (r'/api/v1/results/upload', result_handlers.ResultsUploadHandler),
     (r"/api/v1/results/([^/]+)", result_handlers.ResultsGURHandler),
+    (r"/api/v1/deployresults", deploy_handlers.DeployResultsHandler),
 
     # scenarios
     (r"/api/v1/scenarios", scenario_handlers.ScenariosCLHandler),
