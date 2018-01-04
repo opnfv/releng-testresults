@@ -1,0 +1,181 @@
+<legend>Test Case</legend>
+<div style="padding-right:0px">
+        <div class="table-responsive">
+            <table class="table"  ng-data="ctrl.data">
+                <tbody>
+                    <tr style="padding:9px">
+                        <td class="podsTableTd">Id&nbsp;:</td>
+                        <td class="podsTableLeftTd">{{ctrl.data.scenarios[0]._id}}</td>
+                    </tr>
+                    <tr style="padding:9px">
+                        <td class="podsTableTd">Name&nbsp;:</td>
+                        <td width="90%" class="podsTableLeftTd">{{ctrl.data.scenarios[0].name}}</td>
+                    </tr>
+                    <tr style="padding:9px">
+                            <td class="podsTableTd">Created&nbsp;at&nbsp;:</td>
+                            <td width="90%" class="podsTableLeftTd">{{ctrl.data.scenarios[0].creation_date}}</td>
+                    </tr>
+                    <tr style="padding:9px">
+                            <td class="podsTableTd">Installers</td>
+                            <td width="90%" class="podsTableLeftTd">
+                                    <a ng-click="ctrl.expandInstallers()">Installers</a>
+                                    <div ng-class="{ 'hidden' : ! ctrl.collapeInstallers } ">
+                                        <div class="table-responsive">
+                                                <table class="table  "  ng-data="ctrl.data.scenarios[0].installers">
+                                                <tbody ng-repeat="(index, installer) in ctrl.data.scenarios[0].installers">
+                                                <tr style="padding:9px">
+                                                    <td class="podsTableTd">
+                                                        Installer:&nbsp;
+                                                    </td>
+                                                    <td width="90%" class="podsTableLeftTd"><a ng-click="ctrl.expandInstaller(index)">{{installer.installer}}</a></td>
+                                                </tr>
+                                                <tr ng-class="{ 'hidden' : ! ctrl.collapeInstaller[index] }">
+                                                    <td class="podsTableTd">
+                                                        Versions:
+                                                    </td>
+                                                    <td width="90%" class="podsTableLeftTd">
+                                                        <a ng-click="ctrl.expandVersions(index)">Versions</a>
+                                                        <div ng-class="{ 'hidden' : ! ctrl.collapeVersions[index] } ">
+                                                            <div class="table-responsive">
+                                                                    <table class="table  "  ng-data="inctrl.data.scenarios[0].installers">
+                                                                    <tbody ng-repeat="(index, version) in installer.versions">
+                                                                    <tr style="padding:9px">
+                                                                        <td class="podsTableTd">
+                                                                            Version:
+                                                                        </td>
+                                                                        <td class="podsTableLeftTd"  style="width:90%">
+                                                                            <a ng-click="ctrl.expandVersion(index)">{{version.version}}</a>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr style="padding:9px" ng-class="{ 'hidden' : ! ctrl.collapeVersion[index] } ">
+                                                                        <td class="podsTableTd">
+                                                                            Owner:
+                                                                        </td>
+                                                                        <td class="podsTableLeftTd" style="width:90%">{{version.owner}}</td>
+                                                                    </tr>
+                                                                    <tr style="padding:9px" ng-class="{ 'hidden' : ! ctrl.collapeVersion[index] }">
+                                                                        <td class="podsTableTd">
+                                                                            Projects:
+                                                                        </td>
+                                                                        <td width="90%" class="podsTableLeftTd">
+                                                                            <a ng-click="ctrl.expandProjects(index)">Projects</a>
+                                                                            <div ng-class="{ 'hidden' : ! ctrl.collapeProjects[index] } ">
+                                                                                <div class="table-responsive">
+                                                                                    <table class="table  "  ng-data="version.projects">
+                                                                                    <tbody ng-repeat="(index, project) in version.projects" >
+                                                                                    <tr style="padding:9px">
+                                                                                        <td class="podsTableTd">
+                                                                                                Project:
+                                                                                        </td>
+                                                                                        <td class="podsTableLeftTd" style="width:90%">
+                                                                                            <a ng-click="ctrl.expandProject(index)">{{project.project}}</a>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <!-- <div > -->
+                                                                                    <tr ng-class="{ 'hidden' : ! ctrl.collapeProject[index] }">
+                                                                                        <td class="podsTableTd">
+                                                                                                Trust&nbsp;Indicators:
+                                                                                        </td>
+                                                                                        <td class="podsTableLeftTd" style="width:90%">
+                                                                                            <a ng-click="ctrl.expandTrustIndicator(index)">Trust&nbsp;Indicators</a>
+                                                                                            <div ng-class="{ 'hidden' : ! ctrl.collapeTrustIndicator[index] } ">
+                                                                                                <div class="table-responsive">
+                                                                                                    <table class="table  "  ng-data="project.trust_indicators">
+                                                                                                    <tbody>
+                                                                                                    <tr ng-repeat-start="(index, trust_indicator) in project.trust_indicators" style="padding:9px">
+                                                                                                        <td class="podsTableTd">
+                                                                                                            {{trust_indicator.status}}
+                                                                                                        </td>
+                                                                                                        <td  width="90%" class="podsTableLeftTd">
+                                                                                                            {{trust_indicator.date}}
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr ng-repeat-end=>
+                                                                                                    </tr>
+                                                                                                    </tbody>
+                                                                                                    </table>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr ng-class="{ 'hidden' : ! ctrl.collapeProject[index] }">
+                                                                                        <td class="podsTableTd">
+                                                                                                Scores:
+                                                                                        </td>
+                                                                                        <td class="podsTableLeftTd" style="width:90%">
+                                                                                            <a ng-click="ctrl.expandScore(index)">Scores</a>
+                                                                                            <div ng-class="{ 'hidden' : ! ctrl.collapeScore[index] } ">
+                                                                                                <div class="table-responsive">
+                                                                                                    <table class="table  "  ng-data="project.scores">
+                                                                                                    <tbody>
+                                                                                                    <tr ng-repeat-start="(index, score) in project.scores" style="padding:9px">
+                                                                                                        <td class="podsTableTd">
+                                                                                                            {{score.score}}
+                                                                                                        </td>
+                                                                                                        <td  width="90%" class="podsTableLeftTd">
+                                                                                                            {{score.date}}
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr ng-repeat-end=>
+                                                                                                    </tr>
+                                                                                                    </tbody>
+                                                                                                    </table>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr ng-class="{ 'hidden' : ! ctrl.collapeProject[index] }">
+                                                                                        <td class="podsTableTd">
+                                                                                                Customs:
+                                                                                        </td>
+                                                                                        <td  class="podsTableLeftTd" style="width:90%">
+                                                                                            <a ng-click="ctrl.expandCustom(index)">Customs</a>
+                                                                                            <div ng-class="{ 'hidden' : ! ctrl.collapeCustom[index] } ">
+                                                                                                <div class="table-responsive">
+                                                                                                    <table class="table  "  ng-data="project.customs">
+                                                                                                    <tbody>
+                                                                                                    <tr ng-repeat-start="(index, custom) in project.customs" style="padding:9px">
+                                                                                                        <td class="podsTableTd" style="float: none!important;">
+                                                                                                            {{custom}}
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr ng-repeat-end=>
+                                                                                                    </tr>
+                                                                                                    </tbody>
+                                                                                                    </table>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <!-- </div> -->
+                                                                                    <tr ng-repeat-end=>
+                                                                                    </tr>
+                                                                                    </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                    </table>
+                                                                </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                                </table>
+                                            </div>
+                                    </div>
+                            </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<div class="row" style="margin-bottom:24px;"></div>
+<div ng-show="ctrl.showError"  class="alert alert-danger col-md-8" role="alert" style="margin-top:0px">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{ctrl.error}}
+</div>
+<div class="row" style="margin-bottom:24px;"></div>

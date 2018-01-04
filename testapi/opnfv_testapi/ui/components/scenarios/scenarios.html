@@ -1,0 +1,39 @@
+<h3>Scenarios</h3>
+<div class="row" style="margin-bottom:24px;"></div>
+<div class="row podsTable" style="vertical-align:middle;text-align:right;">
+    <button type="button" class="btn btn-success" ng-click="ctrl.openScenarioModal()">Create&nbsp;Scenario</button>
+</div>
+
+<div class='clo-md-12'>
+    <div ng-show="ctrl.showError" class="alert alert-danger" role="alert">
+        <span class="pull-right">&nbsp;{{ctrl.error}}</span>
+        <span class="glyphicon glyphicon-exclamation-sign pull-right" aria-hidden="true" >Error:</span>
+    </div>
+    <div ng-show="ctrl.showCreateSuccess" class="alert alert-success" role="alert">
+        <span class="pull-right">&nbsp;{{ctrl.success}}</span>
+        <span class="glyphicon glyphicon-ok pull-right" aria-hidden="true"></span>
+    </div>
+</div>
+<div class='clo-md-12' style="padding-right:0px">
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover"  ng-data="ctrl.data.scenarios">
+        <thead>
+        <tr style="
+        text-align: center;">
+            <th style="width: 19%;">Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat-start="(index, scenario) in ctrl.data.scenarios" style="padding:9px">
+            <td>
+                <a class="text-info" ng-click="ctrl.viewScenario(scenario.name)">
+                    {{scenario.name}}
+                </a>
+            </td>
+        <tr ng-repeat-end=>
+        </tr>
+        </tbody>
+        </table>
+    </div>
+</div>
+
