@@ -1,0 +1,234 @@
+<legend>Scenario</legend>
+<div style="padding-right:0px">
+        <div class="table-responsive">
+            <table class="table"  ng-data="ctrl.data">
+                <tbody>
+                    <tr style="padding:9px">
+                        <td class="podsTableTd">Id&nbsp;:</td>
+                        <td class="podsTableLeftTd">{{ctrl.data.scenarios[0]._id}}</td>
+                    </tr>
+                    <tr style="padding:9px">
+                        <td class="podsTableTd">Name&nbsp;:</td>
+                        <td width="90%" class="podsTableLeftTd">{{ctrl.data.scenarios[0].name}}</td>
+                    </tr>
+                    <tr style="padding:9px">
+                            <td class="podsTableTd">Created&nbsp;at&nbsp;:</td>
+                            <td width="90%" class="podsTableLeftTd">{{ctrl.data.scenarios[0].creation_date}}</td>
+                    </tr>
+                    <tr style="padding:9px">
+                            <td class="podsTableTd">Installers</td>
+                            <td width="90%" class="podsTableLeftTd">
+                                    <div class="col-md-1" style="padding:0px">
+                                        <a ng-click="ctrl.expandInstallers()">
+                                                <p ng-if="ctrl.collapeInstallers">Hide</p>
+                                                <p ng-if="!ctrl.collapeInstallers">Show</p>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-1" style="padding:0px">
+                                        <button type="button" class="btn btn-success btn-xs" ng-click="ctrl.openAddInstaller()" ><i class="fa fa-plus"></i>Add</button>
+                                    </div>
+                                    <div ng-class="{ 'hidden' : ! ctrl.collapeInstallers } ">
+                                        <div class="table-responsive">
+                                                <table class="table  "  ng-data="ctrl.data.scenarios[0].installers">
+                                                <tbody ng-repeat="(index, installer) in ctrl.data.scenarios[0].installers">
+                                                <tr style="padding:9px">
+                                                    <td class="podsTableTd">
+                                                            {{index+1}}.&nbsp;Installer:&nbsp;
+                                                    </td>
+                                                    <td class="podsTableLeftTd"  style="width:10%;padding-top: 7px;">
+                                                            <a ng-click="ctrl.expandInstaller(index)">{{installer.installer}}</a>
+                                                    </td>
+                                                    <td  style="width:80%;border: none; padding: 0px;">
+                                                            <button type="button" class="btn btn-danger btn-xs" ng-click="ctrl.openDeleteInstallerModal(installer.installer)" ><i class="fa fa-minus"></i>Delete</button>
+                                                    </td>
+                                                </tr>
+                                                <tr ng-class="{ 'hidden' : ! ctrl.collapeInstaller[index] }">
+                                                    <td class="podsTableTd">
+                                                        Versions:
+                                                    </td>
+                                                    <td width="90%" class="podsTableLeftTd">
+                                                        <div class="col-md-1" style="padding:0px">
+                                                            <a ng-click="ctrl.expandVersions(index)">
+                                                                    <p ng-if="ctrl.collapeVersions[index]">Hide</p>
+                                                                    <p ng-if="!ctrl.collapeVersions[index]">Show</p>
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-md-1" style="padding:0px">
+                                                            <button type="button" class="btn btn-success btn-xs" ng-click="ctrl.openAddVersionModal(installer.installer)" ><i class="fa fa-plus"></i>Add</button>
+                                                        </div>
+                                                        <div ng-class="{ 'hidden' : ! ctrl.collapeVersions[index] } " class="col-md-12">
+                                                            <div class="table-responsive">
+                                                                    <table class="table  "  ng-data="inctrl.data.scenarios[0].installers">
+                                                                    <tbody ng-repeat="(index, version) in installer.versions">
+                                                                    <tr style="padding:9px">
+                                                                        <td class="podsTableTd">
+                                                                            {{index+1}}.&nbsp;Version:
+                                                                        </td>
+                                                                        <td class="podsTableLeftTd"  style="width:10%;padding-top: 7px;">
+                                                                            <a ng-click="ctrl.expandVersion(index)">{{version.version}}</a>
+                                                                        </td>
+                                                                        <td  style="width:80%;border: none; padding: 0px;">
+                                                                                <button type="button" class="btn btn-danger btn-xs" ng-click="ctrl.openDeleteVersionModal(version.version, installer.installer)" ><i class="fa fa-minus"></i>Delete</button>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr style="padding:9px" ng-class="{ 'hidden' : ! ctrl.collapeVersion[index] } ">
+                                                                        <td class="podsTableTd">
+                                                                            Owner:
+                                                                        </td>
+                                                                        <td class="podsTableLeftTd" style="width:90%">{{version.owner}}</td>
+                                                                    </tr>
+                                                                    <tr style="padding:9px" ng-class="{ 'hidden' : ! ctrl.collapeVersion[index] }">
+                                                                        <td class="podsTableTd">
+                                                                            Projects:
+                                                                        </td>
+                                                                        <td width="90%" class="podsTableLeftTd">
+                                                                            <div class="col-md-1" style="padding:0px">
+                                                                                <a ng-click="ctrl.expandProjects(index)">
+                                                                                        <p style="width:50%" ng-if="ctrl.collapeProjects[index]">Hide</p>
+                                                                                        <p style="width:50%" ng-if="!ctrl.collapeProjects[index]">Show</p>
+                                                                                </a>
+                                                                            </div>
+                                                                            <div class="col-md-1" style="padding:0px">
+                                                                                <button type="button" class="btn btn-success btn-xs" ng-click="ctrl.openAddProjectModal(version.version,installer.installer)" ><i class="fa fa-plus"></i>Add</button>
+                                                                            </div>
+                                                                            <div ng-class="{ 'hidden' : ! ctrl.collapeProjects[index] } " class="col-md-12">
+                                                                                <div class="table-responsive">
+                                                                                    <table class="table  "  ng-data="version.projects">
+                                                                                    <tbody ng-repeat="(index, project) in version.projects" >
+                                                                                    <tr style="padding:9px">
+                                                                                        <td class="podsTableTd">
+                                                                                                {{index+1}}.&nbsp;Project:
+                                                                                        </td>
+                                                                                        <td class="podsTableLeftTd" style="width:90%">
+                                                                                            <a ng-click="ctrl.expandProject(index)">{{project.project}}</a>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr ng-class="{ 'hidden' : ! ctrl.collapeProject[index] }">
+                                                                                        <td class="podsTableTd">
+                                                                                                Trust&nbsp;Indicators:
+                                                                                        </td>
+                                                                                        <td class="podsTableLeftTd" style="width:90%">
+                                                                                            <a ng-click="ctrl.expandTrustIndicator(index)">
+                                                                                                <p ng-if="ctrl.collapeTrustIndicator[index]">Hide</p>
+                                                                                                <p ng-if="!ctrl.collapeTrustIndicator[index]">Show</p>
+                                                                                            </a>
+                                                                                                    <table class="table  "  ng-class="{ 'hidden' : ! ctrl.collapeTrustIndicator[index] } " ng-data="project.trust_indicators">
+                                                                                                    <tbody  ng-repeat="(index, trust_indicator) in project.trust_indicators" >
+                                                                                                    <tr style="padding:9px">
+                                                                                                        <td class="podsTableTd">
+                                                                                                            Status:&nbsp;
+                                                                                                        </td>
+                                                                                                        <td  width="90%" class="podsTableLeftTd">
+                                                                                                                {{trust_indicator.status}}
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr style="padding:9px">
+                                                                                                            <td class="podsTableTd">
+                                                                                                                    Date:&nbsp;
+                                                                                                            </td>
+                                                                                                            <td  width="90%" class="podsTableLeftTd">
+                                                                                                                {{trust_indicator.date}}
+                                                                                                            </td>
+                                                                                                        </tr>
+                                                                                                    </tbody>
+                                                                                                    <tr>
+                                                                                                        <button type="button" class="btn btn-success btn-xs" ng-click="ctrl.openAddTrustIndicatorModal(project.project,version.version,installer.installer)"  ng-class="{ 'hidden' : !ctrl.collapeTrustIndicator[index]}">
+                                                                                                            <i class="fa fa-plus"></i>Add</button>
+                                                                                                    </tr>
+                                                                                                    </table>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr ng-class="{ 'hidden' : ! ctrl.collapeProject[index] }">
+                                                                                        <td class="podsTableTd">
+                                                                                                Scores:
+                                                                                        </td>
+                                                                                        <td class="podsTableLeftTd" style="width:90%">
+                                                                                            <a ng-click="ctrl.expandScore(index)">
+                                                                                                <p ng-if="ctrl.collapeScore[index]">Hide</p>
+                                                                                                <p ng-if="!ctrl.collapeScore[index]">Show</p>
+                                                                                            </a>
+                                                                                                    <table class="table" ng-class="{ 'hidden' : ! ctrl.collapeScore[index] } "  ng-data="project.scores">
+                                                                                                    <tbody ng-repeat="(index, score) in project.scores" >
+                                                                                                    <tr style="padding:9px">
+                                                                                                        <td class="podsTableTd">
+                                                                                                            Score:&nbsp;
+                                                                                                        </td>
+                                                                                                        <td  width="90%" class="podsTableLeftTd">
+                                                                                                                {{score.score}}
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr style="padding:9px">
+                                                                                                            <td class="podsTableTd">
+                                                                                                               Date:&nbsp;
+                                                                                                            </td>
+                                                                                                            <td  width="90%" class="podsTableLeftTd">
+                                                                                                                {{score.date}}
+                                                                                                            </td>
+                                                                                                    </tr>
+                                                                                                    </tbody>
+                                                                                                    <tr>
+                                                                                                        <button type="button" class="btn btn-success btn-xs" ng-click="ctrl.openAddScoreModal(project.project,version.version,installer.installer)"  ng-class="{ 'hidden' : !ctrl.collapeScore[index]}"><i class="fa fa-plus"></i>Add</button>
+                                                                                                    </tr>
+                                                                                                    </table>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr ng-class="{ 'hidden' : ! ctrl.collapeProject[index] }">
+                                                                                        <td class="podsTableTd">
+                                                                                                Customs:
+                                                                                        </td>
+                                                                                        <td  class="podsTableLeftTd" style="width:90%">
+                                                                                            <a ng-click="ctrl.expandCustom(index)">
+                                                                                                    <p ng-if="ctrl.collapeCustom[index]">Hide</p>
+                                                                                                    <p ng-if="!ctrl.collapeCustom[index]">Show</p>
+                                                                                            </a>
+                                                                                                    <table class="table" ng-class="{ 'hidden' : ! ctrl.collapeCustom[index] } " ng-data="project.customs">
+                                                                                                    <tbody>
+                                                                                                    <tr ng-repeat-start="(index, custom) in project.customs" style="padding:9px">
+                                                                                                        <td class="podsTableTd" style="float: none!important;">
+                                                                                                            {{custom}}
+                                                                                                        </td>
+                                                                                                        <td width="90%" class="podsTableLeftTd">
+                                                                                                                <button type="button" class="btn btn-danger btn-xs" ng-click="ctrl.openDeleteCustomModal(custom,project.project,version.version,installer.installer)" ><i class="fa fa-minus"></i>Delete</button>
+                                                                                                        </td>
+                                                                                                    </tr>
+                                                                                                    <tr ng-repeat-end=>
+                                                                                                    </tr>
+                                                                                                    <tr>
+                                                                                                        <button type="button" class="btn btn-success btn-xs" ng-click="ctrl.openAddCustomModal(project.project,version.version,installer.installer)"  ng-class="{ 'hidden' : !ctrl.collapeCustom[index]}"><i class="fa fa-plus"></i>Add</button>
+                                                                                                    </tr>
+                                                                                                    </tbody>
+                                                                                                    </table>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <!-- </div> -->
+                                                                                    <tr ng-repeat-end=>
+                                                                                    </tr>
+                                                                                    </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    </tbody>
+                                                                    </table>
+                                                                </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                                </table>
+                                            </div>
+                                    </div>
+                            </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+<div class="row" style="margin-bottom:24px;"></div>
+<div ng-show="ctrl.showError"  class="alert alert-danger col-md-8" role="alert" style="margin-top:0px">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        <span class="sr-only">Error:</span>
+        {{ctrl.error}}
+</div>
+<div class="row" style="margin-bottom:24px;"></div>
