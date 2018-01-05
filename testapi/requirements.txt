@@ -9,3 +9,4 @@ epydoc>=0.3.1
 six>=1.9.0  # MIT
 motor  # Apache-2.0
 python-cas
+requests[security]
