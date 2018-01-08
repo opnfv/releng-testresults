@@ -62,6 +62,7 @@
         ctrl.deleteTag = deleteTag;
         ctrl.filterList= filterList;
         ctrl.testFilter = testFilter
+        ctrl.viewResult = viewResult;
 
         ctrl.tagArray = {}
 
@@ -125,6 +126,10 @@
             // ctrl.getUserProducts();
         } else {
             ctrl.filterList();
+        }
+
+        function viewResult(_id){
+            $state.go('result', {'_id':_id}, {reload: true});
         }
 
         function deleteTag(index){

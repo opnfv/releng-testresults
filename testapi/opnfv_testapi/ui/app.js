@@ -89,6 +89,11 @@
                 templateUrl: 'testapi-ui/components/results/results.html',
                 controller: 'ResultsController as ctrl'
             }).
+            state('result', {
+                url: '/result/:_id',
+                templateUrl: 'testapi-ui/components/results/result/result.html',
+                controller: 'ResultController as ctrl'
+            }).
             state('profile', {
                 url: '/profile',
                 templateUrl: 'testapi-ui/components/profile/profile.html',

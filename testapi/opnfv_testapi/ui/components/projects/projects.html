@@ -40,7 +40,7 @@
             <th style="width: 1%;">Bulk Select</th>
             <th style="width: 19%;">Name</th>
             <th style="width: 70%;">Description</th>
-            <th style="width: 10%;">Operations</th>
+            <th style="width: 10%;" ng-class="{'hidden': ! ((auth.projectNames.length>0) && auth.isAuthenticated)}">Operations</th>
         </tr>
         </thead>
         <tbody>
@@ -50,17 +50,14 @@
                     <input type="checkbox" value="{{project.name}}"  ng-model="ctrl.checkBox[index]" >
                 </div>
             </td>
-            <td>{{project.name}}</td>
+            <td><a class="text-info" ng-click="ctrl.viewProject(project.name)">{{project.name}}</a></td>
             <td>{{project.description}}</td>
-            <td>
+            <td ng-class="{'hidden': ! ((auth.projectNames.length>0) && auth.isAuthenticated)}">
                 <span class="podsTable-col">
-                    <a class="text-warning" ng-click="ctrl.openUpdateModal(project.name)" title="Edit" ng-class="{'hidden': ! ((auth.projectNames.length>0) &&
-                        auth.isAuthenticated)}" >
+                    <a class="text-warning" ng-click="ctrl.openUpdateModal(project.name)" title="Edit" >
                         <i class="fa fa-pencil-square-o"></i></a>
-                    <a class="text-danger"  ng-click="ctrl.openDeleteModal(project.name)" title="Delete" ng-class="{'hidden': ! ((auth.projectNames.length>0) &&
-                        auth.isAuthenticated)}">
+                    <a class="text-danger"  ng-click="ctrl.openDeleteModal(project.name)" title="Delete" >
                         <i class="fa fa-trash-o"></i></a>
-                    <a class="text-info" ng-click="ctrl.viewProject(project.name)"><i class="fa fa-eye"></i></a>
                 </span>
             </td>
         </tr>

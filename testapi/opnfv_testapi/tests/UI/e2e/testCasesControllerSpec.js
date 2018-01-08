@@ -538,14 +538,6 @@ describe('testing the test cases page for user who is in submitter group', funct
         expect(editOperation.isDisplayed()).toBe(true);
     });
 
-    it('View Operation is visible for  user ', function () {
-        browser.get(baseURL+"#/projects/testproject");
-        var testCases = element(by.linkText('Test Cases'));
-        testCases.click();
-        var viewOperation = element(by.css('a[class=text-info]'));
-        expect(viewOperation.isDisplayed()).toBe(true);
-    });
-
     it('Create the test case', function () {
         browser.get(baseURL+"#/projects/testproject");
         var testCases = element(by.linkText('Test Cases'));
@@ -635,7 +627,7 @@ describe('testing the test cases page for user who is in submitter group', funct
         browser.get(baseURL+"#/projects/testproject");
         var testCases = element(by.linkText('Test Cases'));
         testCases.click();
-        var viewOperation = element(by.css('a[class=text-info]'));
+        var viewOperation = element(by.linkText('testCase'));
         viewOperation.click();
         var name = element(by.model('TestCaseModalCtrl.testcase.name'));
         var EC = browser.ExpectedConditions;

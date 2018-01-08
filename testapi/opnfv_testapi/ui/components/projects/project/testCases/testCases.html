@@ -32,7 +32,7 @@
             <th style="width: 20%;">Tier</th>
             <th style="width: 20%;">Blocking</th>
             <th style="width: 20%;">CI&nbsp;Loop</th>
-            <th style="width: 20%;">Operations</th>
+            <th style="width: 20%;" ng-class="{'hidden': ! ((auth.projectNames.length>0) && auth.isAuthenticated)}">Operations</th>
         </tr>
         </thead>
         <tbody>
@@ -50,15 +50,12 @@
             <td>{{ ctrl.data.tier}}</td>
             <td>{{ctrl.data.blocking}}</td>
             <td>{{ctrl.data.ci_loop}}</td>
-            <td>
+            <td ng-class="{'hidden': ! ((auth.projectNames.length>0) && auth.isAuthenticated)}">
                 <span class="podsTable-col">
-                    <a class="text-warning" ng-click="testCasesCtrl.openUpdateTestModal(testcase.name)" title="Edit" ng-class="{'hidden': ! ((auth.projectNames.length>0) &&
-                        auth.isAuthenticated)}" >
+                    <a class="text-warning" ng-click="testCasesCtrl.openUpdateTestModal(testcase.name)" title="Edit">
                         <i class="fa fa-pencil-square-o"></i></a>
-                    <a class="text-danger"  ng-click="testCasesCtrl.openDeleteTestModal(testcase.name)" title="Delete" ng-class="{'hidden': ! ((auth.projectNames.length>0) &&
-                        auth.isAuthenticated)}">
+                    <a class="text-danger"  ng-click="testCasesCtrl.openDeleteTestModal(testcase.name)" title="Delete">
                         <i class="fa fa-trash-o"></i></a>
-                    <a class="text-info" ng-click="testCasesCtrl.viewTestCase(testcase.name, testcase.project_name)"><i class="fa fa-eye"></i></a>
                 </span>
             </td>
         </tr>

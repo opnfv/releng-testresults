@@ -48,11 +48,11 @@
         <thead>
         <tr style="
         text-align: center;">
-            <th>Bulk Select</th>
+            <th style="width:1%">Bulk Select</th>
             <th>Name</th>
             <th>Role</th>
             <th>Mode</th>
-            <th>Operation</th>
+            <th ng-class="{ 'hidden': !auth.isAuthenticated }">Operation</th>
         </tr>
         </thead>
         <tbody>
@@ -62,16 +62,15 @@
                     <input type="checkbox" value="{{pod.name}}"  ng-model="ctrl.checkBox[index]" >
                 </div>
             </td>
-            <td>{{pod.name}}</td>
+            <td><a class="text-info" ng-click="ctrl.viewPod(pod.name)">{{pod.name}}</a></td>
             <td>{{pod.role}}</td>
             <td>{{pod.mode}}</td>
-            <td>
+            <td ng-class="{ 'hidden': !auth.isAuthenticated }">
                 <span class="podsTable-col">
-                    <a class="text-warning" title="Edit" ng-class="{ 'hidden': !auth.isAuthenticated }" >
+                    <a class="text-warning" title="Edit">
                         <i class="fa fa-pencil-square-o"></i></a>
-                    <a class="text-danger"  ng-click="ctrl.openDeleteModal(pod.name)" title="Delete" ng-class="{ 'hidden': !auth.isAuthenticated }">
+                    <a class="text-danger"  ng-click="ctrl.openDeleteModal(pod.name)" title="Delete">
                         <i class="fa fa-trash-o"></i></a>
-                    <a class="text-info" ng-click="ctrl.viewPod(pod.name)"><i class="fa fa-eye"></i></a>
                 </span>
             </td>
         </tr>
