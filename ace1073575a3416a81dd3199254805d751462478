@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_e5978e8e",
+        "filename": "testapi/opnfv_testapi/ui/components/scenarios/scenario/scenario.html",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-01-08T03:26:30Z",
+      "side": 1,
+      "message": "please change to Scenario",
+      "range": {
+        "startLine": 1,
+        "startChar": 8,
+        "endLine": 1,
+        "endChar": 17
+      },
+      "revId": "ace1073575a3416a81dd3199254805d751462478",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
