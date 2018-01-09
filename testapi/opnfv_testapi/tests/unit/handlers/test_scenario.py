@@ -4,7 +4,9 @@ import httplib
 
 from opnfv_testapi.common import message
 import opnfv_testapi.models.scenario_models as sm
+from opnfv_testapi.tests.unit import executor
 from opnfv_testapi.tests.unit.handlers import test_base as base
+from opnfv_testapi.tests.unit import executor
 
 
 def _none_default(check, default):
@@ -20,6 +22,7 @@ class TestScenarioBase(base.TestBase):
         self.req_d = self.load_json('scenario-c1')
         self.req_2 = self.load_json('scenario-c2')
 
+    @executor.mock_valid_lfid()
     def create_return_name(self, req):
         _, res = self.create(req)
         return res.href.split('/')[-1]
@@ -45,27 +48,32 @@ class TestScenarioBase(base.TestBase):
 
 
 class TestScenarioCreate(TestScenarioBase):
+    @executor.mock_valid_lfid()
     def test_withoutBody(self):
         (code, body) = self.create()
         self.assertEqual(code, httplib.BAD_REQUEST)
 
+    @executor.mock_valid_lfid()
     def test_emptyName(self):
         req_empty = sm.ScenarioCreateRequest('')
         (code, body) = self.create(req_empty)
         self.assertEqual(code, httplib.BAD_REQUEST)
         self.assertIn(message.missing('name'), body)
 
+    @executor.mock_valid_lfid()
     def test_noneName(self):
         req_none = sm.ScenarioCreateRequest(None)
         (code, body) = self.create(req_none)
         self.assertEqual(code, httplib.BAD_REQUEST)
         self.assertIn(message.missing('name'), body)
 
+    @executor.mock_valid_lfid()
     def test_success(self):
         (code, body) = self.create_d()
         self.assertEqual(code, httplib.OK)
         self.assert_create_body(body)
 
+    @executor.mock_valid_lfid()
     def test_alreadyExist(self):
         self.create_d()
         (code, body) = self.create_d()
@@ -128,6 +136,7 @@ class TestScenarioDelete(TestScenarioBase):
         code, body = self.delete('notFound')
         self.assertEqual(code, httplib.NOT_FOUND)
 
+    @executor.mock_valid_lfid()
     def test_success(self):
         scenario = self.create_return_name(self.req_d)
         code, _ = self.delete(scenario)
@@ -150,6 +159,7 @@ class TestScenarioUpdate(TestScenarioBase):
             self.version,
             'functest')
 
+    @executor.mock_valid_lfid()
     def update_url_fixture(item):
         def _update_url_fixture(xstep):
             def wrapper(self, *args, **kwargs):
@@ -172,6 +182,7 @@ class TestScenarioUpdate(TestScenarioBase):
             return wrapper
         return _update_url_fixture
 
+    @executor.mock_valid_lfid()
     def update_partial(operate, expected):
         def _update_partial(set_update):
             @functools.wraps(set_update)
@@ -182,6 +193,7 @@ class TestScenarioUpdate(TestScenarioBase):
             return wrapper
         return _update_partial
 
+    @executor.mock_valid_lfid()
     @update_partial('_add', '_success')
     def test_addScore(self):
         add = sm.ScenarioScore(date=str(datetime.now()), score='11/12')
@@ -193,6 +205,7 @@ class TestScenarioUpdate(TestScenarioBase):
 
         return add
 
+    @executor.mock_valid_lfid()
     @update_partial('_add', '_success')
     def test_addTrustIndicator(self):
         add = sm.ScenarioTI(date=str(datetime.now()), status='gold')
@@ -204,6 +217,7 @@ class TestScenarioUpdate(TestScenarioBase):
 
         return add
 
+    @executor.mock_valid_lfid()
     @update_partial('_add', '_success')
     def test_addCustoms(self):
         adds = ['odl', 'parser', 'vping_ssh']
@@ -214,6 +228,7 @@ class TestScenarioUpdate(TestScenarioBase):
                                                  self.locate_project)
         return adds
 
+    @executor.mock_valid_lfid()
     @update_partial('_update', '_success')
     def test_updateCustoms(self):
         updates = ['odl', 'parser', 'vping_ssh']
@@ -225,6 +240,7 @@ class TestScenarioUpdate(TestScenarioBase):
 
         return updates
 
+    @executor.mock_valid_lfid()
     @update_partial('_delete', '_success')
     def test_deleteCustoms(self):
         deletes = ['vping_ssh']
@@ -236,6 +252,7 @@ class TestScenarioUpdate(TestScenarioBase):
 
         return deletes
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('projects')
     @update_partial('_add', '_success')
     def test_addProjects_succ(self):
@@ -243,12 +260,14 @@ class TestScenarioUpdate(TestScenarioBase):
         self.req_d['installers'][0]['versions'][0]['projects'].append(add)
         return [add]
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('projects')
     @update_partial('_add', '_conflict')
     def test_addProjects_already_exist(self):
         add = sm.ScenarioProject(project='functest').format()
         return [add]
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('projects')
     @update_partial('_add', '_bad_request')
     def test_addProjects_bad_schema(self):
@@ -256,6 +275,7 @@ class TestScenarioUpdate(TestScenarioBase):
         add['score'] = None
         return [add]
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('projects')
     @update_partial('_update', '_success')
     def test_updateProjects_succ(self):
@@ -263,12 +283,14 @@ class TestScenarioUpdate(TestScenarioBase):
         self.req_d['installers'][0]['versions'][0]['projects'] = [update]
         return [update]
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('projects')
     @update_partial('_update', '_conflict')
     def test_updateProjects_duplicated(self):
         update = sm.ScenarioProject(project='qtip').format()
         return [update, update]
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('projects')
     @update_partial('_update', '_bad_request')
     def test_updateProjects_bad_schema(self):
@@ -276,6 +298,7 @@ class TestScenarioUpdate(TestScenarioBase):
         update['score'] = None
         return [update]
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('projects')
     @update_partial('_delete', '_success')
     def test_deleteProjects(self):
@@ -286,6 +309,7 @@ class TestScenarioUpdate(TestScenarioBase):
             projects)
         return deletes
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('owner')
     @update_partial('_update', '_success')
     def test_changeOwner(self):
@@ -294,6 +318,7 @@ class TestScenarioUpdate(TestScenarioBase):
         self.req_d['installers'][0]['versions'][0]['owner'] = new_owner
         return update
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('versions')
     @update_partial('_add', '_success')
     def test_addVersions_succ(self):
@@ -301,12 +326,14 @@ class TestScenarioUpdate(TestScenarioBase):
         self.req_d['installers'][0]['versions'].append(add)
         return [add]
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('versions')
     @update_partial('_add', '_conflict')
     def test_addVersions_already_exist(self):
         add = sm.ScenarioVersion(version='master').format()
         return [add]
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('versions')
     @update_partial('_add', '_bad_request')
     def test_addVersions_bad_schema(self):
@@ -314,6 +341,7 @@ class TestScenarioUpdate(TestScenarioBase):
         add['notexist'] = None
         return [add]
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('versions')
     @update_partial('_update', '_success')
     def test_updateVersions_succ(self):
@@ -321,12 +349,14 @@ class TestScenarioUpdate(TestScenarioBase):
         self.req_d['installers'][0]['versions'] = [update]
         return [update]
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('versions')
     @update_partial('_update', '_conflict')
     def test_updateVersions_duplicated(self):
         update = sm.ScenarioVersion(version='euphrates').format()
         return [update, update]
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('versions')
     @update_partial('_update', '_bad_request')
     def test_updateVersions_bad_schema(self):
@@ -334,6 +364,7 @@ class TestScenarioUpdate(TestScenarioBase):
         update['not_owner'] = 'Iam'
         return [update]
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('versions')
     @update_partial('_delete', '_success')
     def test_deleteVersions(self):
@@ -344,6 +375,7 @@ class TestScenarioUpdate(TestScenarioBase):
             versions)
         return deletes
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('installers')
     @update_partial('_add', '_success')
     def test_addInstallers_succ(self):
@@ -351,12 +383,14 @@ class TestScenarioUpdate(TestScenarioBase):
         self.req_d['installers'].append(add)
         return [add]
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('installers')
     @update_partial('_add', '_conflict')
     def test_addInstallers_already_exist(self):
         add = sm.ScenarioInstaller(installer='apex').format()
         return [add]
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('installers')
     @update_partial('_add', '_bad_request')
     def test_addInstallers_bad_schema(self):
@@ -364,6 +398,7 @@ class TestScenarioUpdate(TestScenarioBase):
         add['not_exist'] = 'not_exist'
         return [add]
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('installers')
     @update_partial('_update', '_success')
     def test_updateInstallers_succ(self):
@@ -371,12 +406,14 @@ class TestScenarioUpdate(TestScenarioBase):
         self.req_d['installers'] = [update]
         return [update]
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('installers')
     @update_partial('_update', '_conflict')
     def test_updateInstallers_duplicated(self):
         update = sm.ScenarioInstaller(installer='daisy').format()
         return [update, update]
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('installers')
     @update_partial('_update', '_bad_request')
     def test_updateInstallers_bad_schema(self):
@@ -384,6 +421,7 @@ class TestScenarioUpdate(TestScenarioBase):
         update['not_exist'] = 'not_exist'
         return [update]
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('installers')
     @update_partial('_delete', '_success')
     def test_deleteInstallers(self):
@@ -394,6 +432,7 @@ class TestScenarioUpdate(TestScenarioBase):
             installers)
         return deletes
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('rename')
     @update_partial('_update', '_success')
     def test_renameScenario(self):
@@ -402,6 +441,7 @@ class TestScenarioUpdate(TestScenarioBase):
         self.req_d['name'] = new_name
         return update
 
+    @executor.mock_valid_lfid()
     @update_url_fixture('rename')
     @update_partial('_update', '_forbidden')
     def test_renameScenario_exist(self):

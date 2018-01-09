@@ -200,6 +200,7 @@ class GenericApiHandler(web.RequestHandler):
     @gen.coroutine
     @check.no_body
     @check.not_exist
+    @check.is_authorized
     @check.updated_one_not_exist
     def pure_update(self, data, query=None, **kwargs):
         data = self.table_cls.from_dict(data)
