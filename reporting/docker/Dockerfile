@@ -21,7 +21,7 @@ LABEL version="1.0" description="OPNFV Test Reporting Docker container"
 ARG BRANCH=master
 
 ENV HOME /home/opnfv
-ENV working_dir ${HOME}/releng/utils/test/reporting
+ENV working_dir ${HOME}/releng-testresults/reporting
 ENV CONFIG_REPORTING_YAML ${working_dir}/reporting/reporting.yaml
 
 WORKDIR ${HOME}
@@ -40,7 +40,7 @@ supervisor \
 
 RUN pip install --upgrade pip && easy_install -U setuptools==30.0.0
 
-RUN git clone --depth 1 https://gerrit.opnfv.org/gerrit/releng /home/opnfv/releng
+RUN git clone --depth 1 https://gerrit.opnfv.org/gerrit/releng-testresults /home/opnfv/releng-testresults
 RUN pip install -r ${working_dir}/requirements.txt
 
 RUN sh -c 'curl -sL https://deb.nodesource.com/setup_8.x | bash -' \
