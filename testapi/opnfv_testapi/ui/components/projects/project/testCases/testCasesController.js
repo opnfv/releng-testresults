@@ -244,12 +244,13 @@
             {label: 'blocking', type: 'text', required: false},
             {label: 'criteria', type: 'text', required: false},
             {label: 'domains', type: 'text', required: false},
+            {label: 'ci_loop', type: 'text', required: false},
             {label: 'catalog_description', type: 'text', required: false}
         ];
 
         ctrl.testcase = {name : null, description : null,version : null, tier : null, tags : null,
                      run : null, dependencies : null, trust : null, url : null, blocking : null,
-                 criteria : null, domains : null, catalog_description : null};
+                 criteria : null, domains : null, ci_loop: null,  catalog_description : null};
 
         if(ctrl.data.text=="Update"){
             ctrl.testcase = ctrl.data.testCase

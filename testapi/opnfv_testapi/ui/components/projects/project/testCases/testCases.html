@@ -47,9 +47,9 @@
                     {{testcase.name}}
                 </a>
             </td>
-            <td>{{ ctrl.data.tier}}</td>
-            <td>{{ctrl.data.blocking}}</td>
-            <td>{{ctrl.data.ci_loop}}</td>
+            <td>{{testcase.tier}}</td>
+            <td>{{testcase.blocking}}</td>
+            <td>{{testcase.ci_loop}}</td>
             <td ng-class="{'hidden': ! ((auth.projectNames.length>0) && auth.isAuthenticated)}">
                 <span class="podsTable-col">
                     <a class="text-warning" ng-click="testCasesCtrl.openUpdateTestModal(testcase.name)" title="Edit">

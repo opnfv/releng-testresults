@@ -103,14 +103,13 @@
                 <th>Version</th>
                 <th>Scenario</th>
                 <th>Criteria</th>
-                <th>Start Date</th>
-                <th>Stop Date</th>
+                <th>Build&nbsp;tag</th>
             </tr>
         </thead>
 
         <tbody>
             <tr ng-repeat-start="(index, result) in ctrl.data.results">
-                <td><a ng-click="ctrl.viewResult(result._id)">{{ result._id }}</a></td>
+                <td><a ng-click="ctrl.viewResult(result._id)">{{ result._id.substr(-8) }}</a></td>
                 <td>{{ result.pod_name }}</td>
                 <td>{{ result.project_name }}</td>
                 <td>{{ result.case_name }}</td>
@@ -118,8 +117,7 @@
                 <td>{{ result.version }}</td>
                 <td>{{ result.scenario }}</td>
                 <td>{{ result.criteria }}</td>
-                <td>{{ result.start_date }}</td>
-                <td>{{ result.stop_date }}</td>
+                <td>{{ result["build_tag"]}}</td>
             </tr>
             <tr ng-repeat-end=>
             </tr>
