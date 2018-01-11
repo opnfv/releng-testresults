@@ -35,7 +35,7 @@
 
     ProfileController.$inject = [
         '$scope', '$http', 'testapiApiUrl', 'PubKeys',
-        '$uibModal', 'raiseAlert', '$state'
+        '$uibModal', 'raiseAlert', '$state' , 'authenticate'
     ];
 
     /**
@@ -44,7 +44,7 @@
      * account-specific information.
      */
     function ProfileController($scope, $http, testapiApiUrl,
-        PubKeys, $uibModal, raiseAlert, $state) {
+        PubKeys, $uibModal, raiseAlert, $state, authenticate) {
 
         var ctrl = this;
 
@@ -53,7 +53,7 @@
         ctrl.openShowPubKeyModal = openShowPubKeyModal;
 
         // Must be authenticated to view this page.
-        if (!$scope.auth.isAuthenticated) {
+        if (!$scope.auth.isAuthenticated || !authenticate) {
             $state.go('home');
         }
 
@@ -115,8 +115,9 @@
                 ctrl.updatePubKeys();
             });
         }
-
-        ctrl.authRequest = $scope.auth.doSignCheck().then(ctrl.updatePubKeys);
+        if(authenticate){
+            ctrl.authRequest = $scope.auth.doSignCheck().then(ctrl.updatePubKeys);
+        }
     }
 
     angular

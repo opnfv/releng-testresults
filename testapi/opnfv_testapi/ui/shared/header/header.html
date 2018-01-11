@@ -21,7 +21,7 @@ TestAPI
             <li ng-class="{ active: header.isActive('/projects')}"><a ui-sref="projects">Projects</a></li>
               <li ng-class="{ active: header.isActive('/results')}"><a ui-sref="results">Results</a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right" ng-class="{'hidden' : !authenticate}">
             <li ng-class="{ active: header.isActive('/profile')}" ng-if="auth.isAuthenticated"><a ui-sref="profile">Profile</a></li>
             <li ng-if="auth.isAuthenticated"><a href="" ng-click="auth.doSignOut()">Sign Out</a></li>
             <li ng-if="!auth.isAuthenticated"><a href="" ng-click="auth.doSignIn()">Sign In / Sign Up</a></li>

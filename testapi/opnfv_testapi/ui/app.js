@@ -144,6 +144,7 @@
     function setup($http, $rootScope, $window, $state, testapiApiUrl, authenticate) {
 
         $rootScope.auth = {};
+        $rootScope.authenticate = authenticate
         $rootScope.auth.doSignIn = doSignIn;
         $rootScope.auth.doSignOut = doSignOut;
         $rootScope.auth.doSignCheck = doSignCheck;
@@ -160,10 +161,14 @@
 
         /** This function will initate a sign out. */
         function doSignOut() {
-            $rootScope.auth.currentUser = null;
-            $rootScope.auth.isAuthenticated = false;
-            $rootScope.auth.projectNames = [];
-            $window.location.href = sign_out_url;
+            if(authenticate){
+                $rootScope.auth.currentUser = null;
+                $rootScope.auth.isAuthenticated = false;
+                $rootScope.auth.projectNames = [];
+                $window.location.href = sign_out_url;
+            }else{
+                $state.go("home", {reload: true})
+            }
         }
 
         /**
@@ -171,21 +176,23 @@
          * authenticated.
          */
         function doSignCheck() {
-            return $http.get(profile_url, {withCredentials: true}).
-                success(function (data) {
-                    $rootScope.auth.currentUser = data;
-                    $rootScope.auth.isAuthenticated = true;
-                    if(authenticate){
+            if(authenticate){
+                return $http.get(profile_url, {withCredentials: true}).
+                    success(function (data) {
+                        $rootScope.auth.currentUser = data;
+                        $rootScope.auth.isAuthenticated = true;
                         $rootScope.auth.projectNames = $rootScope.auth.doSubmitterCheck(data.groups);
-                    }else{
-                        $rootScope.auth.projectNames = ["anonymous"]
-                    }
-                }).
-                error(function () {
-                    $rootScope.auth.currentUser = null;
-                    $rootScope.auth.isAuthenticated = false;
-                    $rootScope.auth.projectNames  = [];
-                });
+                    }).
+                    error(function () {
+                        $rootScope.auth.currentUser = null;
+                        $rootScope.auth.isAuthenticated = false;
+                        $rootScope.auth.projectNames  = [];
+                    });
+            }else{
+                $rootScope.auth.currentUser = null;
+                $rootScope.auth.isAuthenticated = true;
+                $rootScope.auth.projectNames = ["anonymous"]
+            }
         }
 
         function doSubmitterCheck(groups){
