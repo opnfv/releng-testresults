@@ -1,0 +1,11 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+1: Zhijiang Hu <hu.zhijiang@zte.com.cn>
+Code-Review+1: Alex Yang <yangyang1@zte.com.cn>
+Code-Review+2: Morgan Richomme <morgan.richomme@orange.com>
+Code-Review+1: zhou ya <zhou.ya@zte.com.cn>
+Code-Review+2: Jose Lausuch <jalausuch@suse.com>
+Submitted-by: Jose Lausuch <jalausuch@suse.com>
+Submitted-at: Fri, 12 Jan 2018 12:42:09 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/50351
+Project: releng-testresults
+Branch: refs/heads/master
