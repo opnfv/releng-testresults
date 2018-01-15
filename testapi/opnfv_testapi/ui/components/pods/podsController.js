@@ -40,13 +40,13 @@
         ctrl.listPods = listPods;
         ctrl.open = open;
         ctrl.filter = 'name'
-        ctrl.clearFilters = clearFilters;
         ctrl.openDeleteModal = openDeleteModal
         ctrl.openBatchDeleteModal = openBatchDeleteModal
         ctrl.openCreateModal = openCreateModal
         ctrl.podDelete = podDelete
         ctrl.batchDelete = batchDelete;
         ctrl.viewPod = viewPod
+        ctrl.filterText = ''
 
         /**
          * This is called when the date filter calendar is opened. It
@@ -61,13 +61,6 @@
             ctrl[openVar] = true;
         }
 
-        /**
-         * This function will clear all filters and update the results
-         * listing.
-         */
-        function clearFilters() {
-            ctrl.listPods();
-        }
 
         /**
          * This will contact the TestAPI to create a new pod.
@@ -91,7 +84,7 @@
                         ctrl.listPods();
                     }).catch(function (data)  {
                         ctrl.showError = true;
-                        ctrl.error = "Error creating the new pod from server: " + data.statusText;
+                        ctrl.error = data.statusText;
                     });
             }
             else{
@@ -105,21 +98,21 @@
          */
         function listPods() {
             ctrl.showError = false;
+            var reqURL = ctrl.url;
+            if(ctrl.filterText!=''){
+                reqURL = ctrl.url + "?name=" + ctrl.filterText
+            }
             ctrl.podsRequest =
-                $http.get(ctrl.url).success(function (data) {
+                $http.get(reqURL).success(function (data) {
                     ctrl.data = data;
-                    // mapNametoRandom
-                }).error(function (error) {
+                }).catch(function (data) {
                     ctrl.data = null;
                     ctrl.showError = true;
-                    ctrl.error =
-                        'Error retrieving pods from server: ' +
-                        angular.toJson(error);
+                    ctrl.error = data.statusText;
                 });
         }
 
         function viewPod(name){
-            console.log('hello');
             $state.go('pod', {'name':name}, {reload: true});
         }
         /**
@@ -192,22 +185,6 @@
             });
         }
 
-        // function openUpdateModal(podName){
-        //     $uibModal.open({
-        //         templateUrl: 'testapi-ui/components/pods/modals/createModal.html',
-        //         controller: 'PodModalCtrl as PodModalCtrl',
-        //         size: 'md',
-        //         resolve: {
-        //             data: function () {
-        //                 return {
-        //                     text: "Update",
-        //                     successHandler: ctrl.update,
-        //                     // pod: ctrl.
-        //                 };
-        //             }
-        //         }
-        //     });
-        // }
         ctrl.listPods();
     }
 

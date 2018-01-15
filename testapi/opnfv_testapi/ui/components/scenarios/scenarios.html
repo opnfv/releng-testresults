@@ -7,7 +7,7 @@
     </div>
     <div class="col-sm-2 pull-right"  ng-class="{ 'hidden': !auth.isAuthenticated}">
         <button type="button" class="btn btn-success" ng-click="ctrl.openScenarioModal()">
-          <i class="fa fa-plus"></i>Create&nbsp;Scenario</button>
+          <i class="fa fa-plus"></i>Create</button>
     </div>
 </div>
 <div class='clo-md-12'>
@@ -45,7 +45,7 @@
             </td>
             <td ng-class="{'hidden': !auth.isAuthenticated}">
                 <span class="podsTable-col">
-                    <a class="text-warning" ng-click="ctrl.openUpdateModal(scenario.name)" title="Edit Name">
+                    <a class="text-warning" ng-click="ctrl.openUpdateModal(scenario.name)" title="Edit">
                         <i class="fa fa-pencil-square-o"></i></a>
                     <a class="text-danger"  ng-click="ctrl.openDeleteModal(scenario.name)" title="Delete">
                         <i class="fa fa-trash-o"></i></a>

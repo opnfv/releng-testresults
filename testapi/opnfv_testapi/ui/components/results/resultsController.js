@@ -50,15 +50,15 @@
         raiseAlert) {
         var ctrl = this;
 
-        ctrl.uploadFile=uploadFile;
+        // ctrl.uploadFile=uploadFile;
         ctrl.open = open;
         ctrl.clearFilters = clearFilters;
-        ctrl.associateMeta = associateMeta;
-        ctrl.getVersionList = getVersionList;
-        ctrl.getUserProducts = getUserProducts;
-        ctrl.associateProductVersion = associateProductVersion;
-        ctrl.getProductVersions = getProductVersions;
-        ctrl.prepVersionEdit = prepVersionEdit;
+        // ctrl.associateMeta = associateMeta;
+        // ctrl.getVersionList = getVersionList;
+        // ctrl.getUserProducts = getUserProducts;
+        // ctrl.associateProductVersion = associateProductVersion;
+        // ctrl.getProductVersions = getProductVersions;
+        // ctrl.prepVersionEdit = prepVersionEdit;
         ctrl.deleteTag = deleteTag;
         ctrl.filterList= filterList;
         ctrl.testFilter = testFilter
@@ -102,12 +102,12 @@
         /** Check to see if this page should display user-specific results. */
         // ctrl.isUserResults = $state.current.name === 'userResults';
         // need auth to browse
-        ctrl.isUserResults = $state.current.name === 'userResults';
+        // ctrl.isUserResults = $state.current.name === 'userResults';
 
-        // Should only be on user-results-page if authenticated.
-        if (ctrl.isUserResults && !$scope.auth.isAuthenticated) {
-            $state.go('home');
-        }
+        // // Should only be on user-results-page if authenticated.
+        // if (ctrl.isUserResults && !$scope.auth.isAuthenticated) {
+        //     $state.go('home');
+        // }
 
         ctrl.pageHeader = "Test Results"
 
@@ -116,17 +116,17 @@
             'The most recently uploaded community test results are listed ' +
             'here.';
 
-        ctrl.uploadState = '';
+        // ctrl.uploadState = '';
 
         ctrl.isPublic = false;
 
-        if (ctrl.isUserResults) {
-            ctrl.authRequest = $scope.auth.doSignCheck()
-                .then(ctrl.filterList);
-            // ctrl.getUserProducts();
-        } else {
-            ctrl.filterList();
-        }
+        // if (ctrl.isUserResults) {
+        //     ctrl.authRequest = $scope.auth.doSignCheck()
+        //         .then(ctrl.filterList);
+        //     // ctrl.getUserProducts();
+        // } else {
+        //     ctrl.filterList();
+        // }
 
         function viewResult(_id){
             $state.go('result', {'_id':_id}, {reload: true});
@@ -147,35 +147,35 @@
         }
 
 
-        function uploadFileToUrl(file, uploadUrl){
-           var fd = new FormData();
-           fd.append('file', file);
-           fd.append('public', ctrl.isPublic)
+        // function uploadFileToUrl(file, uploadUrl){
+        //    var fd = new FormData();
+        //    fd.append('file', file);
+        //    fd.append('public', ctrl.isPublic)
 
-           $http.post(uploadUrl, fd, {
-              transformRequest: angular.identity,
-              headers: {'Content-Type': undefined}
-           })
+        //    $http.post(uploadUrl, fd, {
+        //       transformRequest: angular.identity,
+        //       headers: {'Content-Type': undefined}
+        //    })
 
-           .success(function(data){
-              var id = data.href.substr(data.href.lastIndexOf('/')+1);
-              ctrl.uploadState = "Upload succeed. Result id is " + id;
-              ctrl.filterList();
-           })
+        //    .success(function(data){
+        //       var id = data.href.substr(data.href.lastIndexOf('/')+1);
+        //       ctrl.uploadState = "Upload succeed. Result id is " + id;
+        //       ctrl.filterList();
+        //    })
 
-           .error(function(data, status){
-              ctrl.uploadState = "Upload failed. Error code is " + status;
-           });
-        }
+        //    .error(function(data, status){
+        //       ctrl.uploadState = "Upload failed. Error code is " + status;
+        //    });
+        // }
 
-        function uploadFile(){
-           var file = $scope.resultFile;
-           console.log('file is ' );
-           console.dir(file);
+        // function uploadFile(){
+        //    var file = $scope.resultFile;
+        //    console.log('file is ' );
+        //    console.dir(file);
 
-           var uploadUrl = testapiApiUrl + "/results/upload";
-           uploadFileToUrl(file, uploadUrl);
-        };
+        //    var uploadUrl = testapiApiUrl + "/results/upload";
+        //    uploadFileToUrl(file, uploadUrl);
+        // };
 
         /**
          * This will contact the TestAPI API to get a listing of test run
@@ -249,157 +249,157 @@
             ctrl.filterList();
         }
 
-        /**
-         * This will send an API request in order to associate a metadata
-         * key-value pair with the given testId
-         * @param {Number} index - index of the test object in the results list
-         * @param {String} key - metadata key
-         * @param {String} value - metadata value
-         */
-        function associateMeta(index, key, value) {
-            var testId = ctrl.data.results[index].id;
-            var metaUrl = [
-                testapiApiUrl, '/results/', testId, '/meta/', key
-            ].join('');
+        // /**
+        //  * This will send an API request in order to associate a metadata
+        //  * key-value pair with the given testId
+        //  * @param {Number} index - index of the test object in the results list
+        //  * @param {String} key - metadata key
+        //  * @param {String} value - metadata value
+        //  */
+        // function associateMeta(index, key, value) {
+        //     var testId = ctrl.data.results[index].id;
+        //     var metaUrl = [
+        //         testapiApiUrl, '/results/', testId, '/meta/', key
+        //     ].join('');
 
-            var editFlag = key + 'Edit';
-            if (value) {
-                ctrl.associateRequest = $http.post(metaUrl, value)
-                    .success(function () {
-                        ctrl.data.results[index][editFlag] = false;
-                    }).error(function (error) {
-                        raiseAlert('danger', error.title, error.detail);
-                    });
-            }
-            else {
-                ctrl.unassociateRequest = $http.delete(metaUrl)
-                    .success(function () {
-                        ctrl.data.results[index][editFlag] = false;
-                    }).error(function (error) {
-                        if (error.code == 404) {
-                            // Key doesn't exist, so count it as a success,
-                            // and don't raise an alert.
-                            ctrl.data.results[index][editFlag] = false;
-                        }
-                        else {
-                            raiseAlert('danger', error.title, error.detail);
-                        }
-                    });
-            }
-        }
+        //     var editFlag = key + 'Edit';
+        //     if (value) {
+        //         ctrl.associateRequest = $http.post(metaUrl, value)
+        //             .success(function () {
+        //                 ctrl.data.results[index][editFlag] = false;
+        //             }).error(function (error) {
+        //                 raiseAlert('danger', error.title, error.detail);
+        //             });
+        //     }
+        //     else {
+        //         ctrl.unassociateRequest = $http.delete(metaUrl)
+        //             .success(function () {
+        //                 ctrl.data.results[index][editFlag] = false;
+        //             }).error(function (error) {
+        //                 if (error.code == 404) {
+        //                     // Key doesn't exist, so count it as a success,
+        //                     // and don't raise an alert.
+        //                     ctrl.data.results[index][editFlag] = false;
+        //                 }
+        //                 else {
+        //                     raiseAlert('danger', error.title, error.detail);
+        //                 }
+        //             });
+        //     }
+        // }
 
-        /**
-         * Retrieve an array of available capability files from the TestAPI
-         * API server, sort this array reverse-alphabetically, and store it in
-         * a scoped variable.
-         * Sample API return array: ["2015.03.json", "2015.04.json"]
-         */
-        function getVersionList() {
-            if (ctrl.versionList) {
-                return;
-            }
-            var content_url = testapiApiUrl + '/guidelines';
-            ctrl.versionsRequest =
-                $http.get(content_url).success(function (data) {
-                    ctrl.versionList = data.sort().reverse();
-                }).error(function (error) {
-                    raiseAlert('danger', error.title,
-                               'Unable to retrieve version list');
-                });
-        }
-
-        /**
-         * Get products user has management rights to or all products depending
-         * on the passed in parameter value.
-         */
-        function getUserProducts() {
-            if (ctrl.products) {
-                return;
-            }
-            var contentUrl = testapiApiUrl + '/products';
-            ctrl.productsRequest =
-                $http.get(contentUrl).success(function (data) {
-                    ctrl.products = {};
-                    angular.forEach(data.products, function(prod) {
-                        if (prod.can_manage) {
-                            ctrl.products[prod.id] = prod;
-                        }
-                    });
-                }).error(function (error) {
-                    ctrl.products = null;
-                    ctrl.showError = true;
-                    ctrl.error =
-                        'Error retrieving Products listing from server: ' +
-                        angular.toJson(error);
-                });
-        }
+        // /**
+        //  * Retrieve an array of available capability files from the TestAPI
+        //  * API server, sort this array reverse-alphabetically, and store it in
+        //  * a scoped variable.
+        //  * Sample API return array: ["2015.03.json", "2015.04.json"]
+        //  */
+        // function getVersionList() {
+        //     if (ctrl.versionList) {
+        //         return;
+        //     }
+        //     var content_url = testapiApiUrl + '/guidelines';
+        //     ctrl.versionsRequest =
+        //         $http.get(content_url).success(function (data) {
+        //             ctrl.versionList = data.sort().reverse();
+        //         }).error(function (error) {
+        //             raiseAlert('danger', error.title,
+        //                        'Unable to retrieve version list');
+        //         });
+        // }
 
         /**
-         * Send a PUT request to the API server to associate a product with
-         * a test result.
-         */
-        function associateProductVersion(result) {
-            var verId = (result.selectedVersion ?
-                         result.selectedVersion.id : null);
-            var testId = result.id;
-            var url = testapiApiUrl + '/results/' + testId;
-            ctrl.associateRequest = $http.put(url, {'product_version_id':
-                                                    verId})
-                .success(function (data) {
-                    result.product_version = result.selectedVersion;
-                    if (result.selectedVersion) {
-                        result.product_version.product_info =
-                            result.selectedProduct;
-                    }
-                    result.productEdit = false;
-                }).error(function (error) {
-                    raiseAlert('danger', error.title, error.detail);
-                });
-        }
+        //  * Get products user has management rights to or all products depending
+        //  * on the passed in parameter value.
+        //  */
+        // function getUserProducts() {
+        //     if (ctrl.products) {
+        //         return;
+        //     }
+        //     var contentUrl = testapiApiUrl + '/products';
+        //     ctrl.productsRequest =
+        //         $http.get(contentUrl).success(function (data) {
+        //             ctrl.products = {};
+        //             angular.forEach(data.products, function(prod) {
+        //                 if (prod.can_manage) {
+        //                     ctrl.products[prod.id] = prod;
+        //                 }
+        //             });
+        //         }).error(function (error) {
+        //             ctrl.products = null;
+        //             ctrl.showError = true;
+        //             ctrl.error =
+        //                 'Error retrieving Products listing from server: ' +
+        //                 angular.toJson(error);
+        //         });
+        // }
 
-        /**
-         * Get all versions for a product.
-         */
-        function getProductVersions(result) {
-            if (!result.selectedProduct) {
-                result.productVersions = [];
-                result.selectedVersion = null;
-                return;
-            }
+        // /**
+        //  * Send a PUT request to the API server to associate a product with
+        //  * a test result.
+        //  */
+        // function associateProductVersion(result) {
+        //     var verId = (result.selectedVersion ?
+        //                  result.selectedVersion.id : null);
+        //     var testId = result.id;
+        //     var url = testapiApiUrl + '/results/' + testId;
+        //     ctrl.associateRequest = $http.put(url, {'product_version_id':
+        //                                             verId})
+        //         .success(function (data) {
+        //             result.product_version = result.selectedVersion;
+        //             if (result.selectedVersion) {
+        //                 result.product_version.product_info =
+        //                     result.selectedProduct;
+        //             }
+        //             result.productEdit = false;
+        //         }).error(function (error) {
+        //             raiseAlert('danger', error.title, error.detail);
+        //         });
+        // }
 
-            var url = testapiApiUrl + '/products/' +
-                result.selectedProduct.id + '/versions';
-            ctrl.getVersionsRequest = $http.get(url)
-                .success(function (data) {
-                    result.productVersions = data;
+        // /**
+        //  * Get all versions for a product.
+        //  */
+        // function getProductVersions(result) {
+        //     if (!result.selectedProduct) {
+        //         result.productVersions = [];
+        //         result.selectedVersion = null;
+        //         return;
+        //     }
 
-                    // If the test result isn't already associated to a
-                    // version, default it to the null version.
-                    if (!result.product_version) {
-                        angular.forEach(data, function(ver) {
-                            if (!ver.version) {
-                                result.selectedVersion = ver;
-                            }
-                        });
-                    }
-                }).error(function (error) {
-                    raiseAlert('danger', error.title, error.detail);
-                });
-        }
+        //     var url = testapiApiUrl + '/products/' +
+        //         result.selectedProduct.id + '/versions';
+        //     ctrl.getVersionsRequest = $http.get(url)
+        //         .success(function (data) {
+        //             result.productVersions = data;
 
-        /**
-         * Instantiate variables needed for editing product/version
-         * associations.
-         */
-        function prepVersionEdit(result) {
-            result.productEdit = true;
-            if (result.product_version) {
-                result.selectedProduct =
-                    ctrl.products[result.product_version.product_info.id];
-            }
-            result.selectedVersion = result.product_version;
-            ctrl.getProductVersions(result);
-        }
+        //             // If the test result isn't already associated to a
+        //             // version, default it to the null version.
+        //             if (!result.product_version) {
+        //                 angular.forEach(data, function(ver) {
+        //                     if (!ver.version) {
+        //                         result.selectedVersion = ver;
+        //                     }
+        //                 });
+        //             }
+        //         }).error(function (error) {
+        //             raiseAlert('danger', error.title, error.detail);
+        //         });
+        // }
+
+        // /**
+        //  * Instantiate variables needed for editing product/version
+        //  * associations.
+        //  */
+        // function prepVersionEdit(result) {
+        //     result.productEdit = true;
+        //     if (result.product_version) {
+        //         result.selectedProduct =
+        //             ctrl.products[result.product_version.product_info.id];
+        //     }
+        //     result.selectedVersion = result.product_version;
+        //     ctrl.getProductVersions(result);
+        // }
 
     }
 })();

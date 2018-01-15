@@ -132,7 +132,7 @@ describe('testing the result page for anonymous user', function () {
         expect(element(by.cssContainingText(".ng-binding.ng-scope","Test Results")).isDisplayed()).toBe(true);
     });
 
-    it( 'navigate anonymous user to testCase page', function() {
+    it( 'navigate anonymous user to results page', function() {
         browser.get(baseURL);
         var resultLink = element(by.linkText('Results')).click();
         var EC = browser.ExpectedConditions;
@@ -347,6 +347,24 @@ describe('testing the result page for user', function () {
         filterText.sendKeys('testcase')
         buttonFilter.click();
         expect(cells.get(0).getText()).toContain("5a45170bbb2092000e2643f6");
+    });
+
+    it('Clear the filter', function () {
+        browser.get(baseURL+"#/results");
+        var filter = element(by.model('ctrl.filter'));
+        var filterText = element(by.model('ctrl.filterText'));
+        filter.sendKeys('project');
+        filterText.sendKeys('testproject');
+        var buttonFilter = element(by.buttonText('Filter'));
+        buttonFilter.click();
+        var row = element.all(by.repeater('(index, result) in ctrl.data.results')).first();
+        var cells = row.all(by.tagName('td'));
+        expect(cells.get(0).getText()).toContain("5a45170bbb2092000e2643f5");
+        var buttonClear = element(by.buttonText('Clear'));
+        buttonClear.click();
+        var row = element.all(by.repeater('(index, result) in ctrl.data.results')).first();
+        var cells = row.all(by.tagName('td'));
+        expect(cells.get(0).getText()).toContain("5a45170bbb2092000e2643f4");
     });
     it('Should not show the results in results page related to the filters for user ', function () {
         browser.get(baseURL+"#/results");

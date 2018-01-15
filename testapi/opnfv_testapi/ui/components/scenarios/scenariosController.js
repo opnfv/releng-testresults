@@ -348,11 +348,7 @@
         ctrl.confirm = confirm;
         ctrl.cancel = cancel;
         ctrl.data = angular.copy(data);
-        ctrl.openScoreModal = openScoreModal;
-        ctrl.openTrustIndicatorModal = openTrustIndicatorModal;
         ctrl.openCustomModal = openCustomModal;
-        ctrl.handleScore = handleScore;
-        ctrl.handleModalTrustIndicator = handleModalTrustIndicator;
         ctrl.handleModalCustom = handleModalCustom;
         ctrl.project = {
             "scores": [],
@@ -379,48 +375,10 @@
             $uibModalInstance.dismiss('cancel');
         }
 
-        function handleModalTrustIndicator(trustIndicator){
-            ctrl.project.trust_indicators.push(trustIndicator)
-        }
-
-        function handleScore(score){
-            ctrl.project.scores.push(score);
-        }
-
         function handleModalCustom(custom){
             ctrl.project.customs.push(custom);
         }
 
-        function openScoreModal(){
-            $uibModal.open({
-                templateUrl: 'testapi-ui/components/scenarios/modals/scoreModal.html',
-                controller: 'scoreModalCtrl as scoreModalCtrl',
-                size: 'md',
-                resolve: {
-                    data: function () {
-                        return {
-                            text: "Score",
-                            successHandler: ctrl.handleScore,
-                        };
-                    }
-                }
-            });
-        }
-        function openTrustIndicatorModal(){
-            $uibModal.open({
-                templateUrl: 'testapi-ui/components/scenarios/modals/trustIndicatorModal.html',
-                controller: 'trustIndicatorModalCtrl as trustIndicatorModalCtrl',
-                size: 'md',
-                resolve: {
-                    data: function () {
-                        return {
-                            text: "Trust Indicator",
-                            successHandler: ctrl.handleModalTrustIndicator
-                        };
-                    }
-                }
-            });
-        }
         function openCustomModal(){
             $uibModal.open({
                 templateUrl: 'testapi-ui/components/scenarios/modals/customModal.html',
@@ -435,106 +393,6 @@
                     }
                 }
             });
-        }
-    }
-
-    /**
-     * TestAPI Project  Modal Controller
-     * This controller is for the create modal where a user can create
-     * the project information and for the edit modal where user can
-     * edit the project's details
-     */
-    angular.module('testapiApp').controller('scoreModalCtrl', scoreModalCtrl);
-    scoreModalCtrl.$inject = ['$scope', '$uibModalInstance', 'data'];
-    function scoreModalCtrl($scope, $uibModalInstance, data) {
-        var ctrl = this;
-        ctrl.confirm = confirm;
-        ctrl.cancel = cancel;
-        ctrl.data = angular.copy(data);
-        ctrl.open = open;
-
-        /**
-         * Initiate confirmation and call the success handler with the
-         * inputs.
-         */
-        function confirm() {
-            ctrl.data.successHandler(ctrl.score);
-            $uibModalInstance.dismiss('cancel');
-        }
-
-        /**
-         * Close the confirm modal without initiating changes.
-         */
-        function cancel() {
-            $uibModalInstance.dismiss('cancel');
-        }
-
-        function handleModalData(){
-
-        }
-
-        /**
-         * This is called when the date filter calendar is opened. It
-         * does some event handling, and sets a scope variable so the UI
-         * knows which calendar was opened.
-         * @param {Object} $event - The Event object
-         * @param {String} openVar - Tells which calendar was opened
-         */
-        function open($event, openVar) {
-            $event.preventDefault();
-            $event.stopPropagation();
-            ctrl[openVar] = true;
-        }
-    }
-
-     /**
-     * TestAPI Project  Modal Controller
-     * This controller is for the create modal where a user can create
-     * the project information and for the edit modal where user can
-     * edit the project's details
-     */
-    angular.module('testapiApp').controller('trustIndicatorModalCtrl', trustIndicatorModalCtrl);
-    trustIndicatorModalCtrl.$inject = ['$scope', '$uibModalInstance', 'data'];
-    function trustIndicatorModalCtrl($scope, $uibModalInstance, data) {
-        var ctrl = this;
-        ctrl.confirm = confirm;
-        ctrl.cancel = cancel;
-        ctrl.data = angular.copy(data);
-        ctrl.open = open;
-
-
-        /**
-         * Initiate confirmation and call the success handler with the
-         * inputs.
-         */
-        function confirm() {
-            ctrl.data.successHandler(ctrl.ti);
-            $uibModalInstance.dismiss('cancel');
-
-        }
-
-        /**
-         * Close the confirm modal without initiating changes.
-         */
-        function cancel() {
-            $uibModalInstance.dismiss('cancel');
-        }
-
-        function handleModalData(){
-
-        }
-
-        /**
-         * This is called when the date filter calendar is opened. It
-         * does some event handling, and sets a scope variable so the UI
-         * knows which calendar was opened.
-         * @param {Object} $event - The Event object
-         * @param {String} openVar - Tells which calendar was opened
-         */
-        function open($event, openVar) {
-            $event.preventDefault();
-            $event.stopPropagation();
-            ctrl[openVar] = true;
         }
     }
 

@@ -22,14 +22,7 @@
         </div>
         <div class="col-sm-3 pull-right">
             <span style="margin-top:6px">Search:&nbsp;&nbsp;</span>
-            <input type="text" class="form-control search" ngModel="filter" placeholder="Search String">
-          </div>
-        <div class="col-md-3 row pull-right">
-            <span style="margin-top:6px">Filter:&nbsp;&nbsp;</span>
-            <select ng-model="ctrl.filter" class="form-control">
-                    <option value="name">Name</option>
-                    <option value="owner">Owner</option>
-            </select>
+            <input type="text" class="form-control search" ng-Model="ctrl.filterText" placeholder="Search String">
         </div>
 </div>
 <div class="col-md-12">
@@ -67,9 +60,7 @@
             <td>{{pod.mode}}</td>
             <td ng-class="{ 'hidden': !auth.isAuthenticated }">
                 <span class="podsTable-col">
-                    <a class="text-warning" title="Edit">
-                        <i class="fa fa-pencil-square-o"></i></a>
-                    <a class="text-danger"  ng-click="ctrl.openDeleteModal(pod.name)" title="Delete">
+                    <a class="text-danger"  ng-click="ctrl.openDeleteModal(pod.name)" title="Delete" ng-class="{ 'hidden': !auth.isAuthenticated }">
                         <i class="fa fa-trash-o"></i></a>
                 </span>
             </td>

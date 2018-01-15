@@ -16,24 +16,6 @@
                                 </div>
                                 <div class="update-project">
                                     <div class="col-sm-4">
-                                        <label for="cpid" class="control-label"> Trust&nbsp;Indicator: </label>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <button class="btn btn-primary" ng-click="projectModalCtrl.openTrustIndicatorModal()">Add&nbsp;Trust&nbsp;Indicator</button>
-                                            <p class="help-block"></p>
-                                    </div>
-                                </div>
-                                <div class="update-project">
-                                    <div class="col-sm-4">
-                                        <label for="cpid" class="control-label"> Score: </label>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <button class="btn btn-primary" ng-click="projectModalCtrl.openScoreModal()">Add&nbsp;Score</button>
-                                            <p class="help-block"></p>
-                                    </div>
-                                </div>
-                                <div class="update-project">
-                                    <div class="col-sm-4">
                                         <label for="cpid" class="control-label"> Custom: </label>
                                     </div>
                                     <div class="col-sm-6">
@@ -44,50 +26,6 @@
                             </div>
                     </div>
                 </fieldset>
-            </div>
-            <div class='clo-md-12' style="padding-right:0px">
-                <h3>Scores</h3>
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover"  ng-data="projectModalCtrl.project.scores">
-                    <thead>
-                    <tr style="
-                    text-align: center;">
-                        <th style="width: 1%;">Score</th>
-                        <th style="width: 19%;">Date</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat-start="(index, score) in projectModalCtrl.project.scores" style="padding:9px">
-                        <td>{{score.score}}</td>
-                        <td>{{score.date}}</td>
-                    </tr>
-                    <tr ng-repeat-end=>
-                    </tr>
-                    </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class='clo-md-12' style="padding-right:0px">
-                <h3>Trust&nbsp;Indicator</h3>
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover"  ng-data="projectModalCtrl.project.trust_indicators">
-                    <thead>
-                    <tr style="
-                    text-align: center;">
-                        <th style="width: 1%;">Status</th>
-                        <th style="width: 19%;">Date</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr ng-repeat-start="(index, trustIndicator) in projectModalCtrl.project.trust_indicators" style="padding:9px">
-                        <td>{{trustIndicator.status}}</td>
-                        <td>{{trustIndicator.date}}</td>
-                    </tr>
-                    <tr ng-repeat-end=>
-                    </tr>
-                    </tbody>
-                    </table>
-                </div>
             </div>
             <div class='clo-md-12' style="padding-right:0px">
                 <h3>Customs</h3>

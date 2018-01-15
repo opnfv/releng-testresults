@@ -45,20 +45,16 @@
         ctrl.expandTrustIndicator = expandTrustIndicator;
         ctrl.expandScore = expandScore;
         ctrl.expandCustom = expandCustom;
-        ctrl.collapeVersion = {};
-        ctrl.collapeVersions = {};
-        ctrl.collapeProjects = {};
-        ctrl.collapeProject = {};
-        ctrl.collapeTrustIndicator = {};
-        ctrl.collapeScore = {};
-        ctrl.collapeCustom = {};
-        ctrl.collapeInstaller = {};
+        ctrl.collapeVersion = [];
+        ctrl.collapeVersions = [];
+        ctrl.collapeProjects = [];
+        ctrl.collapeProject = [];
+        ctrl.collapeTrustIndicator = [];
+        ctrl.collapeScore = [];
+        ctrl.collapeCustom = [];
+        ctrl.collapeInstaller = [];
         ctrl.addCustom = addCustom;
         ctrl.openAddCustomModal = openAddCustomModal;
-        ctrl.openAddTrustIndicatorModal = openAddTrustIndicatorModal;
-        ctrl.addTrustindicator = addTrustindicator;
-        ctrl.addScore = addScore;
-        ctrl.openAddScoreModal = openAddScoreModal;
         ctrl.openDeleteCustomModal = openDeleteCustomModal;
         ctrl.deleteCustom = deleteCustom;
         ctrl.addProject = addProject
@@ -71,6 +67,12 @@
         ctrl.addInstaller = addInstaller
         ctrl.openDeleteInstallerModal = openDeleteInstallerModal
         ctrl.deleteInstaller = deleteInstaller
+        ctrl.openDeleteProjectModal = openDeleteProjectModal
+        ctrl.deleteProject = deleteProject
+
+        ctrl.buttonInstaller = true
+        ctrl.buttonVersion = true
+        ctrl.buttonProject = true
 
         /**
          * This will contact the TestAPI to get a listing of declared projects.
@@ -87,61 +89,97 @@
                 });
         }
 
-        function expandTrustIndicator(index){
-            if(ctrl.collapeTrustIndicator[index]){
-                ctrl.collapeTrustIndicator[index] = false;
+        function expandTrustIndicator(indexI, indexV, indexP){
+            if(ctrl.collapeTrustIndicator[indexI]==undefined){
+                ctrl.collapeTrustIndicator[indexI] = []
+                if(ctrl.collapeTrustIndicator[indexI][indexV]==undefined){
+                    ctrl.collapeTrustIndicator[indexI][indexV] = []
+                }
+            }
+            if(ctrl.collapeTrustIndicator[indexI][indexV][indexP]){
+                ctrl.collapeTrustIndicator[indexI][indexV][indexP] = false;
             }else{
-                ctrl.collapeTrustIndicator[index] = true;
+                ctrl.collapeTrustIndicator[indexI][indexV][indexP] = true;
             }
         }
 
-        function expandScore(index){
-            if(ctrl.collapeScore[index]){
-                ctrl.collapeScore[index] = false;
+        function expandScore(indexI, indexV, indexP){
+            if(ctrl.collapeScore[indexI]==undefined){
+                ctrl.collapeScore[indexI] = []
+                if(ctrl.collapeScore[indexI][indexV]==undefined){
+                    ctrl.collapeScore[indexI][indexV] = []
+                }
+            }
+            if(ctrl.collapeScore[indexI][indexV][indexP]){
+                ctrl.collapeScore[indexI][indexV][indexP] = false;
             }else{
-                ctrl.collapeScore[index] = true;
+                ctrl.collapeScore[indexI][indexV][indexP] = true;
             }
         }
 
-        function expandCustom(index){
-            if(ctrl.collapeCustom[index]){
-                ctrl.collapeCustom[index] = false;
+        function expandCustom(indexI, indexV, indexP){
+            if(ctrl.collapeCustom[indexI]==undefined){
+                ctrl.collapeCustom[indexI] = []
+                if(ctrl.collapeCustom[indexI][indexV]==undefined){
+                    ctrl.collapeCustom[indexI][indexV] = []
+                }
+            }
+            if(ctrl.collapeCustom[indexI][indexV][indexP]){
+                ctrl.collapeCustom[indexI][indexV][indexP] = false;
+                ctrl.buttonProject = true
             }else{
-                ctrl.collapeCustom[index] = true;
+                ctrl.collapeCustom[indexI][indexV][indexP] = true;
+                ctrl.buttonProject = false
             }
         }
 
-        function expandVersion(index){
-            if(ctrl.collapeVersion[index]){
-                ctrl.collapeVersion[index] = false;
+        function expandVersion(indexI, indexV){
+            if(ctrl.collapeVersion[indexI]==undefined){
+                ctrl.collapeVersion[indexI] = []
+            }
+            if(ctrl.collapeVersion[indexI][indexV]){
+                ctrl.collapeVersion[indexI][indexV] = false;
             }else{
-                ctrl.collapeVersion[index] = true;
+                ctrl.collapeVersion[indexI][indexV] = true;
             }
         }
 
         function expandVersions(index){
             if(ctrl.collapeVersions[index]){
                 ctrl.collapeVersions[index] = false;
+                ctrl.buttonInstaller = true
             }else{
                 ctrl.collapeVersions[index] = true;
+                ctrl.buttonInstaller = false
             }
         }
 
-        function expandProjects(index){
-            if(ctrl.collapeProjects[index]){
-                ctrl.collapeProjects[index] = false;
+        function expandProjects(indexI, indexV){
+            if(ctrl.collapeProjects[indexI]==undefined){
+                ctrl.collapeProjects[indexI] = []
+            }
+            if(ctrl.collapeProjects[indexI][indexV]){
+                ctrl.collapeProjects[indexI][indexV] = false;
+                ctrl.buttonVersion = true
             }
             else{
-                ctrl.collapeProjects[index]= true;
+                ctrl.collapeProjects[indexI][indexV]= true;
+                ctrl.buttonVersion = false
             }
         }
 
-        function expandProject(index){
-            if(ctrl.collapeProject[index]){
-                ctrl.collapeProject[index] = false;
+        function expandProject(indexI, indexV, indexP){
+            if(ctrl.collapeProject[indexI]==undefined){
+                ctrl.collapeProject[indexI] = []
+                if(ctrl.collapeProject[indexI][indexV]==undefined){
+                    ctrl.collapeProject[indexI][indexV] = []
+                }
+            }
+            if(ctrl.collapeProject[indexI][indexV][indexP]){
+                ctrl.collapeProject[indexI][indexV][indexP] = false;
             }
             else{
-                ctrl.collapeProject[index]= true;
+                ctrl.collapeProject[indexI][indexV][indexP]= true;
             }
         }
 
@@ -356,62 +394,22 @@
             });
         }
 
-        function openAddTrustIndicatorModal(project, version, installer){
-            $uibModal.open({
-                templateUrl: 'testapi-ui/components/scenarios/modals/trustIndicatorModal.html',
-                controller: 'trustIndicatorAddModalCtrl as trustIndicatorModalCtrl',
-                size: 'md',
-                resolve: {
-                    data: function () {
-                        return {
-                            text: "Add Trust Indicator",
-                            successHandler: ctrl.addTrustindicator,
-                            project: project,
-                            version: version,
-                            installer: installer
-                        };
-                    }
-                }
-            });
+        function  openDeleteProjectModal(project, version, installer){
+            var projects = []
+            projects.push(project.project)
+            var data = {
+                "projects": projects,
+                "version": version,
+                "installer": installer
+            }
+            confirmModal("Delete",ctrl.deleteProject,data);
         }
 
-        function openAddScoreModal(project, version, installer){
-            $uibModal.open({
-                templateUrl: 'testapi-ui/components/scenarios/modals/scoreModal.html',
-                controller: 'scoreAddModalCtrl as scoreModalCtrl',
-                size: 'md',
-                resolve: {
-                    data: function () {
-                        return {
-                            text: "Add Score",
-                            successHandler: ctrl.addScore,
-                            project: project,
-                            version: version,
-                            installer: installer
-                        };
-                    }
-                }
-            });
-        }
-
-        function addTrustindicator(trust_indicator, project, version, installer){
-            ctrl.customReqest = testapiApiUrl+ "/scenarios/"+ ctrl.name + "/trust_indicators?installer="+installer+"&version="+version+"&project="+ project
-            $http.post(ctrl.customReqest,trust_indicator ).success(function (data){
+        function deleteProject(data){
+            ctrl.projectReqest = testapiApiUrl+ "/scenarios/"+ ctrl.name + "/projects?installer="+data.installer+"&version="+data.version
+            $http.delete(ctrl.projectReqest, {data: data.projects, headers: {'Content-Type': 'application/json'}}).success(function (data){
                 ctrl.showSuccess = true ;
-                ctrl.success = "Trust indicators are successfully updated."
-                ctrl.loadDetails();
-            })
-            .catch(function (data) {
-                ctrl.showError = true;
-                ctrl.error = data.statusText;
-            });
-        }
-
-        function addScore(score, project, version, installer){
-            ctrl.customReqest = testapiApiUrl+ "/scenarios/"+ ctrl.name + "/scores?installer="+installer+"&version="+version+"&project="+ project
-            $http.post(ctrl.customReqest,score ).success(function (data){
-                ctrl.showSuccess = true ;
-                ctrl.success = "Scores are successfully updated."
+                ctrl.success = "Projects are successfully Deleted."
                 ctrl.loadDetails();
             })
             .catch(function (data) {
@@ -459,107 +457,8 @@
         }
     }
 
+
     /**
-     * TestAPI Project  Modal Controller
-     * This controller is for the create modal where a user can create
-     * the project information and for the edit modal where user can
-     * edit the project's details
-     */
-    angular.module('testapiApp').controller('trustIndicatorAddModalCtrl', trustIndicatorAddModalCtrl);
-    trustIndicatorAddModalCtrl.$inject = ['$scope', '$uibModalInstance', 'data'];
-    function trustIndicatorAddModalCtrl($scope, $uibModalInstance, data) {
-        var ctrl = this;
-        ctrl.confirm = confirm;
-        ctrl.cancel = cancel;
-        ctrl.data = angular.copy(data);
-        ctrl.open = open;
-
-
-        /**
-         * Initiate confirmation and call the success handler with the
-         * inputs.
-         */
-        function confirm() {
-            ctrl.data.successHandler(ctrl.ti, ctrl.data.project, ctrl.data.version, ctrl.data.installer);
-            $uibModalInstance.dismiss('cancel');
-
-        }
-
-        /**
-         * Close the confirm modal without initiating changes.
-         */
-        function cancel() {
-            $uibModalInstance.dismiss('cancel');
-        }
-
-        function handleModalData(){
-
-        }
-
-        /**
-         * This is called when the date filter calendar is opened. It
-         * does some event handling, and sets a scope variable so the UI
-         * knows which calendar was opened.
-         * @param {Object} $event - The Event object
-         * @param {String} openVar - Tells which calendar was opened
-         */
-        function open($event, openVar) {
-            $event.preventDefault();
-            $event.stopPropagation();
-            ctrl[openVar] = true;
-        }
-    }
-
-        /**
-     * TestAPI Project  Modal Controller
-     * This controller is for the create modal where a user can create
-     * the project information and for the edit modal where user can
-     * edit the project's details
-     */
-    angular.module('testapiApp').controller('scoreAddModalCtrl', scoreAddModalCtrl);
-    scoreAddModalCtrl.$inject = ['$scope', '$uibModalInstance', 'data'];
-    function scoreAddModalCtrl($scope, $uibModalInstance, data) {
-        var ctrl = this;
-        ctrl.confirm = confirm;
-        ctrl.cancel = cancel;
-        ctrl.data = angular.copy(data);
-        ctrl.open = open;
-
-        /**
-         * Initiate confirmation and call the success handler with the
-         * inputs.
-         */
-        function confirm() {
-            ctrl.data.successHandler(ctrl.score, ctrl.data.project, ctrl.data.version, ctrl.data.installer);
-            $uibModalInstance.dismiss('cancel');
-        }
-
-        /**
-         * Close the confirm modal without initiating changes.
-         */
-        function cancel() {
-            $uibModalInstance.dismiss('cancel');
-        }
-
-        function handleModalData(){
-
-        }
-
-        /**
-         * This is called when the date filter calendar is opened. It
-         * does some event handling, and sets a scope variable so the UI
-         * knows which calendar was opened.
-         * @param {Object} $event - The Event object
-         * @param {String} openVar - Tells which calendar was opened
-         */
-        function open($event, openVar) {
-            $event.preventDefault();
-            $event.stopPropagation();
-            ctrl[openVar] = true;
-        }
-    }
-
-     /**
      * TestAPI Project  Modal Controller
      * This controller is for the create modal where a user can create
      * the project information and for the edit modal where user can
@@ -572,11 +471,7 @@
         ctrl.confirm = confirm;
         ctrl.cancel = cancel;
         ctrl.data = angular.copy(data);
-        ctrl.openScoreModal = openScoreModal;
-        ctrl.openTrustIndicatorModal = openTrustIndicatorModal;
         ctrl.openCustomModal = openCustomModal;
-        ctrl.handleScore = handleScore;
-        ctrl.handleModalTrustIndicator = handleModalTrustIndicator;
         ctrl.handleModalCustom = handleModalCustom;
         ctrl.projects = []
         ctrl.project = {
@@ -604,48 +499,10 @@
             $uibModalInstance.dismiss('cancel');
         }
 
-        function handleModalTrustIndicator(trustIndicator){
-            ctrl.project.trust_indicators.push(trustIndicator)
-        }
-
-        function handleScore(score){
-            ctrl.project.scores.push(score);
-        }
-
         function handleModalCustom(custom){
             ctrl.project.customs.push(custom);
         }
 
-        function openScoreModal(){
-            $uibModal.open({
-                templateUrl: 'testapi-ui/components/scenarios/modals/scoreModal.html',
-                controller: 'scoreModalCtrl as scoreModalCtrl',
-                size: 'md',
-                resolve: {
-                    data: function () {
-                        return {
-                            text: "Score",
-                            successHandler: ctrl.handleScore,
-                        };
-                    }
-                }
-            });
-        }
-        function openTrustIndicatorModal(){
-            $uibModal.open({
-                templateUrl: 'testapi-ui/components/scenarios/modals/trustIndicatorModal.html',
-                controller: 'trustIndicatorModalCtrl as trustIndicatorModalCtrl',
-                size: 'md',
-                resolve: {
-                    data: function () {
-                        return {
-                            text: "Trust Indicator",
-                            successHandler: ctrl.handleModalTrustIndicator
-                        };
-                    }
-                }
-            });
-        }
         function openCustomModal(){
             $uibModal.open({
                 templateUrl: 'testapi-ui/components/scenarios/modals/customModal.html',
