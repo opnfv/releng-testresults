@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_32e2482f",
+        "filename": "testapi/opnfv_testapi/ui/app.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-01-15T05:55:29Z",
+      "side": 1,
+      "message": "that information is useless and meaningless, keep it as null instead?",
+      "range": {
+        "startLine": 192,
+        "startChar": 0,
+        "endLine": 199,
+        "endChar": 17
+      },
+      "revId": "214529a0f9a2022667a1b6f6c05783cfc9762260",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_92d2345a",
+        "filename": "testapi/opnfv_testapi/ui/app.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 201,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-01-15T05:55:29Z",
+      "side": 1,
+      "message": "ditto, keep it as it is?",
+      "range": {
+        "startLine": 201,
+        "startChar": 45,
+        "endLine": 201,
+        "endChar": 60
+      },
+      "revId": "214529a0f9a2022667a1b6f6c05783cfc9762260",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
