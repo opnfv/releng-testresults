@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_c9e6d2af",
+        "filename": "testapi/opnfv_testapi/tests/UI/e2e/homeControllerSpec.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6939
+      },
+      "writtenOn": "2018-01-16T03:44:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_291bfeca",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 2
+      },
+      "revId": "ac151aa737279e795a8c6a136c89f8d303f25ea1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_897b2af4",
         "filename": "testapi/opnfv_testapi/ui/Gruntfile.js",
         "patchSetId": 1
@@ -36,6 +60,24 @@
       "writtenOn": "2018-01-16T03:28:21Z",
       "side": 1,
       "message": "could it use a regex or repo for the specs, instead of list one by one?",
+      "revId": "ac151aa737279e795a8c6a136c89f8d303f25ea1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_49e3e2a3",
+        "filename": "testapi/opnfv_testapi/ui/Gruntfile.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 6939
+      },
+      "writtenOn": "2018-01-16T03:44:00Z",
+      "side": 1,
+      "message": "We can do it but in this way, we can comment out the other specs while writing new tests. Otherwise, we have to run whole tests every time.",
+      "parentUuid": "9a3d3df0_897b2af4",
       "revId": "ac151aa737279e795a8c6a136c89f8d303f25ea1",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_69f50656",
+        "filename": "testapi/opnfv_testapi/ui/components/projects/projectsController.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 6939
+      },
+      "writtenOn": "2018-01-16T03:44:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_698066c0",
+      "range": {
+        "startLine": 155,
+        "startChar": 12,
+        "endLine": 155,
+        "endChar": 36
+      },
+      "revId": "ac151aa737279e795a8c6a136c89f8d303f25ea1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_2972de10",
         "filename": "testapi/opnfv_testapi/ui/components/results/resultsController.js",
         "patchSetId": 1
@@ -76,6 +142,24 @@
       "writtenOn": "2018-01-16T03:28:21Z",
       "side": 1,
       "message": "instead of comment out, I suggest delete them",
+      "revId": "ac151aa737279e795a8c6a136c89f8d303f25ea1",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_29e01e95",
+        "filename": "testapi/opnfv_testapi/ui/components/results/resultsController.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 6939
+      },
+      "writtenOn": "2018-01-16T03:44:00Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_2972de10",
       "revId": "ac151aa737279e795a8c6a136c89f8d303f25ea1",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
