@@ -336,7 +336,7 @@ describe('testing the Pods page for authorized user', function () {
 
 	it('view the test case ', function () {
 		browser.get(baseURL+"#/pods");
-        var viewOperation = element(by.css('a[class=text-info]'));
+        var viewOperation = element(by.linkText('test'));
         viewOperation.click();
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains('#/pods/test'), 10000);

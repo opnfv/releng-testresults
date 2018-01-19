@@ -56,6 +56,9 @@
         ctrl.filterList= filterList;
         ctrl.testFilter = testFilter
         ctrl.viewResult = viewResult;
+        ctrl.filter = "pod"
+        ctrl.filterValue = "pod_name"
+        ctrl.encodeFilter = encodeFilter
 
         ctrl.tagArray = {}
 
@@ -121,6 +124,15 @@
         //     ctrl.filterList();
         // }
 
+        function encodeFilter(){
+            if(ctrl.filter=="pod" || ctrl.filter=="project" || ctrl.filter=="case"){
+                ctrl.filterValue= ctrl.filter+"_name"
+            }
+            else{
+                ctrl.filterValue= ctrl.filter
+            }
+        }
+
         function viewResult(_id){
             $state.go('result', {'_id':_id}, {reload: true});
         }
@@ -144,7 +156,7 @@
          * results.
          */
         function filterList(){
-            if(ctrl.filter && ctrl.filterText!=""){
+            if(ctrl.filter && ctrl.filterText!="" && ctrl.filterText!=undefined){
                 ctrl.tagArray[ctrl.filter] =  ctrl.filterText;
             }
             ctrl.showError = false;
@@ -174,6 +186,7 @@
             ctrl.resultsRequest =
                     $http.get(content_url).success(function (data) {
                         ctrl.data = data;
+                        ctrl.filterLoop = data.results
                         ctrl.totalItems = ctrl.data.pagination.total_pages * ctrl.itemsPerPage;
                         ctrl.currentPage = ctrl.data.pagination.current_page;
                     }).error(function (error) {
