@@ -56,8 +56,12 @@
         ctrl.filterList= filterList;
         ctrl.testFilter = testFilter
         ctrl.viewResult = viewResult;
+        ctrl.filter = "pod"
+        ctrl.filterValue = "pod_name"
+        ctrl.encodeFilter = encodeFilter
 
         ctrl.tagArray = {}
+        ctrl.filterOption=[]
 
         /** Mappings of Interop WG components to marketing program names. */
         ctrl.targetMappings = {
@@ -121,6 +125,22 @@
         //     ctrl.filterList();
         // }
 
+        function encodeFilter(){
+            ctrl.filterOption=[]
+            if(ctrl.filter=="pod" || ctrl.filter=="project" || ctrl.filter=="case"){
+                ctrl.filterValue= ctrl.filter+"_name"
+            }
+            else{
+                ctrl.filterValue= ctrl.filter
+            }
+
+            for(var index in ctrl.data.results){
+                if( ctrl.filterOption.indexOf(ctrl.data.results[index][ctrl.filterValue]) < 0){
+                    ctrl.filterOption.push(ctrl.data.results[index][ctrl.filterValue])
+                }
+            }
+        }
+
         function viewResult(_id){
             $state.go('result', {'_id':_id}, {reload: true});
         }
@@ -144,7 +164,7 @@
          * results.
          */
         function filterList(){
-            if(ctrl.filter && ctrl.filterText!=""){
+            if(ctrl.filter && ctrl.filterText!="" && ctrl.filterText!=undefined){
                 ctrl.tagArray[ctrl.filter] =  ctrl.filterText;
             }
             ctrl.showError = false;
@@ -176,6 +196,7 @@
                         ctrl.data = data;
                         ctrl.totalItems = ctrl.data.pagination.total_pages * ctrl.itemsPerPage;
                         ctrl.currentPage = ctrl.data.pagination.current_page;
+                        ctrl.encodeFilter();
                     }).error(function (error) {
                         ctrl.data = null;
                         ctrl.totalItems = 0;
@@ -187,6 +208,7 @@
             ctrl.filterText = ''
         }
         ctrl.filterList();
+
 
         /**
          * This is called when the date filter calendar is opened. It

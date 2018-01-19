@@ -30,7 +30,7 @@ class Pod(PodCreateRequest):
     def __init__(self, **kwargs):
         self._id = kwargs.pop('_id', '')
         self.creation_date = kwargs.pop('creation_date', '')
-        self.owner = kwargs.pop('owner', '')
+        self.creator = kwargs.pop('creator', '')
         super(Pod, self).__init__(**kwargs)
 
 

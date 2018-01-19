@@ -20,7 +20,7 @@ describe('testing the home page for user', function () {
             },
             response: {
                 data: {
-                    pods: [{role: "community-ci", name: "test", owner: "testUser",
+                    pods: [{role: "community-ci", name: "test", creator: "testUser",
                     details: "DemoDetails", mode: "metal", _id: "59f02f099a07c84bfc5c7aed",
                     creation_date: "2017-10-25 11:58:25.926168"}]
                 }
