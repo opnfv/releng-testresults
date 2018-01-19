@@ -15,7 +15,7 @@ describe('testing the Projects Link for anonymous user', function () {
                     data: {
                         "projects": [
                             {
-                            "owner": "thuva4",
+                            "creator": "thuva4",
                             "_id": "5a0c022f9a07c846d3c2cc94",
                             "creation_date": "2017-11-15 14:30:31.200259",
                             "description": "dsfsd",
@@ -122,7 +122,7 @@ describe('testing the Project Link for user who is not in submitter group', func
                         data: {
                             "projects": [
                                 {
-                                "owner": "thuva4",
+                                "creator": "thuva4",
                                 "_id": "5a0c022f9a07c846d3c2cc94",
                                 "creation_date": "2017-11-15 14:30:31.200259",
                                 "description": "dsfsd",

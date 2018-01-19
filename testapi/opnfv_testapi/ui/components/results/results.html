@@ -31,8 +31,11 @@
         </div>
         <div class="col-sm-2 pull-right" ng-class="{'hidden': ctrl.filter=='start_date' || ctrl.filter=='end_date'}">
             <span style="margin-top:6px">Search:&nbsp;&nbsp;</span>
-            <input type="text" class="form-control search" style="display:inline;width:105px;padding-left:6px;"
+            <input list="filter" name="filter" class="form-control search" style="display:inline;width:105px;padding-left:6px;"
                 ng-Model="ctrl.filterText" placeholder="Search String">
+                <datalist id="filter" ng-class="{ 'hidden' : ctrl.filterOption.length<0}">
+                    <option ng-repeat="(index, filterValue) in ctrl.filterOption " value="{{filterValue}}">{{filterValue}}</option>
+                </datalist>
         </div>
         <div class="col-sm-3 pull-right" style="width:20%" ng-class="{'hidden': ctrl.filter!='start_date'}">
             <span style="margin-top:6px">Start&nbsp;Date:&nbsp;&nbsp;</span>
@@ -64,7 +67,7 @@
         </div>
         <div class="col-md-2 row pull-right" style="width: 20%;">
             <span style="margin-top:6px">Filter:&nbsp;&nbsp;</span>
-            <select ng-model="ctrl.filter" class="form-control" style="display:inline; width:150px;">
+            <select ng-model="ctrl.filter" ng-change="ctrl.encodeFilter()" class="form-control" style="display:inline; width:150px;">
                     <option value="pod" ng-disabled="ctrl.testFilter('pod')" >Pod Name</option>
                     <option value="project" ng-disabled="ctrl.testFilter('project')" >Project Name</option>
                     <option value="case" ng-disabled="ctrl.testFilter('case')">Case Name</option>

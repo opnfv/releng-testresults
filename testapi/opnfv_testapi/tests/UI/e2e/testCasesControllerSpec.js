@@ -15,7 +15,7 @@ describe('testing the testCases page for anonymous user', function () {
                     data: {
                         "projects": [
                             {
-                                "owner": "thuva4",
+                                "creator": "thuva4",
                                 "_id": "5a0c022f9a07c846d3c2cc94",
                                 "creation_date": "2017-11-15 14:30:31.200259",
                                 "description": "dsfsd",
@@ -32,7 +32,7 @@ describe('testing the testCases page for anonymous user', function () {
                 },
                 response: {
                     data: {
-                        "owner": "thuva4",
+                        "creator": "thuva4",
                         "_id": "5a0c022f9a07c846d3c2cc94",
                         "creation_date": "2017-11-15 14:30:31.200259",
                         "description": "dsfsd",
@@ -182,7 +182,7 @@ describe('testing the testcaese page for user who is not in submitter group', fu
                         data: {
                             "projects": [
                                 {
-                                    "owner": "thuva4",
+                                    "creator": "thuva4",
                                     "_id": "5a0c022f9a07c846d3c2cc94",
                                     "creation_date": "2017-11-15 14:30:31.200259",
                                     "description": "dsfsd",
@@ -199,7 +199,7 @@ describe('testing the testcaese page for user who is not in submitter group', fu
                     },
                     response: {
                         data: {
-                            "owner": "thuva4",
+                            "creator": "thuva4",
                             "_id": "5a0c022f9a07c846d3c2cc94",
                             "creation_date": "2017-11-15 14:30:31.200259",
                             "description": "dsfsd",
@@ -397,7 +397,7 @@ describe('testing the test cases page for user who is in submitter group', funct
                     data: {
                         "projects": [
                             {
-                                "owner": "thuva4",
+                                "creator": "thuva4",
                                 "_id": "5a0c022f9a07c846d3c2cc94",
                                 "creation_date": "2017-11-15 14:30:31.200259",
                                 "description": "dsfsd",
@@ -414,7 +414,7 @@ describe('testing the test cases page for user who is in submitter group', funct
                 },
                 response: {
                     data: {
-                        "owner": "thuva4",
+                        "creator": "thuva4",
                         "_id": "5a0c022f9a07c846d3c2cc94",
                         "creation_date": "2017-11-15 14:30:31.200259",
                         "description": "dsfsd",

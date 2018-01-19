@@ -27,7 +27,7 @@ class TestPodBase(base.TestBase):
     def assert_get_body(self, pod, req=None):
         if not req:
             req = self.req_d
-        self.assertEqual(pod, pm.Pod(owner='ValidUser', **req.format()))
+        self.assertEqual(pod, pm.Pod(creator='ValidUser', **req.format()))
         self.assertIsNotNone(pod.creation_date)
         self.assertIsNotNone(pod._id)
 

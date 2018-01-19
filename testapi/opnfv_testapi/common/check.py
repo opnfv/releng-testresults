@@ -29,7 +29,7 @@ def is_authorized(method):
             if not user_info:
                 raises.Unauthorized(message.not_lfid())
             if method.__name__ == "_create":
-                kwargs['owner'] = testapi_id
+                kwargs['creator'] = testapi_id
             if self.table in ['projects']:
                 query = kwargs.get('query')
                 if type(query) is not dict:
