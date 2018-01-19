@@ -27,11 +27,12 @@ class ProjectUpdateRequest(base_models.ModelBase):
 @swagger.model()
 class Project(base_models.ModelBase):
     def __init__(self,
-                 name=None, _id=None, description=None, create_date=None):
+                 name=None, creator='', _id=None, description=None, creation_date=None):
+        self.creator = creator
         self._id = _id
         self.name = name
         self.description = description
-        self.creation_date = create_date
+        self.creation_date = creation_date
 
 
 @swagger.model()

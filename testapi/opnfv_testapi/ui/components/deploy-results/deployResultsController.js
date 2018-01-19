@@ -17,36 +17,18 @@
 
     angular
         .module('testapiApp')
-        .controller('ResultsController', ResultsController);
+        .controller('DeployResultsController', DeployResultsController);
 
-    angular
-        .module('testapiApp')
-        .directive('fileModel', ['$parse', function ($parse) {
-            return {
-               restrict: 'A',
-               link: function(scope, element, attrs) {
-                  var model = $parse(attrs.fileModel);
-                  var modelSetter = model.assign;
-
-                  element.bind('change', function(){
-                     scope.$apply(function(){
-                        modelSetter(scope, element[0].files[0]);
-                     });
-                  });
-               }
-            };
-         }]);
-
-    ResultsController.$inject = [
+    DeployResultsController.$inject = [
         '$scope', '$http', '$filter', '$state', 'testapiApiUrl','raiseAlert'
     ];
 
     /**
-     * TestAPI Results Controller
-     * This controller is for the '/results' page where a user can browse
+     * TestAPI Deploy Results Controller
+     * This controller is for the '/deployresults' page where a user can browse
      * a listing of community uploaded results.
      */
-    function ResultsController($scope, $http, $filter, $state, testapiApiUrl,
+    function DeployResultsController($scope, $http, $filter, $state, testapiApiUrl,
         raiseAlert) {
         var ctrl = this;
 
@@ -55,20 +37,12 @@
         ctrl.deleteTag = deleteTag;
         ctrl.filterList= filterList;
         ctrl.testFilter = testFilter
-        ctrl.viewResult = viewResult;
         ctrl.filter = "pod"
         ctrl.filterValue = "pod_name"
         ctrl.encodeFilter = encodeFilter
 
         ctrl.tagArray = {}
         ctrl.filterOption=[]
-
-        /** Mappings of Interop WG components to marketing program names. */
-        ctrl.targetMappings = {
-            'platform': 'Openstack Powered Platform',
-            'compute': 'OpenStack Powered Compute',
-            'object': 'OpenStack Powered Object Storage'
-        };
 
         /** Initial page to be on. */
         ctrl.currentPage = 1;
@@ -96,39 +70,15 @@
         /** The date format for the date picker. */
         ctrl.format = 'yyyy-MM-dd';
 
-        /** Check to see if this page should display user-specific results. */
-        // ctrl.isUserResults = $state.current.name === 'userResults';
-        // need auth to browse
-        // ctrl.isUserResults = $state.current.name === 'userResults';
-
-        // // Should only be on user-results-page if authenticated.
-        // if (ctrl.isUserResults && !$scope.auth.isAuthenticated) {
-        //     $state.go('home');
-        // }
-
         ctrl.pageHeader = "Test Results"
 
-        ctrl.pageParagraph = ctrl.isUserResults ?
-            'Your most recently uploaded test results are listed here.' :
-            'The most recently uploaded community test results are listed ' +
-            'here.';
-
-        // ctrl.uploadState = '';
-
+        ctrl.pageParagraph = 'Your most recently uploaded deploy results are listed here.'
         ctrl.isPublic = false;
-
-        // if (ctrl.isUserResults) {
-        //     ctrl.authRequest = $scope.auth.doSignCheck()
-        //         .then(ctrl.filterList);
-        //     // ctrl.getUserProducts();
-        // } else {
-        //     ctrl.filterList();
-        // }
 
         function encodeFilter(){
             ctrl.filterText = ''
             ctrl.filterOption=[]
-            if(ctrl.filter=="pod" || ctrl.filter=="project" || ctrl.filter=="scenario"){
+            if(ctrl.filter=="pod" || ctrl.filter=="scenario"){
                 var reqURL = testapiApiUrl +"/" + ctrl.filter + "s"
                 ctrl.datasRequest =
                     $http.get(reqURL).success(function (data) {
@@ -145,57 +95,6 @@
                     });
 
             }
-            else if(ctrl.filter=="case"){
-                if("project" in ctrl.tagArray){
-                    var reqURL = testapiApiUrl +"/projects/"+ctrl.tagArray["project"]+"/cases"
-                    ctrl.dataRequest =
-                                $http.get(reqURL).success(function (data) {
-                                    ctrl.filterData = data;
-                                    for(var index in ctrl.filterData.testcases){
-                                        if( ctrl.filterOption.indexOf(ctrl.filterData.testcases[index]["name"]) < 0){
-                                            ctrl.filterOption.push(ctrl.filterData.testcases[index]["name"])
-                                        }
-                                    }
-                                }).catch(function (data) {
-                                    ctrl.data = null;
-                                    ctrl.showError = true;
-                                    ctrl.error = data.statusText;
-                                });
-
-                }
-                else{
-                    var reqURL = testapiApiUrl +"/projects"
-                    ctrl.dataRequest =
-                        $http.get(reqURL).success(function (data) {
-                            ctrl.projectsData = data;
-                            for(var indexP in ctrl.projectsData.projects){
-                                reqURL = testapiApiUrl +"/projects/" + ctrl.projectsData.projects[indexP]["name"] +"/cases"
-                                ctrl.datasRequest =
-                                    $http.get(reqURL).success(function (data) {
-                                        ctrl.filterData = data;
-                                        for(var index in ctrl.filterData.testcases){
-                                            if( ctrl.filterOption.indexOf(ctrl.filterData.testcases[index]["name"]) < 0){
-                                                ctrl.filterOption.push(ctrl.filterData.testcases[index]["name"])
-                                            }
-                                        }
-                                    }).catch(function (data) {
-                                        ctrl.data = null;
-                                        ctrl.showError = true;
-                                        ctrl.error = data.statusText;
-                                    });
-                            }
-                        }).catch(function (data) {
-                            ctrl.data = null;
-                            ctrl.showError = true;
-                            ctrl.error = data.statusText;
-                        });
-                }
-
-            }
-        }
-
-        function viewResult(_id){
-            $state.go('result', {'_id':_id}, {reload: true});
         }
 
         function deleteTag(index){
@@ -213,7 +112,7 @@
         }
 
         /**
-         * This will contact the TestAPI API to get a listing of test run
+         * This will contact the TestAPI API to get a listing of deploy
          * results.
          */
         function filterList(){
@@ -221,7 +120,7 @@
                 ctrl.tagArray[ctrl.filter] =  ctrl.filterText;
             }
             ctrl.showError = false;
-            var content_url = testapiApiUrl + '/results' +
+            var content_url = testapiApiUrl + '/deployresults' +
                 '?page=' + ctrl.currentPage;
             for(var key in ctrl.tagArray){
                 if(key=="start_date"){
@@ -250,13 +149,11 @@
                         ctrl.totalItems = ctrl.data.pagination.total_pages * ctrl.itemsPerPage;
                         ctrl.currentPage = ctrl.data.pagination.current_page;
                         ctrl.encodeFilter();
-                    }).error(function (error) {
+                    }).catch(function (error) {
                         ctrl.data = null;
                         ctrl.totalItems = 0;
                         ctrl.showError = true;
-                        ctrl.error =
-                            'Error retrieving results listing from server: ' +
-                            angular.toJson(error);
+                        ctrl.error = error.statusText
                     });
             ctrl.filterText = ''
         }

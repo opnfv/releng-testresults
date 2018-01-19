@@ -12,7 +12,7 @@ describe('testing the Pods page for anonymous user', function () {
 			},
 			response: {
 				data: {
-					pods: [{role: "community-ci", name: "test", owner: "testUser",
+					pods: [{role: "community-ci", name: "test", creator: "testUser",
 					details: "DemoDetails", mode: "metal", _id: "59f02f099a07c84bfc5c7aed",
 					creation_date: "2017-10-25 11:58:25.926168"}]
 				}
@@ -28,7 +28,7 @@ describe('testing the Pods page for anonymous user', function () {
 			},
 			response: {
 				data: {
-					pods: [{role: "community-ci", name: "test", owner: "testUser",
+					pods: [{role: "community-ci", name: "test", creator: "testUser",
 					details: "DemoDetails", mode: "metal", _id: "59f02f099a07c84bfc5c7aed",
 					creation_date: "2017-10-25 11:58:25.926168"}]
 				}
@@ -98,7 +98,7 @@ describe('testing the Pods page for authorized user', function () {
 			},
 			response: {
 				data: {
-					pods: [{role: "community-ci", name: "test", owner: "testUser",
+					pods: [{role: "community-ci", name: "test", creator: "testUser",
 					details: "DemoDetails", mode: "metal", _id: "59f02f099a07c84bfc5c7aed",
 					creation_date: "2017-10-25 11:58:25.926168"}]
 				}
@@ -127,7 +127,7 @@ describe('testing the Pods page for authorized user', function () {
 			},
 			response: {
 				data: {
-					pods: [{role: "community-ci", name: "test", owner: "testUser",
+					pods: [{role: "community-ci", name: "test", creator: "testUser",
 					details: "DemoDetails", mode: "metal", _id: "59f02f099a07c84bfc5c7aed",
 					creation_date: "2017-10-25 11:58:25.926168"}]
 				}
@@ -172,7 +172,7 @@ describe('testing the Pods page for authorized user', function () {
 				method: 'GET'
 			},
 			response: {
-				data: {role: "community-ci", name: "test", owner: "testUser",
+				data: {role: "community-ci", name: "test", creator: "testUser",
 				details: "DemoDetails", mode: "metal", _id: "59f02f099a07c84bfc5c7aed",
 				creation_date: "2017-10-25 11:58:25.926168"}
 			}
@@ -295,7 +295,7 @@ describe('testing the Pods page for authorized user', function () {
 				},
 				response: {
 					data: {
-						pods: [{role: "community-ci", name: "test1", owner: "testUser",
+						pods: [{role: "community-ci", name: "test1", creator: "testUser",
 						details: "DemoDetails", mode: "metal", _id: "59f02f099a07c84bfc5c7aed",
 						creation_date: "2017-10-25 11:58:25.926168"}]
 					}
@@ -336,7 +336,7 @@ describe('testing the Pods page for authorized user', function () {
 
 	it('view the test case ', function () {
 		browser.get(baseURL+"#/pods");
-        var viewOperation = element(by.css('a[class=text-info]'));
+        var viewOperation = element(by.linkText('test'));
         viewOperation.click();
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains('#/pods/test'), 10000);

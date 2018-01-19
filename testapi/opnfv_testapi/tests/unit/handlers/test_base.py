@@ -35,20 +35,21 @@ class TestBase(testing.AsyncHTTPTestCase):
                                     details='zte pod 1',
                                     role='community-ci',
                                     _id=str(ObjectId()),
-                                    owner='ValidUser',
+                                    creator='ValidUser',
                                     creation_date=str(datetime.now()))
         self.pod_e = pod_models.Pod(name='zte-pod2',
                                     mode='metal',
                                     details='zte pod 2',
                                     role='production-ci',
                                     _id=str(ObjectId()),
-                                    owner='ValidUser',
+                                    creator='ValidUser',
                                     creation_date=str(datetime.now()))
         self.project_e = project_models.Project(
             name='functest',
             description='functest test',
+            creator='ValidUser',
             _id=str(ObjectId()),
-            create_date=str(datetime.now()))
+            creation_date=str(datetime.now()))
 
         self.req_d = None
         self.req_e = None

@@ -224,7 +224,7 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var buttonAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[2]/button'))
+        var buttonAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[2]/button'))
         expect(buttonAdd.isDisplayed()).toBe(false);
     });
 
@@ -232,7 +232,7 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a'))
         installerShow.click();
         var row = element.all(by.repeater('(indexI, installer) in ctrl.data.scenarios[0].installers')).first();
         var cells = row.all(by.tagName('td'));
@@ -243,9 +243,9 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a'))
         installersShow.click();
-        var installerDelete = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[3]/button'))
+        var installerDelete = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[3]/button'))
         expect(installerDelete.isDisplayed()).toBe(false);
     });
 
@@ -253,11 +253,11 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installersShow.click();
-        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         installerShow.click();
-        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
+        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
         expect(versionsShow.isDisplayed()).toBe(true)
     });
 
@@ -265,13 +265,13 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installersShow.click();
-        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         installerShow.click();
-        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
+        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
         versionsShow.click();
-        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         expect(versionShow.isDisplayed()).toBe(true);
     });
 
@@ -279,15 +279,15 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installersShow.click();
-        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         installerShow.click();
-        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
+        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
         versionsShow.click();
-        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         versionShow.click()
-        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
+        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
         expect(projectsShow.isDisplayed()).toBe(true);
     });
 
@@ -295,17 +295,17 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installersShow.click();
-        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         installerShow.click();
-        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
+        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
         versionsShow.click();
-        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         versionShow.click()
-        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
+        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
         projectsShow.click();
-        var projectShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var projectShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         expect(projectShow.isDisplayed()).toBe(true)
     });
 
@@ -313,23 +313,23 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installersShow.click();
-        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         installerShow.click();
-        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
+        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
         versionsShow.click();
-        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         versionShow.click()
-        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
+        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
         projectsShow.click();
-        var projectShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var projectShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         projectShow.click();
-        var customsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[4]/td[2]/a/p'))
+        var customsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[4]/td[2]/a/p'))
         expect(customsShow.isDisplayed()).toBe(true)
-        var trustIndicatorsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/a/p'))
+        var trustIndicatorsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/a/p'))
         expect(trustIndicatorsShow.isDisplayed()).toBe(true)
-        var scoresShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/a/p'))
+        var scoresShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/a/p'))
         expect(scoresShow.isDisplayed()).toBe(true)
     });
 
@@ -666,7 +666,7 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var buttonAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[2]/button'))
+        var buttonAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[2]/button'))
         expect(buttonAdd.isDisplayed()).toBe(true);
     });
 
@@ -674,7 +674,7 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var buttonAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[2]/button'))
+        var buttonAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[2]/button'))
         buttonAdd.click();
         var name = element(by.model('installerModalCtrl.installer.installer'));
         var EC = browser.ExpectedConditions;
@@ -691,7 +691,7 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installerShow.click();
         var row = element.all(by.repeater('(indexI, installer) in ctrl.data.scenarios[0].installers')).first();
         var cells = row.all(by.tagName('td'));
@@ -702,9 +702,9 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installersShow.click();
-        var installerDelete = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[3]/button'))
+        var installerDelete = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[3]/button'))
         expect(installerDelete.isDisplayed()).toBe(true);
     });
 
@@ -712,9 +712,9 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installersShow.click();
-        var installerDelete = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[3]/button'))
+        var installerDelete = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[3]/button'))
         installerDelete.click()
         var buttonOK = element(by.buttonText('Ok'));
         buttonOK.click();
@@ -726,11 +726,11 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installersShow.click();
-        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         installerShow.click();
-        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
+        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
         expect(versionsShow.isDisplayed()).toBe(true)
     });
 
@@ -738,11 +738,11 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installersShow.click();
-        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         installerShow.click();
-        var versionAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[2]/button'))
+        var versionAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[2]/button'))
         versionAdd.click()
         var version = element(by.model('versionModalCtrl.version.version'));
         browser.wait(EC.visibilityOf(version), 5000);
@@ -759,16 +759,16 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installersShow.click();
-        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         installerShow.click();
-        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
+        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
         versionsShow.click();
-        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         expect(versionShow.isDisplayed()).toBe(true);
-        var installerAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[2]/button'))
-        var installerDelete = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[3]/button'))
+        var installerAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[2]/button'))
+        var installerDelete = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[3]/button'))
         expect(installerAdd.isDisplayed()).toBe(false);
         expect(installerDelete.isDisplayed()).toBe(false)
     });
@@ -777,15 +777,15 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installersShow.click();
-        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         installerShow.click();
-        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
+        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
         versionsShow.click();
-        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         versionShow.click()
-        var versionDelete = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody[1]/tr[1]/td[3]/button'))
+        var versionDelete = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody[1]/tr[1]/td[3]/button'))
         versionDelete.click()
         var buttonOK = element(by.buttonText('Ok'));
         buttonOK.click();
@@ -797,15 +797,15 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installersShow.click();
-        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         installerShow.click();
-        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
+        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
         versionsShow.click();
-        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         versionShow.click()
-        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
+        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
         expect(projectsShow.isDisplayed()).toBe(true);
     });
 
@@ -813,15 +813,15 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installersShow.click();
-        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         installerShow.click();
-        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
+        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
         versionsShow.click();
-        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         versionShow.click()
-        var projectAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[2]/button'))
+        var projectAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[2]/button'))
         projectAdd.click()
         var project = element(by.model('projectModalCtrl.project.project'));
         browser.wait(EC.visibilityOf(project), 5000);
@@ -836,20 +836,20 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installersShow.click();
-        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         installerShow.click();
-        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
+        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
         versionsShow.click();
-        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         versionShow.click()
-        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
+        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
         projectsShow.click();
-        var projectShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var projectShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         expect(projectShow.isDisplayed()).toBe(true)
-        var versionAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[2]/button'))
-        var versionDelete = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[3]/button'))
+        var versionAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[2]/button'))
+        var versionDelete = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[3]/button'))
         expect(versionAdd.isDisplayed()).toBe(false)
         expect(versionDelete.isDisplayed()).toBe(false)
     });
@@ -858,17 +858,17 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installersShow.click();
-        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         installerShow.click();
-        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
+        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
         versionsShow.click();
-        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         versionShow.click()
-        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
+        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
         projectsShow.click();
-        var projectDelete = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody[1]/tr[1]/td[3]/button'))
+        var projectDelete = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody[1]/tr[1]/td[3]/button'))
         projectDelete.click()
         var buttonOK = element(by.buttonText('Ok'));
         buttonOK.click();
@@ -880,23 +880,23 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installersShow.click();
-        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         installerShow.click();
-        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
+        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
         versionsShow.click();
-        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         versionShow.click()
-        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
+        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
         projectsShow.click();
-        var projectShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var projectShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         projectShow.click();
-        var customsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[4]/td[2]/a/p'))
+        var customsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[4]/td[2]/a/p'))
         expect(customsShow.isDisplayed()).toBe(true)
-        var trustIndicatorsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/a/p'))
+        var trustIndicatorsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/a/p'))
         expect(trustIndicatorsShow.isDisplayed()).toBe(true)
-        var scoresShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/a/p'))
+        var scoresShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/a/p'))
         expect(scoresShow.isDisplayed()).toBe(true)
     });
 
@@ -904,19 +904,19 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installersShow.click();
-        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         installerShow.click();
-        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
+        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
         versionsShow.click();
-        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         versionShow.click()
-        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
+        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
         projectsShow.click();
-        var projectShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var projectShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         projectShow.click();
-        var trustIndicatorsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/a/p'))
+        var trustIndicatorsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/a/p'))
         trustIndicatorsShow.click();
         var row = element.all(by.repeater('(indexTI, trust_indicator) in project.trust_indicators')).first();
         var cells = row.all(by.tagName('td'));
@@ -927,19 +927,19 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installersShow.click();
-        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         installerShow.click();
-        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
+        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
         versionsShow.click();
-        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         versionShow.click()
-        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
+        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
         projectsShow.click();
-        var projectShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var projectShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         projectShow.click();
-        var scoresShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody[1]/tr[3]/td[2]/a/p'))
+        var scoresShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody[1]/tr[3]/td[2]/a/p'))
         scoresShow.click();
         var row = element.all(by.repeater('(indexSC, score) in project.scores')).first();
         var cells = row.all(by.tagName('td'));
@@ -950,29 +950,29 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installersShow.click();
-        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         installerShow.click();
-        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
+        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
         versionsShow.click();
-        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         versionShow.click()
-        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
+        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
         projectsShow.click();
-        var projectShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var projectShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         projectShow.click();
-        var customsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody[1]/tr[4]/td[2]/a/p'))
+        var customsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody[1]/tr[4]/td[2]/a/p'))
         customsShow.click();
         var row = element.all(by.repeater('(indexCU, custom) in project.customs')).first();
         var cells = row.all(by.tagName('td'));
         expect(cells.get(0).getText()).toContain("dvs");
-        var projectAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[2]/button'))
-        var projectDelete = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody[1]/tr[1]/td[3]/button'))
+        var projectAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[2]/button'))
+        var projectDelete = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody[1]/tr[1]/td[3]/button'))
         expect(projectDelete.isDisplayed()).toBe(false)
         expect(projectAdd.isDisplayed()).toBe(false)
-        var buttonAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody[1]/tr[4]/td[2]/button'))
-        var buttonDelete = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody[1]/tr[4]/td[2]/table/tbody/tr[1]/td[2]/button'))
+        var buttonAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody[1]/tr[4]/td[2]/button'))
+        var buttonDelete = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody[1]/tr[4]/td[2]/table/tbody/tr[1]/td[2]/button'))
         expect(buttonAdd.isDisplayed()).toBe(true)
         expect(buttonDelete.isDisplayed()).toBe(true)
     });
@@ -981,24 +981,24 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installersShow.click();
-        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         installerShow.click();
-        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
+        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
         versionsShow.click();
-        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         versionShow.click()
-        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
+        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
         projectsShow.click();
-        var projectShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var projectShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         projectShow.click();
-        var customsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody[1]/tr[4]/td[2]/a/p'))
+        var customsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody[1]/tr[4]/td[2]/a/p'))
         customsShow.click();
         var row = element.all(by.repeater('(indexCU, custom) in project.customs')).first();
         var cells = row.all(by.tagName('td'));
         expect(cells.get(0).getText()).toContain("dvs");
-        var buttonAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody[1]/tr[4]/td[2]/button'))
+        var buttonAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody[1]/tr[4]/td[2]/button'))
         buttonAdd.click()
         var custom = element(by.model('customModalCtrl.custom'));
         browser.wait(EC.visibilityOf(custom), 5000);
@@ -1013,24 +1013,24 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
-        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[1]/a/p'))
+        var installersShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[1]/a/p'))
         installersShow.click();
-        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var installerShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         installerShow.click();
-        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
+        var versionsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[1]/a/p'))
         versionsShow.click();
-        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var versionShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         versionShow.click()
-        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
+        var projectsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[1]/a'))
         projectsShow.click();
-        var projectShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
+        var projectShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody/tr[1]/td[2]/a'))
         projectShow.click();
-        var customsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody[1]/tr[4]/td[2]/a/p'))
+        var customsShow = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody[1]/tr[4]/td[2]/a/p'))
         customsShow.click();
         var row = element.all(by.repeater('(indexCU, custom) in project.customs')).first();
         var cells = row.all(by.tagName('td'));
         expect(cells.get(0).getText()).toContain("dvs");
-        var buttonAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody[1]/tr[4]/td[2]/table/tbody/tr[1]/td[2]/button'))
+        var buttonAdd = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[5]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody[1]/tr[4]/td[2]/table/tbody/tr[1]/td[2]/button'))
         buttonAdd.click()
         var buttonOk = element(by.xpath('//*[@id="ng-app"]/body/div[3]/div/div/div[3]/button[1]'))
         buttonOk.click()
