@@ -143,7 +143,7 @@ describe('testing the result page for anonymous user', function () {
         browser.get(baseURL+"#/results");
         var row = element.all(by.repeater('(index, result) in ctrl.data.results')).first();
         var cells = row.all(by.tagName('td'));
-        expect(cells.get(0).getText()).toContain("5a45170bbb2092000e2643f4");
+        expect(cells.get(0).getText()).toContain("0e2643f4");
     });
 
     it('Should show the results in results page related to the filters for anonymous user ', function () {
@@ -156,11 +156,11 @@ describe('testing the result page for anonymous user', function () {
         buttonFilter.click();
         var row = element.all(by.repeater('(index, result) in ctrl.data.results')).first();
         var cells = row.all(by.tagName('td'));
-        expect(cells.get(0).getText()).toContain("5a45170bbb2092000e2643f5");
+        expect(cells.get(0).getText()).toContain("0e2643f5");
         filter.sendKeys('case');
         filterText.sendKeys('testcase')
         buttonFilter.click();
-        expect(cells.get(0).getText()).toContain("5a45170bbb2092000e2643f6");
+        expect(cells.get(0).getText()).toContain("0e2643f6");
     });
     it('Should not show the results in results page related to the filters for anonymous user ', function () {
         browser.get(baseURL+"#/results");
@@ -329,7 +329,7 @@ describe('testing the result page for user', function () {
         browser.get(baseURL+"#/results");
         var row = element.all(by.repeater('(index, result) in ctrl.data.results')).first();
         var cells = row.all(by.tagName('td'));
-        expect(cells.get(0).getText()).toContain("5a45170bbb2092000e2643f4");
+        expect(cells.get(0).getText()).toContain("0e2643f4");
     });
 
     it('Should show the results in results page related to the filters for user ', function () {
@@ -342,11 +342,11 @@ describe('testing the result page for user', function () {
         buttonFilter.click();
         var row = element.all(by.repeater('(index, result) in ctrl.data.results')).first();
         var cells = row.all(by.tagName('td'));
-        expect(cells.get(0).getText()).toContain("5a45170bbb2092000e2643f5");
+        expect(cells.get(0).getText()).toContain("0e2643f5");
         filter.sendKeys('case');
         filterText.sendKeys('testcase')
         buttonFilter.click();
-        expect(cells.get(0).getText()).toContain("5a45170bbb2092000e2643f6");
+        expect(cells.get(0).getText()).toContain("0e2643f6");
     });
 
     it('Clear the filter', function () {
@@ -359,12 +359,12 @@ describe('testing the result page for user', function () {
         buttonFilter.click();
         var row = element.all(by.repeater('(index, result) in ctrl.data.results')).first();
         var cells = row.all(by.tagName('td'));
-        expect(cells.get(0).getText()).toContain("5a45170bbb2092000e2643f5");
+        expect(cells.get(0).getText()).toContain("0e2643f5");
         var buttonClear = element(by.buttonText('Clear'));
         buttonClear.click();
         var row = element.all(by.repeater('(index, result) in ctrl.data.results')).first();
         var cells = row.all(by.tagName('td'));
-        expect(cells.get(0).getText()).toContain("5a45170bbb2092000e2643f4");
+        expect(cells.get(0).getText()).toContain("0e2643f4");
     });
     it('Should not show the results in results page related to the filters for user ', function () {
         browser.get(baseURL+"#/results");

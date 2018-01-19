@@ -56,8 +56,12 @@
         ctrl.filterList= filterList;
         ctrl.testFilter = testFilter
         ctrl.viewResult = viewResult;
+        ctrl.filter = "pod"
+        ctrl.filterValue = "pod_name"
+        ctrl.encodeFilter = encodeFilter
 
         ctrl.tagArray = {}
+        ctrl.filterOption=[]
 
         /** Mappings of Interop WG components to marketing program names. */
         ctrl.targetMappings = {
@@ -121,6 +125,75 @@
         //     ctrl.filterList();
         // }
 
+        function encodeFilter(){
+            ctrl.filterText = ''
+            ctrl.filterOption=[]
+            if(ctrl.filter=="pod" || ctrl.filter=="project" || ctrl.filter=="scenario"){
+                var reqURL = testapiApiUrl +"/" + ctrl.filter + "s"
+                ctrl.datasRequest =
+                    $http.get(reqURL).success(function (data) {
+                        ctrl.filterData = data;
+                        for(var index in ctrl.filterData[ctrl.filter + "s"]){
+                            if( ctrl.filterOption.indexOf(ctrl.filterData[ctrl.filter + "s"][index]["name"]) < 0){
+                                ctrl.filterOption.push(ctrl.filterData[ctrl.filter + "s"][index]["name"])
+                            }
+                        }
+                    }).catch(function (data) {
+                        ctrl.data = null;
+                        ctrl.showError = true;
+                        ctrl.error = data.statusText;
+                    });
+
+            }
+            else if(ctrl.filter=="case"){
+                if("project" in ctrl.tagArray){
+                    var reqURL = testapiApiUrl +"/projects/"+ctrl.tagArray["project"]+"/cases"
+                    ctrl.dataRequest =
+                                $http.get(reqURL).success(function (data) {
+                                    ctrl.filterData = data;
+                                    for(var index in ctrl.filterData.testcases){
+                                        if( ctrl.filterOption.indexOf(ctrl.filterData.testcases[index]["name"]) < 0){
+                                            ctrl.filterOption.push(ctrl.filterData.testcases[index]["name"])
+                                        }
+                                    }
+                                }).catch(function (data) {
+                                    ctrl.data = null;
+                                    ctrl.showError = true;
+                                    ctrl.error = data.statusText;
+                                });
+
+                }
+                else{
+                    var reqURL = testapiApiUrl +"/projects"
+                    ctrl.dataRequest =
+                        $http.get(reqURL).success(function (data) {
+                            ctrl.projectsData = data;
+                            for(var indexP in ctrl.projectsData.projects){
+                                reqURL = testapiApiUrl +"/projects/" + ctrl.projectsData.projects[indexP]["name"] +"/cases"
+                                ctrl.datasRequest =
+                                    $http.get(reqURL).success(function (data) {
+                                        ctrl.filterData = data;
+                                        for(var index in ctrl.filterData.testcases){
+                                            if( ctrl.filterOption.indexOf(ctrl.filterData.testcases[index]["name"]) < 0){
+                                                ctrl.filterOption.push(ctrl.filterData.testcases[index]["name"])
+                                            }
+                                        }
+                                    }).catch(function (data) {
+                                        ctrl.data = null;
+                                        ctrl.showError = true;
+                                        ctrl.error = data.statusText;
+                                    });
+                            }
+                        }).catch(function (data) {
+                            ctrl.data = null;
+                            ctrl.showError = true;
+                            ctrl.error = data.statusText;
+                        });
+                }
+
+            }
+        }
+
         function viewResult(_id){
             $state.go('result', {'_id':_id}, {reload: true});
         }
@@ -144,7 +217,7 @@
          * results.
          */
         function filterList(){
-            if(ctrl.filter && ctrl.filterText!=""){
+            if(ctrl.filter && ctrl.filterText!="" && ctrl.filterText!=undefined){
                 ctrl.tagArray[ctrl.filter] =  ctrl.filterText;
             }
             ctrl.showError = false;
@@ -176,6 +249,7 @@
                         ctrl.data = data;
                         ctrl.totalItems = ctrl.data.pagination.total_pages * ctrl.itemsPerPage;
                         ctrl.currentPage = ctrl.data.pagination.current_page;
+                        ctrl.encodeFilter();
                     }).error(function (error) {
                         ctrl.data = null;
                         ctrl.totalItems = 0;
@@ -187,6 +261,7 @@
             ctrl.filterText = ''
         }
         ctrl.filterList();
+
 
         /**
          * This is called when the date filter calendar is opened. It
