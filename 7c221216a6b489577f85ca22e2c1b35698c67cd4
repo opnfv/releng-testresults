@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_e90bc4d3",
+        "filename": "testapi/opnfv_testapi/ui/components/results/resultsController.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-01-25T02:10:13Z",
+      "side": 1,
+      "message": "if the project is chosen, the shown test cases should be only the ones under the selected project.",
+      "revId": "7c221216a6b489577f85ca22e2c1b35698c67cd4",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
