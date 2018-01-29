@@ -104,6 +104,11 @@
                 templateUrl: 'testapi-ui/components/results/result/result.html',
                 controller: 'ResultController as ctrl'
             }).
+            state('deployresults', {
+                url: '/deployresults',
+                templateUrl: 'testapi-ui/components/deploy-results/deployResults.html',
+                controller: 'DeployResultsController as ctrl'
+            }).
             state('profile', {
                 url: '/profile',
                 templateUrl: 'testapi-ui/components/profile/profile.html',
