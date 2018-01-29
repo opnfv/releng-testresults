@@ -52,6 +52,7 @@ mappings = [
     (r'/api/v1/results/upload', result_handlers.ResultsUploadHandler),
     (r"/api/v1/results/([^/]+)", result_handlers.ResultsGURHandler),
     (r"/api/v1/deployresults", deploy_handlers.DeployResultsHandler),
+    (r"/api/v1/deployresults/([^/]+)", deploy_handlers.DeployResultsGURHandler),
 
     # scenarios
     (r"/api/v1/scenarios", scenario_handlers.ScenariosCLHandler),
