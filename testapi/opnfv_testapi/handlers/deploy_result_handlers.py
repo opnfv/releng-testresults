@@ -2,6 +2,7 @@ from opnfv_testapi.handlers import result_handlers
 from opnfv_testapi.models import deploy_result_models
 from opnfv_testapi.tornado_swagger import swagger
 
+from bson import objectid
 
 class GenericDeployResultHandler(result_handlers.GenericResultHandler):
     def __init__(self, application, request, **kwargs):
@@ -113,3 +114,16 @@ class DeployResultsHandler(GenericDeployResultHandler):
         self._create(miss_fields=miss_fields,
                      carriers=carriers,
                      values_check=values_check)
+
+class DeployResultsGURHandler(GenericDeployResultHandler):
+    @swagger.operation(nickname='getTestDeployResultById')
+    def get(self, result_id):
+        """
+            @description: get a single deploy result by result_id
+            @rtype: L{DeployResult}
+            @return 200: Deploy result exist
+            @raise 404: Deploy result not exist
+        """
+        query = dict()
+        query["_id"] = objectid.ObjectId(result_id)
+        self._get_one(query=query)
