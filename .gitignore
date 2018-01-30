@@ -25,3 +25,5 @@ nosetests.xml
 .tox
 *.retry
 job_output/
+.vscode
+testapi/testapi-client/pip-selfcheck.json
