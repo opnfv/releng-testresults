@@ -25,3 +25,4 @@ nosetests.xml
 .tox
 *.retry
 job_output/
+.vscode
