@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_c6e698e7",
+        "filename": "testapi/testapi-client/etc/config.ini",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-02-06T07:03:53Z",
+      "side": 1,
+      "message": "please see my comments, I have given you the exact content of this file\n\n[api]\nurl \u003d http://localhost:8000/api/v1\n\n[cas]\nlogin \u003d https://identity.linuxfoundation.org/user/login?destination\u003dcas/login\nsignin_return \u003d auth/signin_return",
+      "revId": "4c11197ff82d9642ce711a2d031ff0f8e2945814",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
