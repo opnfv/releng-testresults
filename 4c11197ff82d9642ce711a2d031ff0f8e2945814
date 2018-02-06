@@ -16,6 +16,24 @@
       "revId": "4c11197ff82d9642ce711a2d031ff0f8e2945814",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_69503d32",
+        "filename": "testapi/testapi-client/etc/config.ini",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 6939
+      },
+      "writtenOn": "2018-02-06T15:55:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_c6e698e7",
+      "revId": "4c11197ff82d9642ce711a2d031ff0f8e2945814",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
