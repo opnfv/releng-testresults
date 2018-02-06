@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_86e010ce",
+        "filename": "testapi/opnfv_testapi/router/url_mappings.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-02-06T07:00:59Z",
+      "side": 1,
+      "message": "please change the naming to DeployResultHandler",
+      "range": {
+        "startLine": 55,
+        "startChar": 55,
+        "endLine": 55,
+        "endChar": 78
+      },
+      "revId": "d7df7b5263dcfe412eff5ba67fdf8a22170cb3ec",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
