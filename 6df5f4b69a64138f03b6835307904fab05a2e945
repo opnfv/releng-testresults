@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_97caf818",
+        "filename": "testapi/testapi-client/testapiclient/httpClient.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6939
+      },
+      "writtenOn": "2018-02-07T04:34:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_77313459",
+      "range": {
+        "startLine": 11,
+        "startChar": 8,
+        "endLine": 11,
+        "endChar": 19
+      },
+      "revId": "6df5f4b69a64138f03b6835307904fab05a2e945",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_d734804b",
         "filename": "testapi/testapi-client/testapiclient/pods.py",
         "patchSetId": 7
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_b7d3bcd3",
+        "filename": "testapi/testapi-client/testapiclient/pods.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 6939
+      },
+      "writtenOn": "2018-02-07T04:34:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_d734804b",
+      "range": {
+        "startLine": 19,
+        "startChar": 8,
+        "endLine": 19,
+        "endChar": 18
+      },
+      "revId": "6df5f4b69a64138f03b6835307904fab05a2e945",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_37ecccba",
         "filename": "testapi/testapi-client/testapiclient/pods.py",
         "patchSetId": 7
@@ -82,6 +130,30 @@
       "writtenOn": "2018-02-07T03:12:41Z",
       "side": 1,
       "message": "please abstract a parent Pods class to accommodate the replica process as follows:\n\nclass PodBase(Command):\n        pods_url \u003d Config.config.get(\"api\", \"url\") + \"/pods\"\n\nclass PodGet(PodBase):\n    def take_action(self, parsed_arges):\n           pods \u003d httpClient.get(pods_url)",
+      "range": {
+        "startLine": 34,
+        "startChar": 30,
+        "endLine": 34,
+        "endChar": 80
+      },
+      "revId": "6df5f4b69a64138f03b6835307904fab05a2e945",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_17dee8dc",
+        "filename": "testapi/testapi-client/testapiclient/pods.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6939
+      },
+      "writtenOn": "2018-02-07T04:34:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_37ecccba",
       "range": {
         "startLine": 34,
         "startChar": 30,
