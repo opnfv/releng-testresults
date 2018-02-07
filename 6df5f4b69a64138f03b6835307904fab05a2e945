@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_57da3017",
+        "filename": "testapi/testapi-client/etc/config.ini",
+        "patchSetId": 7
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-02-07T02:33:38Z",
+      "side": 1,
+      "message": "As I said before, there\u0027s no need to distinguish prod_api_url and dev_api_url, in the configuration file, there\u0027s should be always only one url and named \u0027url\u0027, and it will change according to which TestAPI server the user wants to connect to, if it is to opnfv, it will be \u0027url \u003d http://testresults.opnfv.org/test/api/v1\u0027, or else it will be any other urls configurable and decided totally by the user.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 42
+      },
+      "revId": "6df5f4b69a64138f03b6835307904fab05a2e945",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
