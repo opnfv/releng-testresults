@@ -21,7 +21,7 @@
 
         ScenarioController.$inject = [
         '$scope', '$http', '$filter', '$state', '$window', '$uibModal', 'testapiApiUrl','raiseAlert',
-        'confirmModal'
+        'confirmModal', 'authenticate'
     ];
 
     /**
@@ -30,7 +30,7 @@
      * through Scenario declared in TestAPI.
      */
     function ScenarioController($scope, $http, $filter, $state, $window, $uibModal, testapiApiUrl,
-        raiseAlert, confirmModal) {
+        raiseAlert, confirmModal, authenticate) {
         var ctrl = this;
         ctrl.name = $state.params['name'];
         ctrl.url = testapiApiUrl + '/scenarios?name=' + ctrl.name;
