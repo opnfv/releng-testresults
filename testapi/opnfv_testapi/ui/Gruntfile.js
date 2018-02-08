@@ -123,7 +123,8 @@ module.exports = function (grunt) {
                             '../tests/UI/e2e/resultsControllerSpec.js',
                             '../tests/UI/e2e/scenariosControllerSpec.js',
                             '../tests/UI/e2e/scenarioControllerSpec.js',
-                            '../tests/UI/e2e/deployResultsControllerSpec.js'
+                            '../tests/UI/e2e/deployResultsControllerSpec.js',
+                            '../tests/UI/e2e/authenticateFalseSpec.js'
                         ]
                 }
             },
