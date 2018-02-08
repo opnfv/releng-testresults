@@ -302,13 +302,13 @@ describe('testing the Project Link for user who is in submitter group', function
         expect(buttonCreate.isDisplayed()).toBe(true);
     });
 
-    it('Delete button is not visible for anonymous user ', function () {
+    it('Delete button is visible for anonymous user ', function () {
         browser.get(baseURL+'#/projects');
-        var buttonCreate = element(by.buttonText('Create'));
-        expect(buttonCreate.isDisplayed()).toBe(true);
+        var buttonDelete = element(by.buttonText('Delete'));
+        expect(buttonDelete.isDisplayed()).toBe(true);
     });
 
-    it('delete Operation is not visible for  user ', function () {
+    it('delete Operation is visible for  user ', function () {
         browser.get(baseURL+'#/projects');
         var deleteOperation = element(by.css('a[title=Delete]'));
         expect(deleteOperation.isDisplayed()).toBe(true);
