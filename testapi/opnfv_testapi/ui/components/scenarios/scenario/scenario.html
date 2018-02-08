@@ -28,7 +28,7 @@
                                     <p ng-if="!ctrl.collapeInstallers">Show</p>
                             </a>
                         </div>
-                        <div class="col-md-1" style="padding:0px" ng-class="{'hidden' : !ctrl.buttonInstaller || !auth.isAuthenticated}">
+                        <div class="col-md-1" style="padding:0px" ng-class="{'hidden' : !ctrl.buttonInstaller || (!auth.isAuthenticated && authenticate)}">
                             <button type="button" class="btn btn-success btn-xs" ng-click="ctrl.openAddInstaller()" ><i class="fa fa-plus"></i>Add</button>
                         </div>
                         <div ng-class="{ 'hidden' : ! ctrl.collapeInstallers } ">
@@ -43,7 +43,7 @@
                                                     <a ng-click="ctrl.expandInstaller(indexI)">{{installer.installer}}</a>
                                             </td>
                                             <td  style="width:80%;border: none; padding: 0px;" ng-class="{'hidden' : !ctrl.buttonInstaller}">
-                                                    <button type="button" ng-class="{'hidden' : !auth.isAuthenticated}"  class="btn btn-danger btn-xs" ng-click="ctrl.openDeleteInstallerModal(installer.installer)" ><i class="fa fa-minus"></i>Delete</button>
+                                                    <button type="button" ng-class="{'hidden' : !auth.isAuthenticated && authenticate}"  class="btn btn-danger btn-xs" ng-click="ctrl.openDeleteInstallerModal(installer.installer)" ><i class="fa fa-minus"></i>Delete</button>
                                             </td>
                                         </tr>
                                         <tr ng-class="{ 'hidden' : ! ctrl.collapeInstaller[indexI] }">
@@ -58,7 +58,7 @@
                                                     </a>
                                                 </div>
                                                 <div class="col-md-1" style="padding:0px" ng-class="{'hidden' : !ctrl.buttonVersion}">
-                                                    <button type="button" class="btn btn-success btn-xs"  ng-class="{'hidden' : !auth.isAuthenticated}" ng-click="ctrl.openAddVersionModal(installer.installer)" ><i class="fa fa-plus"></i>Add</button>
+                                                    <button type="button" class="btn btn-success btn-xs"  ng-class="{'hidden' : !auth.isAuthenticated && authenticate}" ng-click="ctrl.openAddVersionModal(installer.installer)" ><i class="fa fa-plus"></i>Add</button>
                                                 </div>
                                                 <div ng-class="{ 'hidden' : ! ctrl.collapeVersions[indexI] } " class="col-md-12">
                                                     <div class="table-responsive">
@@ -72,7 +72,7 @@
                                                                     <a ng-click="ctrl.expandVersion(indexI,indexV)">{{version.version}}</a>
                                                                 </td>
                                                                 <td  style="width:80%;border: none; padding: 0px;" ng-class="{'hidden' : !ctrl.buttonVersion}">
-                                                                        <button type="button" class="btn btn-danger btn-xs" ng-class="{'hidden' : !auth.isAuthenticated}"  ng-click="ctrl.openDeleteVersionModal(version.version, installer.installer)" ><i class="fa fa-minus"></i>Delete</button>
+                                                                        <button type="button" class="btn btn-danger btn-xs" ng-class="{'hidden' : !auth.isAuthenticated && authenticate}"  ng-click="ctrl.openDeleteVersionModal(version.version, installer.installer)" ><i class="fa fa-minus"></i>Delete</button>
                                                                 </td>
                                                             </tr>
                                                             <tr style="padding:9px" ng-class="{ 'hidden' : ! ctrl.collapeVersion[indexI][indexV] } ">
@@ -93,7 +93,7 @@
                                                                         </a>
                                                                     </div>
                                                                     <div class="col-md-1" style="padding:0px" ng-class="{'hidden' : !ctrl.buttonProject }">
-                                                                        <button type="button" ng-class="{'hidden' : !auth.isAuthenticated}"  class="btn btn-success btn-xs" ng-click="ctrl.openAddProjectModal(version.version,installer.installer)" ><i class="fa fa-plus"></i>Add</button>
+                                                                        <button type="button" ng-class="{'hidden' : !auth.isAuthenticated && authenticate}"  class="btn btn-success btn-xs" ng-click="ctrl.openAddProjectModal(version.version,installer.installer)" ><i class="fa fa-plus"></i>Add</button>
                                                                     </div>
                                                                     <div ng-class="{ 'hidden' : ! ctrl.collapeProjects[indexI][indexV] } " class="col-md-12">
                                                                         <div class="table-responsive">
@@ -107,7 +107,7 @@
                                                                                     <a ng-click="ctrl.expandProject(indexI, indexV, indexP)">{{project.project}}</a>
                                                                                 </td>
                                                                                 <td  style="width:80%;border: none; padding: 0px;" ng-class="{'hidden' : !ctrl.buttonProject}">
-                                                                                        <button type="button" class="btn btn-danger btn-xs" ng-class="{'hidden' : !auth.isAuthenticated}"  ng-click="ctrl.openDeleteProjectModal(project,version.version, installer.installer)" ><i class="fa fa-minus"></i>Delete</button>
+                                                                                        <button type="button" class="btn btn-danger btn-xs" ng-class="{'hidden' : !auth.isAuthenticated && authenticate}"  ng-click="ctrl.openDeleteProjectModal(project,version.version, installer.installer)" ><i class="fa fa-minus"></i>Delete</button>
                                                                                 </td>
                                                                             </tr>
                                                                             <tr ng-class="{ 'hidden' : ! ctrl.collapeProject[indexI][indexV][indexP] }">
@@ -138,10 +138,6 @@
                                                                                                     </td>
                                                                                                 </tr>
                                                                                             </tbody>
-                                                                                            <tr>
-                                                                                                <button type="button" class="btn btn-success btn-xs" ng-click="ctrl.openAddTrustIndicatorModal(project.project,version.version,installer.installer)"  ng-class="{ 'hidden' : !ctrl.collapeTrustIndicator[index] || !auth.isAuthenticated}">
-                                                                                                    <i class="fa fa-plus"></i>Add</button>
-                                                                                            </tr>
                                                                                             </table>
                                                                                 </td>
                                                                             </tr>
@@ -173,9 +169,6 @@
                                                                                                     </td>
                                                                                             </tr>
                                                                                             </tbody>
-                                                                                            <tr>
-                                                                                                <button type="button" class="btn btn-success btn-xs" ng-click="ctrl.openAddScoreModal(project.project,version.version,installer.installer)"  ng-class="{ 'hidden' : !ctrl.collapeScore[index] || !auth.isAuthenticated}"><i class="fa fa-plus"></i>Add</button>
-                                                                                            </tr>
                                                                                             </table>
                                                                                 </td>
                                                                             </tr>
@@ -195,13 +188,13 @@
                                                                                                     {{custom}}
                                                                                                 </td>
                                                                                                 <td width="90%" class="podsTableLeftTd">
-                                                                                                        <button type="button" class="btn btn-danger btn-xs" ng-click="ctrl.openDeleteCustomModal(custom,project.project,version.version,installer.installer)" ng-class="{'hidden' : !auth.isAuthenticated}" ><i class="fa fa-minus"></i>Delete</button>
+                                                                                                        <button type="button" class="btn btn-danger btn-xs" ng-click="ctrl.openDeleteCustomModal(custom,project.project,version.version,installer.installer)" ng-class="{'hidden' : !auth.isAuthenticated && authenticate}" ><i class="fa fa-minus"></i>Delete</button>
                                                                                                 </td>
                                                                                             </tr>
                                                                                             <tr ng-repeat-end=>
                                                                                             </tr>
                                                                                             <tr>
-                                                                                                <button type="button" class="btn btn-success btn-xs" ng-click="ctrl.openAddCustomModal(project.project,version.version,installer.installer)"  ng-class="{ 'hidden' : !ctrl.collapeCustom[indexI][indexV][indexP] || !auth.isAuthenticated}"><i class="fa fa-plus"></i>Add</button>
+                                                                                                <button type="button" class="btn btn-success btn-xs" ng-click="ctrl.openAddCustomModal(project.project,version.version,installer.installer)"  ng-class="{ 'hidden' : !ctrl.collapeCustom[indexI][indexV][indexP] || (!auth.isAuthenticated && authenticate)}"><i class="fa fa-plus"></i>Add</button>
                                                                                             </tr>
                                                                                             </tbody>
                                                                                             </table>
