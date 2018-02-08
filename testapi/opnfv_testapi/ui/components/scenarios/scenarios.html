@@ -1,11 +1,11 @@
 <h3>Scenarios</h3>
 <div class="row" style="margin-bottom:24px;"></div>
 <div class="row podsTable" style="vertical-align:middle">
-    <div class="col-sm-1 pull-right" ng-class="{ 'hidden': !auth.isAuthenticated }" >
+    <div class="col-sm-1 pull-right" ng-class="{ 'hidden': !auth.isAuthenticated && authenticate}" >
         <button type="button" class="btn btn-danger" ng-click="ctrl.openBatchDeleteModal()">
               <i class="fa fa-minus"></i> Delete</button>
     </div>
-    <div class="col-sm-2 pull-right"  ng-class="{ 'hidden': !auth.isAuthenticated}">
+    <div class="col-sm-2 pull-right" ng-class="{ 'hidden': !auth.isAuthenticated && authenticate}">
         <button type="button" class="btn btn-success" ng-click="ctrl.openScenarioModal()">
           <i class="fa fa-plus"></i>Create</button>
     </div>
@@ -28,7 +28,7 @@
         text-align: center;">
             <th style="width: 1%;">Bulk&nbsp;Select</th>
             <th style="width: 80%;">Name</th>
-            <th style="width: 19%;" ng-class="{'hidden': !auth.isAuthenticated}">Operations</th>
+            <th style="width: 19%;" ng-class="{'hidden': !auth.isAuthenticated && authenticate}">Operations</th>
         </tr>
         </thead>
         <tbody>
@@ -43,7 +43,7 @@
                     {{scenario.name}}
                 </a>
             </td>
-            <td ng-class="{'hidden': !auth.isAuthenticated}">
+            <td ng-class="{'hidden': !auth.isAuthenticated && authenticate}">
                 <span class="podsTable-col">
                     <a class="text-warning" ng-click="ctrl.openUpdateModal(scenario.name)" title="Edit">
                         <i class="fa fa-pencil-square-o"></i></a>
