@@ -1,11 +1,11 @@
 <h3>Scenarios</h3>
 <div class="row" style="margin-bottom:24px;"></div>
 <div class="row podsTable" style="vertical-align:middle">
-    <div class="col-sm-1 pull-right" ng-class="{ 'hidden': !auth.isAuthenticated }" >
+    <div class="col-sm-1 pull-right" ng-class="{ 'hidden': !auth.isAuthenticated && authenticate}" >
         <button type="button" class="btn btn-danger" ng-click="ctrl.openBatchDeleteModal()">
               <i class="fa fa-minus"></i> Delete</button>
     </div>
-    <div class="col-sm-2 pull-right"  ng-class="{ 'hidden': !auth.isAuthenticated}">
+    <div class="col-sm-2 pull-right"  ng-class="{ 'hidden': !auth.isAuthenticated && authenticate}">
         <button type="button" class="btn btn-success" ng-click="ctrl.openScenarioModal()">
           <i class="fa fa-plus"></i>Create</button>
     </div>

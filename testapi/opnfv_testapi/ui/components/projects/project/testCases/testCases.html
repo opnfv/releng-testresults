@@ -1,12 +1,12 @@
 <div ng-controller="TestCasesController as testCasesCtrl" class="col-md-12">
 <div class="row podsTable" style="vertical-align:middle">
-    <div class="col-sm-1 pull-right" ng-class="{ 'hidden': ! ((auth.projectNames.length>0) &&
-        auth.isAuthenticated) }" >
+    <div class="col-sm-1 pull-right" ng-class="{ 'hidden': !((auth.projectNames.length>0) &&
+        auth.isAuthenticated) && authenticate }" >
             <button type="button" class="btn btn-danger" ng-click="testCasesCtrl.openBatchDeleteModal()">
               <i class="fa fa-minus"></i> Delete</button>
     </div>
     <div class="col-sm-1 pull-right"  ng-class="{ 'hidden': ! ((auth.projectNames.length>0) &&
-        auth.isAuthenticated) }">
+        auth.isAuthenticated)  && authenticate}">
         <button type="button" class="btn btn-success" ng-click="testCasesCtrl.openCreateModal()">
           <i class="fa fa-plus"></i> Create</button>
     </div>
