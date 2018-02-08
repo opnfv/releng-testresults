@@ -662,7 +662,7 @@ describe('testing the scenarios page for anonymous user', function () {
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);
     });
 
-    it( 'should not show the add installer option for user', function() {
+    it( 'should show the add installer option for user', function() {
         browser.get(baseURL+"#/scenarios/test-scenario");
         var EC = browser.ExpectedConditions;
         browser.wait(EC.urlContains(baseURL+ '#/scenarios/test-scenario'), 10000);

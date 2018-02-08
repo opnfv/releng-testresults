@@ -123,13 +123,14 @@ module.exports = function (grunt) {
                             '../tests/UI/e2e/resultsControllerSpec.js',
                             '../tests/UI/e2e/scenariosControllerSpec.js',
                             '../tests/UI/e2e/scenarioControllerSpec.js',
-                            '../tests/UI/e2e/deployResultsControllerSpec.js'
+                            '../tests/UI/e2e/deployResultsControllerSpec.js',
+                            '../tests/UI/e2e/authenticateFalseSpec.js'
                         ]
                 }
             },
             local: {
                 options: {
-                    configFile: '../tests/UI/protractor-conf.js'
+                    configFile: 'protractor-conf.js'
                 }
             }
         },
