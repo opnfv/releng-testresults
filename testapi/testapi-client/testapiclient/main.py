@@ -4,6 +4,7 @@ from user import User
 from config import Config
 from cliff.app import App
 from cliff.commandmanager import CommandManager
+from cliff.complete import CompleteCommand
 
 
 class TestAPIClient(App):
@@ -15,8 +16,8 @@ class TestAPIClient(App):
             command_manager=CommandManager('testapi'),
             deferred_help=True,
             )
+        self.command_manager.add_command('complete', CompleteCommand)
         User.session = requests.Session()
-        # Configure development or Production mode
         Config.parse_conf()
 
     def initialize_app(self, argv):
