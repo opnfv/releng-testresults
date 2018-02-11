@@ -92,6 +92,10 @@ class DeployResultGet(DeployResultBase):
         self.req_d_id = self._create_d()
         self.req_10d_later = self._create_changed_date(days=10)
 
+    @executor.get(httplib.OK, 'assert_res')
+    def test_getOne(self):
+        return self.req_d_id
+
     @executor.query(httplib.OK, '_query_success', 3)
     def test_queryInstaller(self):
         return self._set_query('installer')
