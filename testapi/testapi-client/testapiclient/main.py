@@ -16,8 +16,7 @@ class TestAPIClient(App):
             deferred_help=True,
             )
         User.session = requests.Session()
-        # Configure development or Production mode
-        Config.parse_conf()
+        Config.get_Instance().parse_conf()
 
     def initialize_app(self, argv):
         self.LOG.debug('initialize_app')
