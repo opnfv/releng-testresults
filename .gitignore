@@ -27,3 +27,5 @@ nosetests.xml
 job_output/
 .vscode
 testapi/testapi-client/pip-selfcheck.json
+testapi/testapi-client/.pytest_cache
+testapi/testapi-client/.stestr
