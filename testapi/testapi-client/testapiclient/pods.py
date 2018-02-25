@@ -8,7 +8,7 @@ from config import Config
 
 
 class PodBase(Command):
-    pods_url = Config.config.get("api", "url") + "/pods"
+    pods_url = Config.get_conf().get("api", "url") + "/pods"
 
 
 class PodGet(PodBase):
