@@ -7,11 +7,7 @@ from authHandler import AuthHandler
 from config import Config
 
 
-class PodBase(Command):
-    pods_url = Config.config.get("api", "url") + "/pods"
-
-
-class PodGet(PodBase):
+class PodGet(Command):
     "Handle get request for pods"
 
     def get_parser(self, prog_name):
@@ -20,15 +16,16 @@ class PodGet(PodBase):
         return parser
 
     def take_action(self, parsed_args):
+        pods_url = Config.get_Instance().get_conf().get("api", "url") + "/pods"
         http_client = HTTPClient.get_Instance()
-        url = PodGet.pods_url
+        url = pods_url
         if(parsed_args.name):
-            url = PodGet.pods_url + "?name=" + parsed_args.name
+            url = pods_url + "?name=" + parsed_args.name
         pods = http_client.get(url)
         print pods
 
 
-class PodGetOne(PodBase):
+class PodGetOne(Command):
     "Handle get request for pod by name"
 
     def get_parser(self, prog_name):
@@ -37,12 +34,13 @@ class PodGetOne(PodBase):
         return parser
 
     def take_action(self, parsed_args):
+        pods_url = Config.get_Instance().get_conf().get("api", "url") + "/pods"
         http_client = HTTPClient.get_Instance()
-        pods = http_client.get(PodGetOne.pods_url + "/" + parsed_args.name)
+        pods = http_client.get(pods_url + "/" + parsed_args.name)
         print pods
 
 
-class PodCreate(PodBase):
+class PodCreate(Command):
     "Handle post request for pods"
 
     def get_parser(self, prog_name):
@@ -53,20 +51,21 @@ class PodCreate(PodBase):
         return parser
 
     def take_action(self, parsed_args):
+        pods_url = Config.get_Instance().get_conf().get("api", "url") + "/pods"
         http_client = HTTPClient.get_Instance()
         if(parsed_args.u and parsed_args.p):
             response = AuthHandler.authenticate(parsed_args.u, parsed_args.p)
             if "login" in response.text:
                 print "Authentication has failed. Please check your username and password."
                 return
-        response = http_client.post(PodCreate.pods_url, User.session, parsed_args.pod)
+        response = http_client.post(pods_url, User.session, parsed_args.pod)
         if response.status_code == 200:
             print "Pod has been successfully created!"
         else:
             print response.text
 
 
-class PodDelete(PodBase):
+class PodDelete(Command):
     "Handle delete request for pods"
 
     def get_parser(self, prog_name):
@@ -77,11 +76,12 @@ class PodDelete(PodBase):
         return parser
 
     def take_action(self, parsed_args):
+        pods_url = Config.get_Instance().get_conf().get("api", "url") + "/pods"
         http_client = HTTPClient.get_Instance()
         if(parsed_args.u and parsed_args.p):
             response = AuthHandler.authenticate(parsed_args.u, parsed_args.p)
             if "login" in response.text:
                 print "Authentication has failed. Please check your username and password."
                 return
-        pods = http_client.delete(PodDelete.pods_url + "/" + parsed_args.name, User.session)
+        pods = http_client.delete(pods_url + "/" + parsed_args.name, User.session)
         print pods
