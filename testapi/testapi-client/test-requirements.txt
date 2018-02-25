@@ -1,0 +1,8 @@
+coverage>=4.0,!=4.4  # Apache-2.0
+mock>=2.0  # BSD
+nose  # LGPL
+pytest  # MIT
+pytest-cov  # MIT
+pytest-mock  # MIT
+requests
+responses
