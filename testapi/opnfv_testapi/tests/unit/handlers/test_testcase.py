@@ -10,6 +10,7 @@ import httplib
 
 from opnfv_testapi.common import message
 from opnfv_testapi.models import testcase_models as tcm
+from opnfv_testapi.models import result_models as rm
 from opnfv_testapi.tests.unit import executor
 from opnfv_testapi.tests.unit import fake_pymongo
 from opnfv_testapi.tests.unit.handlers import test_base as base
@@ -32,6 +33,8 @@ class TestCaseBase(base.TestBase):
         self.basePath = '/api/v1/projects/%s/cases'
         fake_pymongo.projects.insert(self.project_e.format())
         print self.req_d.format()
+        self.results_d = rm.ResultCreateRequest.from_dict(
+            self.load_json('test_result'))
 
     def assert_body(self, case, req=None):
         if not req:
@@ -176,10 +179,19 @@ class TestCaseDelete(TestCaseBase):
     def setUp(self):
         super(TestCaseDelete, self).setUp()
         self.create_d()
+        fake_pymongo.pods.insert(self.pod_d.format())
+        fake_pymongo.projects.insert({'name': self.results_d.project_name})
+        fake_pymongo.testcases.insert({'name': self.results_d.case_name,
+                                       'project_name': self.results_d.project_name})
 
     @executor.delete(httplib.NOT_FOUND, message.not_found_base)
     def test_notFound(self):
         return 'notFound'
+
+    @executor.delete(httplib.UNAUTHORIZED, message.tied_with_resource())
+    def test_deleteNotAllowed(self):
+        print self.create_help('/api/v1/results', self.results_d)
+        return self.results_d.case_name
 
     @executor.delete(httplib.OK, '_delete_success')
     def test_success(self):

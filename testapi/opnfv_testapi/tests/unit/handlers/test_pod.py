@@ -10,6 +10,7 @@ import httplib
 
 from opnfv_testapi.common import message
 from opnfv_testapi.models import pod_models as pm
+from opnfv_testapi.models import result_models as rm
 from opnfv_testapi.tests.unit import executor
 from opnfv_testapi.tests.unit import fake_pymongo
 from opnfv_testapi.tests.unit.handlers import test_base as base
@@ -23,6 +24,8 @@ class TestPodBase(base.TestBase):
         self.basePath = '/api/v1/pods'
         self.req_d = pm.PodCreateRequest.from_dict(self.pod_d.format())
         self.req_e = pm.PodCreateRequest.from_dict(self.pod_e.format())
+        self.results_d = rm.ResultCreateRequest.from_dict(
+            self.load_json('test_result'))
 
     def assert_get_body(self, pod, req=None):
         if not req:
@@ -101,3 +104,37 @@ class TestPodGet(TestPodBase):
                 self.assert_get_body(pod)
             else:
                 self.assert_get_body(pod, self.req_e)
+
+
+class TestPodDelete(TestPodBase):
+    @executor.mock_valid_lfid()
+    def setUp(self):
+        super(TestPodDelete, self).setUp()
+        fake_pymongo.pods.insert(self.pod_d.format())
+        fake_pymongo.projects.insert({'name': self.results_d.project_name})
+        fake_pymongo.testcases.insert({'name': self.results_d.case_name,
+                                       'project_name': self.results_d.project_name})
+
+    @executor.delete(httplib.BAD_REQUEST, message.not_login())
+    def test_notlogin(self):
+        return self.pod_d.name
+
+    @executor.delete(httplib.NOT_FOUND, message.not_found_base)
+    def test_notFound(self):
+        return 'notFound'
+
+    @executor.mock_valid_lfid()
+    @executor.delete(httplib.UNAUTHORIZED, message.tied_with_resource())
+    def test_deleteNotAllowed(self):
+        self.create_help('/api/v1/results', self.results_d)
+        return self.pod_d.name
+
+    @executor.mock_valid_lfid()
+    @executor.delete(httplib.OK, '_assert_delete')
+    def test_success(self):
+        return self.pod_d.name
+
+    def _assert_delete(self, body):
+        self.assertEqual(body, '')
+        code, body = self.get(self.pod_d.name)
+        self.assertEqual(code, httplib.NOT_FOUND)
