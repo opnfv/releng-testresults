@@ -42,9 +42,30 @@
         <tr style="
         text-align: center;">
             <th style="width:1%">Bulk Select</th>
-            <th>Name</th>
-            <th>Role</th>
-            <th>Mode</th>
+            <th>Name
+                <a class="text-danger"  ng-click="ctrl.sortBy('name')" ng-class="{ 'hidden': !ctrl.nameAscending }" >
+                    <span class="glyphicon glyphicon-sort-by-alphabet pull-right" aria-hidden="true"></span>
+                </a>
+                <a class="text-danger"  ng-click="ctrl.sortBy('name')" ng-class="{ 'hidden': ctrl.nameAscending }" >
+                    <span class="glyphicon glyphicon-sort-by-alphabet-alt pull-right" aria-hidden="true"></span>
+                </a>
+            </th>
+            <th>Role
+                <a class="text-danger"  ng-click="ctrl.sortBy('role')" ng-class="{ 'hidden': !ctrl.roleAscending}" >
+                    <span class="glyphicon glyphicon-sort-by-alphabet pull-right" aria-hidden="true"></span>
+                </a>
+                <a class="text-danger"  ng-click="ctrl.sortBy('role')" ng-class="{ 'hidden': ctrl.roleAscending}" >
+                    <span class="glyphicon glyphicon-sort-by-alphabet-alt pull-right" aria-hidden="true"></span>
+                </a>
+            </th>
+            <th>Mode
+                <a class="text-danger"  ng-click="ctrl.sortBy('mode')" ng-class="{ 'hidden': !ctrl.modeAscending }" >
+                    <span class="glyphicon glyphicon-sort-by-alphabet pull-right" aria-hidden="true"></span>
+                </a>
+                <a class="text-danger"  ng-click="ctrl.sortBy('mode')" ng-class="{ 'hidden': ctrl.modeAscending }" >
+                    <span class="glyphicon glyphicon-sort-by-alphabet-alt pull-right" aria-hidden="true"></span>
+                </a>
+            </th>
             <th ng-class="{ 'hidden': !auth.isAuthenticated }">Operation</th>
         </tr>
         </thead>

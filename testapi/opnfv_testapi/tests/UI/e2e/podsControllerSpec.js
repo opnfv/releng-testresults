@@ -5,19 +5,7 @@ var baseURL = "http://localhost:8000"
 describe('testing the Pods page for anonymous user', function () {
 
     beforeEach(function(){
-        mock([{
-            request: {
-              path: '/api/v1/pods',
-              method: 'GET'
-            },
-            response: {
-                data: {
-                    pods: [{role: "community-ci", name: "test", creator: "testUser",
-                    details: "DemoDetails", mode: "metal", _id: "59f02f099a07c84bfc5c7aed",
-                    creation_date: "2017-10-25 11:58:25.926168"}]
-                }
-            }
-          },
+        mock([
           {
             request: {
                 path: '/api/v1/pods',
@@ -33,7 +21,25 @@ describe('testing the Pods page for anonymous user', function () {
                     creation_date: "2017-10-25 11:58:25.926168"}]
                 }
             }
-        }
+        },
+        {
+            request: {
+              path: '/api/v1/pods',
+              method: 'GET'
+            },
+            response: {
+                data: {
+                    pods: [
+                        {role: "community-ci", name: "test2", creator: "testUser",
+                        details: "DemoDetails", mode: "metal", _id: "59f02f099a07c84bfc5c7ae5",
+                        creation_date: "2017-10-25 11:58:25.926168"},
+                        {role: "production-ci", name: "test", creator: "testUser",
+                        details: "DemoDetails", mode: "virtual", _id: "59f02f099a07c84bfc5c7aed",
+                        creation_date: "2017-10-25 11:58:25.926168"}
+                    ]
+                }
+            }
+          }
     ]);
     });
 
@@ -64,10 +70,28 @@ describe('testing the Pods page for anonymous user', function () {
         expect(buttonDelete.isDisplayed()).toBeFalsy();
     });
 
-    it('Show results', function () {
+    it('Show results in a sorted order', function () {
         var row = element.all(by.repeater('(index, pod) in ctrl.data.pods')).first();
         var cells = row.all(by.tagName('td'));
         expect(cells.get(1).getText()).toContain("test");
+    });
+
+    it('Sort the results by mode', function () {
+        browser.get(baseURL+'#/pods');
+        var sortMode = element(by.xpath('//*[@id="ng-app"]/body/div/div[6]/div/table/thead/tr/th[4]/a[2]/span'))
+        sortMode.click();
+        var row = element.all(by.repeater('(index, pod) in ctrl.data.pods')).first();
+        var cells = row.all(by.tagName('td'));
+        expect(cells.get(1).getText()).toContain("test2");
+    });
+
+    it('Sort the results by role', function () {
+        browser.get(baseURL+'#/pods');
+        var sortRole = element(by.xpath('//*[@id="ng-app"]/body/div/div[6]/div/table/thead/tr/th[3]/a[2]/span'))
+        sortRole.click();
+        var row = element.all(by.repeater('(index, pod) in ctrl.data.pods')).first();
+        var cells = row.all(by.tagName('td'));
+        expect(cells.get(1).getText()).toContain("test2");
     });
 
     it('Show relevant results to the filter', function () {

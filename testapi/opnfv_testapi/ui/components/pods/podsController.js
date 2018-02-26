@@ -47,6 +47,99 @@
         ctrl.batchDelete = batchDelete;
         ctrl.viewPod = viewPod
         ctrl.filterText = ''
+        ctrl.sortBy = sortBy
+
+        function sortBy(field){
+            console.log(ctrl.data.pods)
+            if(field=="name"){
+                if(ctrl.nameAscending){
+                    ctrl.data.pods.sort(function(a,b) {
+                        if (a.name.toLowerCase() > b.name.toLowerCase()) {
+                            // console.log(b.name + " " + a.name + "-1")
+                            return -1;
+                          }
+                          if (a.name.toLowerCase() < b.name.toLowerCase()) {
+                            // console.log(b.name + " " + a.name + "1")
+                            return 1;
+                          }
+                          return 0;
+                    });
+                    ctrl.nameAscending = false
+                }else{
+                    ctrl.data.pods.sort(function(a,b) {
+                        if (a.name.toLowerCase() < b.name.toLowerCase()) {
+                            return -1;
+                          }
+                          if (a.name.toLowerCase() > b.name.toLowerCase()) {
+                            return 1;
+                          }
+                          return 0;
+                        // return b.name.toLowerCase() > a.name.toLowerCase();
+                      });
+                    ctrl.nameAscending = true
+                }
+            }
+            if(field=="mode"){
+                if(ctrl.modeAscending){
+                    ctrl.data.pods.sort(function(a,b) {
+                        if (a.mode.toLowerCase() > b.mode.toLowerCase()) {
+                            // console.log(b.name + " " + a.name + "-1")
+                            return -1;
+                          }
+                          if (a.mode.toLowerCase() < b.mode.toLowerCase()) {
+                            // console.log(b.name + " " + a.name + "1")
+                            return 1;
+                          }
+                          return 0;
+                    });
+                      ctrl.modeAscending = false
+                }
+                else{
+                    ctrl.data.pods.sort(function(a,b) {
+                        if (a.mode.toLowerCase() < b.mode.toLowerCase()) {
+                            // console.log(b.name + " " + a.name + "-1")
+                            return -1;
+                          }
+                          if (a.mode.toLowerCase() > b.mode.toLowerCase()) {
+                            // console.log(b.name + " " + a.name + "1")
+                            return 1;
+                          }
+                          return 0;
+                    });
+                    ctrl.modeAscending = true
+                }
+            }
+            if(field=="role"){
+                if(ctrl.roleAscending){
+                    ctrl.data.pods.sort(function(a,b) {
+                        if (a.role.toLowerCase() > b.role.toLowerCase()) {
+                            // console.log(b.name + " " + a.name + "-1")
+                            return -1;
+                          }
+                          if (a.role.toLowerCase() < b.role.toLowerCase()) {
+                            // console.log(b.name + " " + a.name + "1")
+                            return 1;
+                          }
+                          return 0;
+                    });
+                    ctrl.roleAscending = false
+                }
+                else{
+                    ctrl.data.pods.sort(function(a,b) {
+                        if (a.role.toLowerCase() < b.role.toLowerCase()) {
+                            // console.log(b.name + " " + a.name + "-1")
+                            return -1;
+                          }
+                          if (a.role.toLowerCase() > b.role.toLowerCase()) {
+                            // console.log(b.name + " " + a.name + "1")
+                            return 1;
+                          }
+                          return 0;
+                    });
+                    ctrl.roleAscending = true
+                }
+            }
+        }
 
         /**
          * This is called when the date filter calendar is opened. It
@@ -105,6 +198,7 @@
             ctrl.podsRequest =
                 $http.get(reqURL).success(function (data) {
                     ctrl.data = data;
+                    ctrl.sortBy("name")
                 }).catch(function (data) {
                     ctrl.data = null;
                     ctrl.showError = true;
