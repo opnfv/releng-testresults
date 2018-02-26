@@ -50,10 +50,16 @@ def is_authorized(method):
 def is_allowed(method):
     @functools.wraps(method)
     def wrapper(self, *args, **kwargs):
+        query_data = {}
         if self.table == 'projects':
-            query_data = {}
             query_data['project_name'] = kwargs.get('query')['name']
             data = yield dbapi.db_find_one('testcases', query_data)
+            if data:
+                raises.Unauthorized(message.tied_with_resource())
+            data = yield dbapi.db_find_one('results', query_data)
+        if self.table == 'pods':
+            query_data['pod_name'] = kwargs.get('query')['name']
+            data = yield dbapi.db_find_one('results', query_data)
             if data:
                 raises.Unauthorized(message.tied_with_resource())
         ret = yield gen.coroutine(method)(self, *args, **kwargs)
