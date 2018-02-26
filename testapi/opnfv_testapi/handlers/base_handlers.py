@@ -179,7 +179,7 @@ class GenericApiHandler(web.RequestHandler):
     @gen.coroutine
     @check.not_exist
     @check.is_authorized
-    @check.is_allowed
+    @check.is_reource_tied
     def _delete(self, data, query=None):
         yield dbapi.db_delete(self.table, query)
         self.finish_request()
@@ -190,7 +190,7 @@ class GenericApiHandler(web.RequestHandler):
     @check.not_exist
     @check.updated_one_not_exist
     @check.is_authorized
-    @check.is_allowed
+    @check.is_reource_tied
     def _update(self, data, query=None, **kwargs):
         data = self.table_cls.from_dict(data)
         update_req = self._update_requests(data)
