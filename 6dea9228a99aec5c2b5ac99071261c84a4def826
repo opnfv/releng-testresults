@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_887e24e3",
+        "filename": "testapi/opnfv_testapi/ui/components/pods/podsController.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-02-27T09:44:29Z",
+      "side": 1,
+      "message": "duplicated coding a lot, can you refactor them to reduce replica,  abstract a common method if possible?",
+      "revId": "6dea9228a99aec5c2b5ac99071261c84a4def826",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
