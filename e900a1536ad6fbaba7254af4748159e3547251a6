@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_8863c4b0",
+        "filename": "testapi/opnfv_testapi/common/check.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-02-27T09:31:19Z",
+      "side": 1,
+      "message": "please change the name to is_resource_tied?",
+      "range": {
+        "startLine": 50,
+        "startChar": 4,
+        "endLine": 50,
+        "endChar": 14
+      },
+      "revId": "e900a1536ad6fbaba7254af4748159e3547251a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_88090498",
+        "filename": "testapi/opnfv_testapi/common/check.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-02-27T09:31:19Z",
+      "side": 1,
+      "message": "the tied check coding is almost the same, please refactor it to remove the duplicated code like:\n\ndef is_resource_tied(method):\n    @functools.wraps(method)\n    def wrapper(self, *args, **kwargs):\n        tied_check \u003d {\n            # model {resource_collection: (tied_collection, tied_element)}\n            \u0027projects\u0027: (\u0027testcases\u0027, \u0027project_name\u0027),\n            \u0027pods\u0027: (\u0027results\u0027, \u0027pod_name\u0027)\n        }\n        \n        if tied_check.has_key(self.table):\n            (d_table, ele) \u003d tied_check.get(self.table)\n            data \u003d yield dbapi.db_find_one(\n                d_table, {ele: kwargs.get(\u0027query\u0027)[\u0027name\u0027]})\n            if data:\n                raises.Unauthorized(message.tied_with_resource())\n        ret \u003d yield gen.coroutine(method)(self, *args, **kwargs)\n        raise gen.Return(ret)\n\n    return wrapper",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 18
+      },
+      "revId": "e900a1536ad6fbaba7254af4748159e3547251a6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
