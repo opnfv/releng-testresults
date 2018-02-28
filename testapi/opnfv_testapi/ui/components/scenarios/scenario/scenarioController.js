@@ -219,7 +219,7 @@
             var data = {
                 "installers": installers
             }
-            confirmModal("Delete",ctrl.deleteInstaller,data);
+            confirmModal("Delete", 'installer', ctrl.deleteInstaller, data);
         }
 
         function addInstaller(installer){
@@ -273,7 +273,7 @@
                 "version": versions,
                 "installer": installer
             }
-            confirmModal("Delete",ctrl.deleteVersion,data);
+            confirmModal("Delete", "versions", ctrl.deleteVersion, data);
         }
 
         function deleteVersion(data){
@@ -359,7 +359,7 @@
                 "version": version,
                 "installer": installer
             }
-            confirmModal("Delete",ctrl.deleteCustom,data);
+            confirmModal("Delete", 'customs', ctrl.deleteCustom, data);
         }
 
         function deleteCustom(data){
@@ -402,7 +402,7 @@
                 "version": version,
                 "installer": installer
             }
-            confirmModal("Delete",ctrl.deleteProject,data);
+            confirmModal("Delete", 'projects', ctrl.deleteProject, data);
         }
 
         function deleteProject(data){

@@ -54,13 +54,24 @@
             if (typeof ctrl.data.name === 'string') {
                 ctrl.deleteObjects = ctrl.data.name
             }
-            else{
+            else if (ctrl.data.name instanceof Array){
                 for(var index in ctrl.data.name){
                     if(index==0){
                         ctrl.deleteObjects += ctrl.data.name[index]
                     }
                     else{
                         ctrl.deleteObjects += ", "+ ctrl.data.name[index]
+                    }
+
+                }
+            }
+            else{
+                for(var index in ctrl.data.name[ctrl.data.resource]){
+                    if(index==0){
+                        ctrl.deleteObjects += ctrl.data.name[ctrl.data.resource][index]
+                    }
+                    else{
+                        ctrl.deleteObjects += ", "+ ctrl.data.name[ctrl.data.resource][index]
                     }
 
                 }
