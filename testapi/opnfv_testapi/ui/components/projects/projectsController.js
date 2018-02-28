@@ -44,12 +44,40 @@
         ctrl.openBatchDeleteModal = openBatchDeleteModal;
         ctrl.projectDelete = projectDelete;
         ctrl.batchDelete = batchDelete;
+        ctrl.sortByName = sortByName;
 
         ctrl.checkBox = [];
         ctrl.checkBoxList = [];
         ctrl.name = '';
         ctrl.details = '';
         ctrl.filterText='';
+
+
+        function sortByName(){
+            if(ctrl.sortName){
+                ctrl.data.projects.sort(function(a,b) {
+                    if (a['name'].toLowerCase() > b['name'].toLowerCase()) {
+                        return -1;
+                    }
+                    if (a['name'].toLowerCase() < b['name'].toLowerCase()) {
+                        return 1;
+                    }
+                    return 0;
+                });
+                ctrl.sortName = false
+            }else{
+                ctrl.data.projects.sort(function(a,b) {
+                    if (a['name'].toLowerCase() < b['name'].toLowerCase()) {
+                        return -1;
+                    }
+                    if (a['name'].toLowerCase() > b['name'].toLowerCase()) {
+                        return 1;
+                    }
+                    return 0;
+                });
+                ctrl.sortName = true
+            }
+        }
 
         /**
          * This will contact the TestAPI to create a new project.
@@ -155,6 +183,7 @@
             ctrl.resultsRequest =
                 $http.get(content_url).success(function (data) {
                     ctrl.data = data;
+                    ctrl.sortByName();
                 }).catch(function (data)  {
                     ctrl.data = null;
                     ctrl.showError = true;

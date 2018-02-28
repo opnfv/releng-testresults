@@ -20,6 +20,13 @@ describe('testing the Projects Link for anonymous user', function () {
                             "creation_date": "2017-11-15 14:30:31.200259",
                             "description": "dsfsd",
                             "name": "testproject"
+                            },
+                            {
+                                "creator": "thuva4",
+                                "_id": "5a0c022f9a07c846d3c2cc94",
+                                "creation_date": "2017-11-15 14:30:31.200259",
+                                "description": "dsfsd",
+                                "name": "testproject1"
                             }
                         ]
                     }
@@ -63,11 +70,24 @@ describe('testing the Projects Link for anonymous user', function () {
         expect(cells.get(1).getText()).toContain("testproject");
     });
 
-    // it('redirect to project page when user clicks a project',function(){
-    //     var projectlink = element(by.linkText('testproject')).click();
-    //     var EC = browser.ExpectedConditions;
-    //     browser.wait(EC.urlContains(baseURL+ '/#/projects/testproject'), 10000);
-    // });
+    it('Sort the results by name', function () {
+        browser.get(baseURL+'#/projects');
+        var sortName = element(by.xpath('//*[@id="ng-app"]/body/div/div[4]/div/table/thead/tr/th[2]/a[1]/span'))
+        sortName.click();
+        var row = element.all(by.repeater('(index, project) in ctrl.data.projects')).first();
+        var cells = row.all(by.tagName('td'));
+        expect(cells.get(1).getText()).toContain("testproject1");
+        sortName = element(by.xpath('//*[@id="ng-app"]/body/div/div[4]/div/table/thead/tr/th[2]/a[2]/span'))
+        sortName.click();
+        row = element.all(by.repeater('(index, project) in ctrl.data.projects')).first();
+        expect(cells.get(1).getText()).toContain("testproject");
+    });
+
+    it('redirect to project page when user clicks a project',function(){
+        var projectlink = element(by.linkText('testproject')).click();
+        var EC = browser.ExpectedConditions;
+        browser.wait(EC.urlContains(baseURL+ '/#/projects/testproject'), 10000);
+    });
 
     it('delete Operation is not  visible for anonymous user ', function () {
         browser.get(baseURL+'#/projects');

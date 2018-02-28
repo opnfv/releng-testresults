@@ -38,7 +38,14 @@
         <tr style="
         text-align: center;">
             <th style="width: 1%;">Bulk Select</th>
-            <th style="width: 19%;">Name</th>
+            <th style="width: 19%;">Name
+                <a class="text-danger"  ng-click="ctrl.sortByName()" ng-class="{ 'hidden': !ctrl.sortName }" >
+                    <span class="glyphicon glyphicon-sort-by-alphabet pull-right" aria-hidden="true"></span>
+                </a>
+                <a class="text-danger"  ng-click="ctrl.sortByName()" ng-class="{ 'hidden': ctrl.sortName }" >
+                    <span class="glyphicon glyphicon-sort-by-alphabet-alt pull-right" aria-hidden="true"></span>
+                </a>
+            </th>
             <th style="width: 70%;">Description</th>
             <th style="width: 10%;" ng-class="{'hidden': ! ((auth.projectNames.length>0) && auth.isAuthenticated) && authenticate}">Operations</th>
         </tr>
