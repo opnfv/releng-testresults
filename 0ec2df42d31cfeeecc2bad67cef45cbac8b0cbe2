@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_559310a3",
+        "filename": "testapi/opnfv_testapi/common/check.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 6939
+      },
+      "writtenOn": "2018-03-01T07:00:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_953118ef",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 97
+      },
+      "revId": "0ec2df42d31cfeeecc2bad67cef45cbac8b0cbe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_f54dfc73",
         "filename": "testapi/opnfv_testapi/common/check.py",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-01T06:18:11Z",
       "side": 1,
       "message": "-\u003e if tied_map_tables.has_key(self.table)\nmore python like coding",
+      "range": {
+        "startLine": 56,
+        "startChar": 11,
+        "endLine": 56,
+        "endChar": 58
+      },
+      "revId": "0ec2df42d31cfeeecc2bad67cef45cbac8b0cbe2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_75960c96",
+        "filename": "testapi/opnfv_testapi/common/check.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 6939
+      },
+      "writtenOn": "2018-03-01T07:00:02Z",
+      "side": 1,
+      "message": "it is showing following error\n`W601 .has_key() is deprecated, use \u0027in\u0027`",
+      "parentUuid": "5a3f45e8_f54dfc73",
       "range": {
         "startLine": 56,
         "startChar": 11,
