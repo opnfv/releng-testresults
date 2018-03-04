@@ -71,8 +71,8 @@
         ctrl.deleteProject = deleteProject
 
         ctrl.buttonInstaller = true
-        ctrl.buttonVersion = true
         ctrl.buttonProject = true
+        ctrl.buttonVersion = true
 
         /**
          * This will contact the TestAPI to get a listing of declared projects.
@@ -139,8 +139,13 @@
             }
             if(ctrl.collapeVersion[indexI][indexV]){
                 ctrl.collapeVersion[indexI][indexV] = false;
+                if(ctrl.collapeProjects[indexI]!=undefined){
+                    ctrl.collapeProjects[indexI][indexV] = false;
+                }
+                ctrl.buttonVersion = true
             }else{
                 ctrl.collapeVersion[indexI][indexV] = true;
+                ctrl.buttonVersion = false
             }
         }
 
@@ -160,23 +165,27 @@
             }
             if(ctrl.collapeProjects[indexI][indexV]){
                 ctrl.collapeProjects[indexI][indexV] = false;
-                ctrl.buttonVersion = true
             }
             else{
                 ctrl.collapeProjects[indexI][indexV]= true;
-                ctrl.buttonVersion = false
             }
         }
 
         function expandProject(indexI, indexV, indexP){
             if(ctrl.collapeProject[indexI]==undefined){
                 ctrl.collapeProject[indexI] = []
-                if(ctrl.collapeProject[indexI][indexV]==undefined){
-                    ctrl.collapeProject[indexI][indexV] = []
-                }
+            }
+            if(ctrl.collapeProject[indexI][indexV]==undefined){
+                ctrl.collapeProject[indexI][indexV] = []
             }
             if(ctrl.collapeProject[indexI][indexV][indexP]){
                 ctrl.collapeProject[indexI][indexV][indexP] = false;
+                if(ctrl.collapeCustom[indexI]!=undefined){
+                    if(ctrl.collapeCustom[indexI][indexV]!=undefined){
+                        ctrl.collapeCustom[indexI][indexV][indexP] = false;
+                    }
+                }
+                ctrl.buttonProject = true
             }
             else{
                 ctrl.collapeProject[indexI][indexV][indexP]= true;
@@ -186,9 +195,12 @@
         function expandInstaller(index){
             if(ctrl.collapeInstaller[index]){
                 ctrl.collapeInstaller[index] = false;
+                ctrl.collapeVersions[index] = false;
+                ctrl.buttonInstaller = true
             }
             else{
                 ctrl.collapeInstaller[index]= true;
+                // ctrl.expandVersions(index)
             }
         }
 

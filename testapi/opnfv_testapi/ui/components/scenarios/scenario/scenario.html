@@ -1,6 +1,6 @@
 <legend>Scenario</legend>
 <div style="padding-right:0px" class="col-md-12">
-    <div class="table-responsive">
+    <!-- <div class="table-responsive"> -->
         <table class="table"  ng-data="ctrl.data">
             <tbody>
                 <tr style="padding:9px">
@@ -32,7 +32,6 @@
                             <button type="button" class="btn btn-success btn-xs" ng-click="ctrl.openAddInstaller()" ><i class="fa fa-plus"></i>Add</button>
                         </div>
                         <div ng-class="{ 'hidden' : ! ctrl.collapeInstallers } ">
-                            <div class="table-responsive">
                                 <table class="table  "  ng-data="ctrl.data.scenarios[0].installers">
                                     <tbody ng-repeat="(indexI, installer) in ctrl.data.scenarios[0].installers">
                                         <tr style="padding:9px">
@@ -61,7 +60,6 @@
                                                     <button type="button" class="btn btn-success btn-xs"  ng-class="{'hidden' : !auth.isAuthenticated}" ng-click="ctrl.openAddVersionModal(installer.installer)" ><i class="fa fa-plus"></i>Add</button>
                                                 </div>
                                                 <div ng-class="{ 'hidden' : ! ctrl.collapeVersions[indexI] } " class="col-md-12">
-                                                    <div class="table-responsive">
                                                             <table class="table  "  ng-data="inctrl.data.scenarios[0].installers">
                                                             <tbody ng-repeat="(indexV, version) in installer.versions">
                                                             <tr style="padding:9px">
@@ -71,7 +69,7 @@
                                                                 <td class="podsTableLeftTd"  style="width:10%;padding-top: 7px;">
                                                                     <a ng-click="ctrl.expandVersion(indexI,indexV)">{{version.version}}</a>
                                                                 </td>
-                                                                <td  style="width:80%;border: none; padding: 0px;" ng-class="{'hidden' : !ctrl.buttonVersion}">
+                                                                <td  style="width:80%;border: none; padding: 0px;" ng-class="{'hidden' : ctrl.collapeProjects[indexI][indexV]}">
                                                                         <button type="button" class="btn btn-danger btn-xs" ng-class="{'hidden' : !auth.isAuthenticated}"  ng-click="ctrl.openDeleteVersionModal(version.version, installer.installer)" ><i class="fa fa-minus"></i>Delete</button>
                                                                 </td>
                                                             </tr>
@@ -96,7 +94,6 @@
                                                                         <button type="button" ng-class="{'hidden' : !auth.isAuthenticated}"  class="btn btn-success btn-xs" ng-click="ctrl.openAddProjectModal(version.version,installer.installer)" ><i class="fa fa-plus"></i>Add</button>
                                                                     </div>
                                                                     <div ng-class="{ 'hidden' : ! ctrl.collapeProjects[indexI][indexV] } " class="col-md-12">
-                                                                        <div class="table-responsive">
                                                                             <table class="table  "  ng-data="version.projects">
                                                                             <tbody ng-repeat="(indexP, project) in version.projects" >
                                                                             <tr style="padding:9px">
@@ -106,7 +103,7 @@
                                                                                 <td class="podsTableLeftTd"  style="width:10%;padding-top: 7px;">
                                                                                     <a ng-click="ctrl.expandProject(indexI, indexV, indexP)">{{project.project}}</a>
                                                                                 </td>
-                                                                                <td  style="width:80%;border: none; padding: 0px;" ng-class="{'hidden' : !ctrl.buttonProject}">
+                                                                                <td  style="width:80%;border: none; padding: 0px;" ng-class="{'hidden' : ctrl.collapeCustom[indexI][indexV][indexP] }">
                                                                                         <button type="button" class="btn btn-danger btn-xs" ng-class="{'hidden' : !auth.isAuthenticated}"  ng-click="ctrl.openDeleteProjectModal(project,version.version, installer.installer)" ><i class="fa fa-minus"></i>Delete</button>
                                                                                 </td>
                                                                             </tr>
@@ -211,25 +208,22 @@
                                                                             </tr>
                                                                             </tbody>
                                                                             </table>
-                                                                        </div>
                                                                     </div>
                                                                 </td>
                                                             </tr>
                                                             </tbody>
                                                             </table>
                                                         </div>
-                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
-                            </div>
                         </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-    </div>
+    <!-- </div> -->
 </div>
 <div class="row" style="margin-bottom:24px;"></div>
 <div class='clo-md-12'>
