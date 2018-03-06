@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_74ee05ee",
+        "filename": "testapi/testapi-client/testapiclient/config.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-03-06T09:39:50Z",
+      "side": 1,
+      "message": "I guess this change is added for unit tests, but it is wrong to do it in this way, two suggestions:\n1. leverage mock to handle the file problem\n2. support --conf-file argument in cli",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 48
+      },
+      "revId": "ee6b34f6eb112ccceb8eaae6376db41575fbf3e0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_94f111d0",
+        "filename": "testapi/testapi-client/tox.ini",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-03-06T09:39:50Z",
+      "side": 1,
+      "message": "please leverage stestr to execute testing as we discussed",
+      "range": {
+        "startLine": 18,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 9
+      },
+      "revId": "ee6b34f6eb112ccceb8eaae6376db41575fbf3e0",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
