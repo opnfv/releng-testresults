@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_d474399e",
+        "filename": "testapi/testapi-client/tests/unit/utils.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-03-06T06:26:43Z",
+      "side": 1,
+      "message": "please leverage testtools as we discussed",
+      "range": {
+        "startLine": 1,
+        "startChar": 7,
+        "endLine": 1,
+        "endChar": 15
+      },
+      "revId": "561c7ea0c3a564d546ef2ec557d2f717841cb451",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
