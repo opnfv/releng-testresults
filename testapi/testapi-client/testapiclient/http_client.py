@@ -1,6 +1,7 @@
 import json
 
 import requests
+from testapiclient import user
 
 
 class HTTPClient(object):
@@ -29,25 +30,26 @@ class HTTPClient(object):
         else:
             return r.text
 
-    def post(self, url, session, data):
-        r = session.post(url,
-                         data=json.dumps(data),
-                         headers=HTTPClient.headers)
-        return r
+    def session_request(self, method, *args, **kwargs):
+        return getattr(user.User.session, method)(*args, **kwargs)
 
-    def put(self, url, session, data):
-        r = session.put(url,
-                        data=json.dumps(data),
-                        headers=HTTPClient.headers)
-        return r.text
+    def post(self, url, data):
+        return self.session_request('post', url,
+                                    data=json.dumps(data),
+                                    headers=HTTPClient.headers)
 
-    def delete(self, url, session, *args):
+    def put(self, url, data):
+        return self.session_request('put', url,
+                                    data=json.dumps(data),
+                                    headers=HTTPClient.headers).text
+
+    def delete(self, url, *args):
         if(args.__len__ > 0):
-            r = session.delete(url,
-                               data=json.dumps(args[0]),
-                               headers=HTTPClient.headers)
+            r = self.session_request('delete', url,
+                                     data=json.dumps(args[0]),
+                                     headers=HTTPClient.headers)
         else:
-            r = session.delete(url)
+            r = self.session_request('delete', url)
         return r.text
 
 
@@ -60,13 +62,13 @@ def get(url):
     return http_request('get', url)
 
 
-def post(url, session, data):
-    return http_request('post', url, session, data)
+def post(url, data):
+    return http_request('post', url, data)
 
 
-def put(url, session, data):
-    return http_request('put', url, session, data)
+def put(url, data):
+    return http_request('put', url, data)
 
 
-def delete(url, session, data):
-    return http_request('delete', url, session, data)
+def delete(url, data):
+    return http_request('delete', url, data)

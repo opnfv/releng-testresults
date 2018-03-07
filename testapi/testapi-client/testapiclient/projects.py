@@ -4,7 +4,6 @@ from testapiclient import command
 from testapiclient import config
 from testapiclient import http_client
 from testapiclient import identity
-from testapiclient import user
 
 PROJECTS_URL = config.Config.config.get("api", "url") + "/projects"
 
@@ -56,7 +55,6 @@ class ProjectCreate(command.Command):
     @identity.authenticate
     def take_action(self, parsed_args):
         response = http_client.post(ProjectCreate.projects_url,
-                                    user.User.session,
                                     parsed_args.project)
         if response.status_code == 200:
             print "Project has been successfully created!"
@@ -77,8 +75,7 @@ class ProjectDelete(command.Command):
     @identity.authenticate
     def take_action(self, parsed_args):
         projects = http_client.delete(
-            PROJECTS_URL + "/" + parsed_args.name,
-            user.User.session)
+            PROJECTS_URL + "/" + parsed_args.name)
         print projects
 
 
@@ -101,6 +98,5 @@ class ProjectPut(command.Command):
     def take_action(self, parsed_args):
         projects = http_client.put(
             PROJECTS_URL + "/" + parsed_args.name,
-            user.User.session,
             parsed_args.project)
         print projects
