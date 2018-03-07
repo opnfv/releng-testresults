@@ -61,13 +61,9 @@ class PodCreate(command.Command):
                                  'mode should be either "metal" or "virtual.')
         return parser
 
+    @identity.authenticate
     def take_action(self, parsed_args):
         http_client = HTTPClient.get_Instance()
-        if(parsed_args.u and parsed_args.p):
-            response = identity.authenticate(parsed_args.u, parsed_args.p)
-            if "login" in response.text:
-                print "Authentication has failed."
-                return
         response = http_client.post(PODS_URL,
                                     User.session,
                                     parsed_args.pod)
@@ -88,13 +84,8 @@ class PodDelete(command.Command):
                             help='Delete pods using name')
         return parser
 
+    @identity.authenticate
     def take_action(self, parsed_args):
         http_client = HTTPClient.get_Instance()
-        if(parsed_args.u and parsed_args.p):
-            response = identity.authenticate(parsed_args.u, parsed_args.p)
-            if "login" in response.text:
-                print "Authentication has failed."
-                return
-        pods = http_client.delete(PODS_URL + "/" + parsed_args.name,
-                                  User.session)
-        print pods
+        print http_client.delete(PODS_URL + "/" + parsed_args.name,
+                                 User.session)

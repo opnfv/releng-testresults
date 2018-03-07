@@ -1,10 +1,11 @@
 import json
-from user import User
-from testapiclient import command
-from httpClient import HTTPClient
-from testapiclient import identity
-from config import Config
 
+from testapiclient import command
+from testapiclient import identity
+
+from config import Config
+from httpClient import HTTPClient
+from user import User
 
 PROJECTS_URL = Config.config.get("api", "url") + "/projects"
 
@@ -55,13 +56,9 @@ class ProjectCreate(command.Command):
                                  '"description": (optional)""}')
         return parser
 
+    @identity.authenticate
     def take_action(self, parsed_args):
         httpClient = HTTPClient.get_Instance()
-        if(parsed_args.u and parsed_args.p):
-            response = identity.authenticate(parsed_args.u, parsed_args.p)
-            if "login" in response.text:
-                print "Authentication has failed."
-                return
         response = httpClient.post(ProjectCreate.projects_url,
                                    User.session,
                                    parsed_args.project)
@@ -81,13 +78,9 @@ class ProjectDelete(command.Command):
                             help='Delete project by name')
         return parser
 
+    @identity.authenticate
     def take_action(self, parsed_args):
         httpClient = HTTPClient.get_Instance()
-        if(parsed_args.u and parsed_args.p):
-            response = identity.authenticate(parsed_args.u, parsed_args.p)
-            if "login" in response.text:
-                print "Authentication has failed."
-                return
         projects = httpClient.delete(
             PROJECTS_URL + "/" + parsed_args.name,
             User.session)
@@ -109,13 +102,9 @@ class ProjectPut(command.Command):
                                  '"description": (optional)""}')
         return parser
 
+    @identity.authenticate
     def take_action(self, parsed_args):
         httpClient = HTTPClient.get_Instance()
-        if(parsed_args.u and parsed_args.p):
-            response = identity.authenticate(parsed_args.u, parsed_args.p)
-            if "login" in response.text:
-                print "Authentication has failed."
-                return
         projects = httpClient.put(
             PROJECTS_URL + "/" + parsed_args.name,
             User.session,
