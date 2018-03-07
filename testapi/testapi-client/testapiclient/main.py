@@ -1,9 +1,11 @@
 import sys
-import requests
-from user import User
-from config import Config
+
 from cliff.app import App
 from cliff.commandmanager import CommandManager
+import requests
+
+from testapiclient import config
+from testapiclient import user
 
 
 class TestAPIClient(App):
@@ -15,9 +17,9 @@ class TestAPIClient(App):
             command_manager=CommandManager('testapi'),
             deferred_help=True,
             )
-        User.session = requests.Session()
+        user.User.session = requests.Session()
         # Configure development or Production mode
-        Config.parse_conf()
+        config.Config.parse_conf()
 
     def initialize_app(self, argv):
         self.LOG.debug('initialize_app')

@@ -1,19 +1,21 @@
-import requests
-from user import User
-from config import Config
-import urllib
 import functools
+import urllib
+
+import requests
+
+from testapiclient import config
+from testapiclient import user
 
 
 def _authenticate(username, password):
     session = requests.Session()
     hostname = '{}{}{}'.format(
-        Config.config.get("cas", "auth_url"),
-        urllib.quote(Config.config.get("api", "url")),
-        Config.config.get("cas", "signin_return"))
+        config.Config.config.get("cas", "auth_url"),
+        urllib.quote(config.Config.config.get("api", "url")),
+        config.Config.config.get("cas", "signin_return"))
     data = {'name': username, 'pass': password, 'form_id': 'user_login'}
     response = session.post(hostname, data)
-    User.session = session
+    user.User.session = session
     return response
 
 
