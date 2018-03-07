@@ -3,7 +3,7 @@ import json
 import requests
 
 
-class HTTPClient():
+class HTTPClient(object):
 
     __instance = None
     headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
@@ -49,3 +49,24 @@ class HTTPClient():
         else:
             r = session.delete(url)
         return r.text
+
+
+def http_request(method, *args, **kwargs):
+    client = HTTPClient.get_Instance()
+    return getattr(client, method)(*args, **kwargs)
+
+
+def get(url):
+    return http_request('get', url)
+
+
+def post(url, session, data):
+    return http_request('post', url, session, data)
+
+
+def put(url, session, data):
+    return http_request('put', url, session, data)
+
+
+def delete(url, session, data):
+    return http_request('delete', url, session, data)
