@@ -178,11 +178,16 @@ class Scenario(base_models.ModelBase):
         @property installers:
         @ptype installers: C{list} of L{ScenarioInstaller}
     """
-    def __init__(self, name='', create_date='', _id='', creator='', installers=None):
+    def __init__(self,
+                 name='',
+                 creation_date='',
+                 _id='',
+                 creator='',
+                 installers=None):
         self.name = name
         self.creator = creator
         self._id = _id
-        self.creation_date = create_date
+        self.creation_date = creation_date
         self.installers = list_default(installers)
 
     @staticmethod

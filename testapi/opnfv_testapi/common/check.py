@@ -21,7 +21,8 @@ from opnfv_testapi.db import api as dbapi
 def is_authorized(method):
     @functools.wraps(method)
     def wrapper(self, *args, **kwargs):
-        if CONF.api_authenticate and self.table in ['pods', 'projects', 'testcases', 'scenarios']:
+        resources = ['pods', 'projects', 'testcases', 'scenarios']
+        if CONF.api_authenticate and self.table in resources:
             testapi_id = self.get_secure_cookie(constants.TESTAPI_ID)
             if not testapi_id:
                 raises.Unauthorized(message.not_login())
@@ -51,18 +52,19 @@ def is_reource_tied(method):
     @functools.wraps(method)
     def wrapper(self, *args, **kwargs):
         query_data = {}
-        tied_map_tables = {
+        tied_maps = {
             'projects': ('testcases', 'project_name'),
             'pods': ('results', 'pod_name'),
             'testcases': ('results', 'case_name')
         }
-        if self.table in tied_map_tables:
+        if self.table in tied_maps:
             if method.__name__ == '_update':
                 if 'name' not in self.json_args:
                     ret = yield gen.coroutine(method)(self, *args, **kwargs)
                     raise gen.Return(ret)
-            query_data[tied_map_tables[self.table][1]] = kwargs.get('query')['name']
-            data = yield dbapi.db_find_one(tied_map_tables[self.table][0], query_data)
+            query_data[tied_maps[self.table][1]] = kwargs.get('query')['name']
+            data = yield dbapi.db_find_one(tied_maps[self.table][0],
+                                           query_data)
             if data:
                 raises.Unauthorized(message.tied_with_resource())
         ret = yield gen.coroutine(method)(self, *args, **kwargs)
@@ -159,8 +161,10 @@ def new_not_exists(xstep):
         if query:
             query_data = query()
             if self.table == 'pods':
-                if query_data.get('name') is not None:
-                    query_data['name'] = re.compile('\\b' + query_data.get('name') + '\\b', re.IGNORECASE)
+                if query_data.get('name'):
+                    query_data['name'] = re.compile(
+                        '\\b{}\\b'.format(query_data.get('name')),
+                        re.IGNORECASE)
             to_data = yield dbapi.db_find_one(self.table, query_data)
             if to_data:
                 raises.Forbidden(message.exist(self.table, query()))
@@ -188,7 +192,9 @@ def query_by_name(xstep):
     def wrap(self, *args, **kwargs):
         if 'name' in self.request.query_arguments.keys():
             query = kwargs.get('query', {})
-            query.update({'name': re.compile(self.get_query_argument('name'), re.IGNORECASE)})
+            query.update({
+                'name': re.compile(self.get_query_argument('name'),
+                                   re.IGNORECASE)})
             kwargs.update({'query': query})
 
         ret = yield gen.coroutine(xstep)(self, *args, **kwargs)

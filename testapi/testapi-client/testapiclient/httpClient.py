@@ -29,16 +29,22 @@ class HTTPClient():
             return r.text
 
     def post(self, url, session, data):
-        r = session.post(url, data=json.dumps(data), headers=HTTPClient.headers)
+        r = session.post(url,
+                         data=json.dumps(data),
+                         headers=HTTPClient.headers)
         return r
 
     def put(self, url, session, data):
-        r = session.put(url, data=json.dumps(data), headers=HTTPClient.headers)
+        r = session.put(url,
+                        data=json.dumps(data),
+                        headers=HTTPClient.headers)
         return r.text
 
     def delete(self, url, session, *args):
         if(args.__len__ > 0):
-            r = session.delete(url, data=json.dumps(args[0]), headers=HTTPClient.headers)
+            r = session.delete(url,
+                               data=json.dumps(args[0]),
+                               headers=HTTPClient.headers)
         else:
             r = session.delete(url)
         return r.text

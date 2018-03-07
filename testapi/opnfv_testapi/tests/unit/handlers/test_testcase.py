@@ -181,8 +181,9 @@ class TestCaseDelete(TestCaseBase):
         self.create_d()
         fake_pymongo.pods.insert(self.pod_d.format())
         fake_pymongo.projects.insert({'name': self.results_d.project_name})
-        fake_pymongo.testcases.insert({'name': self.results_d.case_name,
-                                       'project_name': self.results_d.project_name})
+        fake_pymongo.testcases.insert({
+            'name': self.results_d.case_name,
+            'project_name': self.results_d.project_name})
 
     @executor.delete(httplib.NOT_FOUND, message.not_found_base)
     def test_notFound(self):

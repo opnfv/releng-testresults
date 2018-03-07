@@ -156,7 +156,9 @@ class TestProjectUpdate(TestProjectBase):
     @executor.mock_valid_lfid()
     @executor.update(httplib.UNAUTHORIZED, message.tied_with_resource())
     def test_updateNotAllowed(self):
-        self.create_help('/api/v1/projects/%s/cases', self.testcase_d, self.req_d.name)
+        self.create_help('/api/v1/projects/%s/cases',
+                         self.testcase_d,
+                         self.req_d.name)
         req = project_models.ProjectUpdateRequest('apex', 'apex test')
         return req, self.req_d.name
 
@@ -191,7 +193,9 @@ class TestProjectDelete(TestProjectBase):
     @executor.mock_valid_lfid()
     @executor.delete(httplib.UNAUTHORIZED, message.tied_with_resource())
     def test_deleteNotAllowed(self):
-        self.create_help('/api/v1/projects/%s/cases', self.testcase_d, self.req_d.name)
+        self.create_help('/api/v1/projects/%s/cases',
+                         self.testcase_d,
+                         self.req_d.name)
         return self.req_d.name
 
     @executor.mock_valid_lfid()

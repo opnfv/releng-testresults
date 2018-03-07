@@ -9,7 +9,10 @@ class AuthHandler:
     @staticmethod
     def authenticate(username, password):
         session = requests.Session()
-        hostname = Config.config.get("cas", "auth_url") + urllib.quote(Config.config.get("api", "url")) + Config.config.get("cas", "signin_return")
+        hostname = '{}{}{}'.format(
+            Config.config.get("cas", "auth_url"),
+            urllib.quote(Config.config.get("api", "url")),
+            Config.config.get("cas", "signin_return"))
         data = {'name': username, 'pass': password, 'form_id': 'user_login'}
         response = session.post(hostname, data)
         User.session = session

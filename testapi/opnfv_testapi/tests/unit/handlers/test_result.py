@@ -33,8 +33,9 @@ class TestResultBase(base.TestBase):
         self.basePath = '/api/v1/results'
         fake_pymongo.pods.insert({'name': self.req_d.pod_name})
         fake_pymongo.projects.insert({'name': self.req_d.project_name})
-        fake_pymongo.testcases.insert({'name': self.req_d.case_name,
-                                       'project_name': self.req_d.project_name})
+        fake_pymongo.testcases.insert({
+            'name': self.req_d.case_name,
+            'project_name': self.req_d.project_name})
 
     def assert_res(self, result, req=None):
         if req is None:

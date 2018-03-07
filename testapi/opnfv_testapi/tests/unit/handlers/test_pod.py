@@ -112,8 +112,9 @@ class TestPodDelete(TestPodBase):
         super(TestPodDelete, self).setUp()
         fake_pymongo.pods.insert(self.pod_d.format())
         fake_pymongo.projects.insert({'name': self.results_d.project_name})
-        fake_pymongo.testcases.insert({'name': self.results_d.case_name,
-                                       'project_name': self.results_d.project_name})
+        fake_pymongo.testcases.insert({
+            'name': self.results_d.case_name,
+            'project_name': self.results_d.project_name})
 
     @executor.delete(httplib.BAD_REQUEST, message.not_login())
     def test_notlogin(self):

@@ -16,7 +16,9 @@ class PodGet(PodBase):
 
     def get_parser(self, prog_name):
         parser = super(PodGet, self).get_parser(prog_name)
-        parser.add_argument('-name', default='', help='Search pods using name')
+        parser.add_argument('-name',
+                            default='',
+                            help='Search pods using name')
         return parser
 
     def take_action(self, parsed_args):
@@ -33,7 +35,10 @@ class PodGetOne(PodBase):
 
     def get_parser(self, prog_name):
         parser = super(PodGetOne, self).get_parser(prog_name)
-        parser.add_argument('-name', default='', help='Find pod using name', required=True)
+        parser.add_argument('-name',
+                            default='',
+                            help='Find pod using name',
+                            required=True)
         return parser
 
     def take_action(self, parsed_args):
@@ -47,9 +52,19 @@ class PodCreate(PodBase):
 
     def get_parser(self, prog_name):
         parser = super(PodCreate, self).get_parser(prog_name)
-        parser.add_argument('-u', type=str, help='Username for authentication')
-        parser.add_argument('-p', type=str, help='Password for authentication')
-        parser.add_argument('pod', type=json.loads, help='Pod create request format :\n\'{ "role": "", "name": "", "details": "", "mode": ""}\',\n role should be either "community-ci" or "production-ci", and mode should be either "metal" or "virtual.')
+        parser.add_argument('-u',
+                            type=str,
+                            help='Username for authentication')
+        parser.add_argument('-p',
+                            type=str,
+                            help='Password for authentication')
+        parser.add_argument('pod',
+                            type=json.loads,
+                            help='Pod create request format :\n'
+                                 '\'{"role": "", "name": "", "details": "", '
+                                 '"mode": ""}\',\n role should be either '
+                                 '"community-ci" or "production-ci", and '
+                                 'mode should be either "metal" or "virtual.')
         return parser
 
     def take_action(self, parsed_args):
@@ -57,9 +72,11 @@ class PodCreate(PodBase):
         if(parsed_args.u and parsed_args.p):
             response = AuthHandler.authenticate(parsed_args.u, parsed_args.p)
             if "login" in response.text:
-                print "Authentication has failed. Please check your username and password."
+                print "Authentication has failed."
                 return
-        response = http_client.post(PodCreate.pods_url, User.session, parsed_args.pod)
+        response = http_client.post(PodCreate.pods_url,
+                                    User.session,
+                                    parsed_args.pod)
         if response.status_code == 200:
             print "Pod has been successfully created!"
         else:
@@ -71,9 +88,16 @@ class PodDelete(PodBase):
 
     def get_parser(self, prog_name):
         parser = super(PodDelete, self).get_parser(prog_name)
-        parser.add_argument('-u', type=str, help='Username for authentication')
-        parser.add_argument('-p', type=str, help='Password for authentication')
-        parser.add_argument('-name', type=str, required=True, help='Delete pods using name')
+        parser.add_argument('-u',
+                            type=str,
+                            help='Username for authentication')
+        parser.add_argument('-p',
+                            type=str,
+                            help='Password for authentication')
+        parser.add_argument('-name',
+                            type=str,
+                            required=True,
+                            help='Delete pods using name')
         return parser
 
     def take_action(self, parsed_args):
@@ -81,7 +105,8 @@ class PodDelete(PodBase):
         if(parsed_args.u and parsed_args.p):
             response = AuthHandler.authenticate(parsed_args.u, parsed_args.p)
             if "login" in response.text:
-                print "Authentication has failed. Please check your username and password."
+                print "Authentication has failed."
                 return
-        pods = http_client.delete(PodDelete.pods_url + "/" + parsed_args.name, User.session)
+        pods = http_client.delete(PodDelete.pods_url + "/" + parsed_args.name,
+                                  User.session)
         print pods
