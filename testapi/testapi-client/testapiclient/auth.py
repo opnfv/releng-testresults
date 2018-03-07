@@ -1,6 +1,6 @@
 import logging
 from cliff.command import Command
-from authHandler import AuthHandler
+from testapiclient import identity
 
 
 class Auth(Command):
@@ -21,7 +21,7 @@ class Auth(Command):
         return parser
 
     def take_action(self, parsed_args):
-        response = AuthHandler.authenticate(parsed_args.u, parsed_args.p)
+        response = identity.authenticate(parsed_args.u, parsed_args.p)
         if "login" in response.text:
             print "Authentication has failed."
         else:

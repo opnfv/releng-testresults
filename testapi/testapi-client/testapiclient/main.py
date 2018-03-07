@@ -19,6 +19,20 @@ class TestAPIClient(App):
         # Configure development or Production mode
         Config.parse_conf()
 
+    def build_option_parser(self, description, version):
+        parser = super(TestAPIClient, self).build_option_parser(
+            description,
+            version)
+    #
+    #     service token auth argument
+    #     parser.add_argument('-u',
+    #                         type=str,
+    #                         help='Username for authentication')
+    #     parser.add_argument('-p',
+    #                         type=str,
+    #                         help='Password for authentication')
+        return parser
+
     def initialize_app(self, argv):
         self.LOG.debug('initialize_app')
 

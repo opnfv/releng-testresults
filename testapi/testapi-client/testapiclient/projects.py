@@ -1,16 +1,15 @@
 import json
 from user import User
-from cliff.command import Command
+from testapiclient import command
 from httpClient import HTTPClient
-from authHandler import AuthHandler
+from testapiclient import identity
 from config import Config
 
 
-class ProjectBase(Command):
-    projects_url = Config.config.get("api", "url") + "/projects"
+PROJECTS_URL = Config.config.get("api", "url") + "/projects"
 
 
-class ProjectGet(ProjectBase):
+class ProjectGet(command.Lister):
 
     def get_parser(self, prog_name):
         parser = super(ProjectGet, self).get_parser(prog_name)
@@ -21,14 +20,14 @@ class ProjectGet(ProjectBase):
 
     def take_action(self, parsed_args):
         httpClient = HTTPClient.get_Instance()
-        url = ProjectGet.projects_url
+        url = PROJECTS_URL
         if parsed_args.name:
             url = url + "?name=" + parsed_args.name
         projects = httpClient.get(url)
         print projects
 
 
-class ProjectGetOne(ProjectBase):
+class ProjectGetOne(command.ShowOne):
 
     def get_parser(self, prog_name):
         parser = super(ProjectGetOne, self).get_parser(prog_name)
@@ -40,21 +39,15 @@ class ProjectGetOne(ProjectBase):
 
     def take_action(self, parsed_args):
         httpClient = HTTPClient.get_Instance()
-        url = ProjectGet.projects_url + "/" + parsed_args.name
+        url = PROJECTS_URL + "/" + parsed_args.name
         project = httpClient.get(url)
         print project
 
 
-class ProjectCreate(ProjectBase):
+class ProjectCreate(command.Command):
 
     def get_parser(self, prog_name):
         parser = super(ProjectCreate, self).get_parser(prog_name)
-        parser.add_argument('-u',
-                            type=str,
-                            help='Username for authentication')
-        parser.add_argument('-p',
-                            type=str,
-                            help='Password for authentication')
         parser.add_argument('project',
                             type=json.loads,
                             help='Project create request format :{'
@@ -65,7 +58,7 @@ class ProjectCreate(ProjectBase):
     def take_action(self, parsed_args):
         httpClient = HTTPClient.get_Instance()
         if(parsed_args.u and parsed_args.p):
-            response = AuthHandler.authenticate(parsed_args.u, parsed_args.p)
+            response = identity.authenticate(parsed_args.u, parsed_args.p)
             if "login" in response.text:
                 print "Authentication has failed."
                 return
@@ -78,16 +71,10 @@ class ProjectCreate(ProjectBase):
             print response.text
 
 
-class ProjectDelete(ProjectBase):
+class ProjectDelete(command.Command):
 
     def get_parser(self, prog_name):
         parser = super(ProjectDelete, self).get_parser(prog_name)
-        parser.add_argument('-u',
-                            type=str,
-                            help='Username for authentication')
-        parser.add_argument('-p',
-                            type=str,
-                            help='Password for authentication')
         parser.add_argument('-name',
                             type=str,
                             required=True,
@@ -97,26 +84,20 @@ class ProjectDelete(ProjectBase):
     def take_action(self, parsed_args):
         httpClient = HTTPClient.get_Instance()
         if(parsed_args.u and parsed_args.p):
-            response = AuthHandler.authenticate(parsed_args.u, parsed_args.p)
+            response = identity.authenticate(parsed_args.u, parsed_args.p)
             if "login" in response.text:
                 print "Authentication has failed."
                 return
         projects = httpClient.delete(
-            ProjectDelete.projects_url + "/" + parsed_args.name,
+            PROJECTS_URL + "/" + parsed_args.name,
             User.session)
         print projects
 
 
-class ProjectPut(ProjectBase):
+class ProjectPut(command.Command):
 
     def get_parser(self, prog_name):
         parser = super(ProjectPut, self).get_parser(prog_name)
-        parser.add_argument('-u',
-                            type=str,
-                            help='Username for authentication')
-        parser.add_argument('-p',
-                            type=str,
-                            help='Password for authentication')
         parser.add_argument('-name',
                             type=str,
                             required=True,
@@ -131,12 +112,12 @@ class ProjectPut(ProjectBase):
     def take_action(self, parsed_args):
         httpClient = HTTPClient.get_Instance()
         if(parsed_args.u and parsed_args.p):
-            response = AuthHandler.authenticate(parsed_args.u, parsed_args.p)
+            response = identity.authenticate(parsed_args.u, parsed_args.p)
             if "login" in response.text:
                 print "Authentication has failed."
                 return
         projects = httpClient.put(
-            ProjectPut.projects_url + "/" + parsed_args.name,
+            PROJECTS_URL + "/" + parsed_args.name,
             User.session,
             parsed_args.project)
         print projects
