@@ -1,5 +1,4 @@
 from cliff import command
-# from testapiclient import identity
 
 
 class Command(command.Command):
