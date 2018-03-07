@@ -2,9 +2,8 @@ import json
 
 from testapiclient import command
 from testapiclient import config
-from testapiclient import httpClient
+from testapiclient import http_client
 from testapiclient import identity
-from testapiclient import user
 
 PROJECTS_URL = config.Config.config.get("api", "url") + "/projects"
 
@@ -19,7 +18,6 @@ class ProjectGet(command.Lister):
         return parser
 
     def take_action(self, parsed_args):
-        http_client = httpClient.HTTPClient.get_Instance()
         url = PROJECTS_URL
         if parsed_args.name:
             url = url + "?name=" + parsed_args.name
@@ -38,7 +36,6 @@ class ProjectGetOne(command.ShowOne):
         return parser
 
     def take_action(self, parsed_args):
-        http_client = httpClient.HTTPClient.get_Instance()
         url = PROJECTS_URL + "/" + parsed_args.name
         project = http_client.get(url)
         print project
@@ -57,9 +54,7 @@ class ProjectCreate(command.Command):
 
     @identity.authenticate
     def take_action(self, parsed_args):
-        http_client = httpClient.HTTPClient.get_Instance()
         response = http_client.post(ProjectCreate.projects_url,
-                                    user.User.session,
                                     parsed_args.project)
         if response.status_code == 200:
             print "Project has been successfully created!"
@@ -79,10 +74,8 @@ class ProjectDelete(command.Command):
 
     @identity.authenticate
     def take_action(self, parsed_args):
-        http_client = httpClient.HTTPClient.get_Instance()
         projects = http_client.delete(
-            PROJECTS_URL + "/" + parsed_args.name,
-            user.User.session)
+            PROJECTS_URL + "/" + parsed_args.name)
         print projects
 
 
@@ -103,9 +96,7 @@ class ProjectPut(command.Command):
 
     @identity.authenticate
     def take_action(self, parsed_args):
-        http_client = httpClient.HTTPClient.get_Instance()
         projects = http_client.put(
             PROJECTS_URL + "/" + parsed_args.name,
-            user.User.session,
             parsed_args.project)
         print projects

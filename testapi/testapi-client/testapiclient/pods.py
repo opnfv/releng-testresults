@@ -2,9 +2,8 @@ import json
 
 from testapiclient import command
 from testapiclient import config
-from testapiclient import httpClient
+from testapiclient import http_client
 from testapiclient import identity
-from testapiclient import user
 
 PODS_URL = config.Config.config.get("api", "url") + "/pods"
 
@@ -20,7 +19,6 @@ class PodGet(command.Lister):
         return parser
 
     def take_action(self, parsed_args):
-        http_client = httpClient.HTTPClient.get_Instance()
         url = PODS_URL
         if(parsed_args.name):
             url = PODS_URL + "?name=" + parsed_args.name
@@ -40,7 +38,6 @@ class PodGetOne(command.ShowOne):
         return parser
 
     def take_action(self, parsed_args):
-        http_client = httpClient.HTTPClient.get_Instance()
         pods = http_client.get(PODS_URL + "/" + parsed_args.name)
         print pods
 
@@ -61,9 +58,7 @@ class PodCreate(command.Command):
 
     @identity.authenticate
     def take_action(self, parsed_args):
-        http_client = httpClient.HTTPClient.get_Instance()
         response = http_client.post(PODS_URL,
-                                    user.User.session,
                                     parsed_args.pod)
         if response.status_code == 200:
             print "Pod has been successfully created!"
@@ -84,6 +79,4 @@ class PodDelete(command.Command):
 
     @identity.authenticate
     def take_action(self, parsed_args):
-        http_client = httpClient.HTTPClient.get_Instance()
-        print http_client.delete(PODS_URL + "/" + parsed_args.name,
-                                 user.User.session)
+        print http_client.delete(PODS_URL + "/" + parsed_args.name)
