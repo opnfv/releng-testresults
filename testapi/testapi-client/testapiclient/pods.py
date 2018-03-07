@@ -1,11 +1,15 @@
 import json
-import os
 
 from testapiclient import command
 from testapiclient import http_client
 from testapiclient import identity
+from testapiclient import url_parser
 
-PODS_URL = os.environ.get('testapi_url') + "/pods"
+PODS_URL = url_parser.resource_join('pods')
+
+
+def pod_url(parsed_args):
+    return url_parser.path_join(PODS_URL, parsed_args.name)
 
 
 class PodGet(command.Lister):
@@ -21,7 +25,8 @@ class PodGet(command.Lister):
     def take_action(self, parsed_args):
         url = PODS_URL
         if(parsed_args.name):
-            url = PODS_URL + "?name=" + parsed_args.name
+            url = url_parser.query_join(PODS_URL,
+                                        '?name={}'.format(parsed_args.name))
         pods = http_client.get(url)
         print pods
 
@@ -38,7 +43,7 @@ class PodGetOne(command.ShowOne):
         return parser
 
     def take_action(self, parsed_args):
-        pods = http_client.get(PODS_URL + "/" + parsed_args.name)
+        pods = http_client.get(pod_url(parsed_args))
         print pods
 
 
@@ -79,4 +84,4 @@ class PodDelete(command.Command):
 
     @identity.authenticate
     def take_action(self, parsed_args):
-        print http_client.delete(PODS_URL + "/" + parsed_args.name)
+        print http_client.delete(pod_url(parsed_args))
