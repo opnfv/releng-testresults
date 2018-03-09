@@ -25,32 +25,36 @@ class HTTPClient(object):
 
     def get(self, url):
         r = requests.get(url)
-        if r.status_code == 200:
-            return r.json()
-        else:
-            return r.text
-
-    def _session_request(self, method, *args, **kwargs):
-        return getattr(user.User.session, method)(*args, **kwargs)
+        print r.json() if r.status_code < 300 else r.text
+        return r
 
     def post(self, url, data):
-        return self._session_request('post', url,
-                                     data=json.dumps(data),
-                                     headers=HTTPClient.headers)
+        return self._parse_response('Create',
+                                    self._request('post', url,
+                                                  data=json.dumps(data),
+                                                  headers=self.headers))
 
     def put(self, url, data):
-        return self._session_request('put', url,
-                                     data=json.dumps(data),
-                                     headers=HTTPClient.headers).text
+        return self._parse_response('Update',
+                                    self._request('put', url,
+                                                  data=json.dumps(data),
+                                                  headers=self.headers))
 
     def delete(self, url, *args):
-        if(args.__len__() > 0):
-            r = self._session_request('delete', url,
-                                      data=json.dumps(args[0]),
-                                      headers=HTTPClient.headers)
-        else:
-            r = self._session_request('delete', url)
-        return r.text
+        data = json.dumps(args[0]) if len(args) > 0 else None
+        return self._parse_response('Delete',
+                                    self._request('delete', url,
+                                                  data=data,
+                                                  headers=self.headers))
+
+    def _request(self, method, *args, **kwargs):
+        return getattr(user.User.session, method)(*args, **kwargs)
+
+    def _parse_response(self, request, response):
+        print ' '.join([request,
+                        'success' if response.status_code < 300
+                        else 'failed: {}'.format(response.text)])
+        return response
 
 
 def http_request(method, *args, **kwargs):

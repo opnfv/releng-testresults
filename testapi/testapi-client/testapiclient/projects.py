@@ -40,8 +40,7 @@ class ProjectGetOne(command.ShowOne):
         return parser
 
     def take_action(self, parsed_args):
-        project = http_client.get(project_url(parsed_args))
-        print project
+        print http_client.get(project_url(parsed_args))
 
 
 class ProjectCreate(command.Command):
@@ -57,11 +56,7 @@ class ProjectCreate(command.Command):
 
     @identity.authenticate
     def take_action(self, parsed_args):
-        response = http_client.post(projects_url(), parsed_args.project)
-        if response.status_code == 200:
-            print "Project has been successfully created!"
-        else:
-            print response.text
+        http_client.post(projects_url(), parsed_args.project)
 
 
 class ProjectDelete(command.Command):
@@ -76,8 +71,7 @@ class ProjectDelete(command.Command):
 
     @identity.authenticate
     def take_action(self, parsed_args):
-        projects = http_client.delete(project_url(parsed_args))
-        print projects
+        http_client.delete(project_url(parsed_args))
 
 
 class ProjectPut(command.Command):
@@ -97,6 +91,4 @@ class ProjectPut(command.Command):
 
     @identity.authenticate
     def take_action(self, parsed_args):
-        projects = http_client.put(project_url(parsed_args),
-                                   parsed_args.project)
-        print projects
+        http_client.put(project_url(parsed_args), parsed_args.project)
