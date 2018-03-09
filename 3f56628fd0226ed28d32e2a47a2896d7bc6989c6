@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_7810ae4e",
+        "filename": "testapi/opnfv_testapi/ui/components/projects/projectsController.js",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-03-09T06:09:18Z",
+      "side": 1,
+      "message": "sortByName() is very similar to sortBy() in PodsController, and it will be foreseen to be reused in other Controllers, and there are some other functionalities in the same condition, would you please come up with an OOP solution to solve the duplicated coding, here are some OOP methods to reference:\nhttps://stackoverflow.com/questions/17389291/angularjs-with-oop-inheritance-in-action\nhttp://blog.mgechev.com/2013/12/18/inheritance-services-controllers-in-angularjs/\nhttps://medium.com/opinionated-angularjs/angular-model-objects-with-javascript-classes-2e6a067c73bc",
+      "range": {
+        "startLine": 56,
+        "startChar": 17,
+        "endLine": 56,
+        "endChar": 27
+      },
+      "revId": "3f56628fd0226ed28d32e2a47a2896d7bc6989c6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
