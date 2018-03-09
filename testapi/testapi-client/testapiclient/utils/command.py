@@ -1,5 +1,6 @@
 from cliff import command
-from testapiclient import url_parse
+
+from testapiclient.utils import url_parse
 
 
 class Command(command.Command):
