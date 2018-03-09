@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_aea78c4e",
+        "filename": "testapi/testapi-client/testapiclient/pods.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6939
+      },
+      "writtenOn": "2018-03-09T17:51:37Z",
+      "side": 1,
+      "message": "Don\u0027t we need request variable \u0027Get\u0027.",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 75
+      },
+      "revId": "cc29ae1cd41d1f403511730d5ba44dded967fb12",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0e64c020",
+        "filename": "testapi/testapi-client/testapiclient/pods.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6939
+      },
+      "writtenOn": "2018-03-09T17:51:37Z",
+      "side": 1,
+      "message": "Don\u0027t we need request variable \u0027GetOne\u0027.",
+      "range": {
+        "startLine": 42,
+        "startChar": 8,
+        "endLine": 42,
+        "endChar": 51
+      },
+      "revId": "cc29ae1cd41d1f403511730d5ba44dded967fb12",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
