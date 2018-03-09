@@ -1,21 +1,21 @@
 import sys
 
-from cliff.app import App
-from cliff.commandmanager import CommandManager
+from cliff import app
+from cliff import commandmanager
 import requests
 
-from testapiclient import user
+from testapiclient.utils import user
 
 
-class TestAPIClient(App):
+class TestAPIClient(app.App):
 
     def __init__(self):
         super(TestAPIClient, self).__init__(
             description='TestAPI Client',
             version='0.1',
-            command_manager=CommandManager('testapi'),
+            command_manager=commandmanager.CommandManager('testapi'),
             deferred_help=True,
-            )
+        )
         user.User.session = requests.Session()
 
     def initialize_app(self, argv):

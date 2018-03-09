@@ -3,7 +3,8 @@ import os
 import urllib
 
 import requests
-from testapiclient import user
+
+from testapiclient.utils import user
 
 
 def _authenticate(username, password):
