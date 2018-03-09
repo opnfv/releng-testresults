@@ -1,5 +1,5 @@
-from testapiclient import command
-from testapiclient import identity
+from testapiclient.utils import command
+from testapiclient.utils import identity
 
 
 class Auth(command.Command):

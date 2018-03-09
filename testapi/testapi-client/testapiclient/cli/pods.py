@@ -1,9 +1,9 @@
 import json
 
-from testapiclient import command
-from testapiclient import http_client as client
-from testapiclient import identity
-from testapiclient import url_parse
+from testapiclient.utils import command
+from testapiclient.utils import http_client as client
+from testapiclient.utils import identity
+from testapiclient.utils import url_parse
 
 
 def pods_url():

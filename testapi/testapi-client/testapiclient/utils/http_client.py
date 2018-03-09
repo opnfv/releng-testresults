@@ -1,7 +1,8 @@
 import json
 
 import requests
-from testapiclient import user
+
+from testapiclient.utils import user
 
 
 class HTTPClient(object):
