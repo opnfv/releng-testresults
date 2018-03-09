@@ -25,7 +25,7 @@ def _authenticate(username, password):
 def authenticate(xstep):
     @functools.wraps(xstep)
     def wrapper(self, parsed_args):
-        if(user.User.session is None):
+        if(True):
             username = parsed_args.u
             password = parsed_args.p
             if(username and password):
