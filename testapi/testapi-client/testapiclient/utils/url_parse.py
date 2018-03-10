@@ -28,12 +28,12 @@ def get_queries(queries, parsed_args):
 
     return {query: getattr(parsed_args, query)
             for query in queries
-            if hasattr(parsed_args, query)}
+            if hasattr(parsed_args, query) and getattr(parsed_args, query)}
 
 
 def query_by(base, queries, parsed_args):
-    return query_join(base,
-                      **get_queries(queries, parsed_args))
+    qs = get_queries(queries, parsed_args)
+    return query_join(base, **qs) if qs else base
 
 
 def url_format(base, parsed_args):
