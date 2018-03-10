@@ -34,7 +34,9 @@ class PodGet(command.Lister):
             "creation_date",
         )
 
-        data = client.get(up.query_by(pods_url(), 'name', parsed_args))
+        qurl = up.query_by(pods_url(), 'name', parsed_args)
+        print qurl
+        data = client.get(qurl)
         return self.format_output(columns, data.get('pods', []))
 
 
