@@ -1,2 +1,5 @@
 stestr>=1.0.0 # Apache-2.0
 testtools>=2.2.0 # MIT
+mock
+requests
+six>=1.10.0 # MIT
