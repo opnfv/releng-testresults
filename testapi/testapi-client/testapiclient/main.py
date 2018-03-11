@@ -2,9 +2,6 @@ import sys
 
 from cliff import app
 from cliff import commandmanager
-import requests
-
-from testapiclient.utils import user
 
 
 class TestAPIClient(app.App):
@@ -16,7 +13,6 @@ class TestAPIClient(app.App):
             command_manager=commandmanager.CommandManager('testapi'),
             deferred_help=True,
         )
-        user.User.session = requests.Session()
 
     def initialize_app(self, argv):
         self.LOG.debug('initialize_app')

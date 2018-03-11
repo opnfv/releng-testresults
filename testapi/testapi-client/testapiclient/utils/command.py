@@ -3,7 +3,16 @@ from cliff import command
 from testapiclient.utils import url_parse
 
 
-class Command(command.Command):
+class CommandBase(command.Command):
+    @staticmethod
+    def filter_by_parent(url, parsed_args):
+        if parsed_args.project:
+            return url.format(parsed_args.project)
+        else:
+            return url.format(parsed_args.scenario)
+
+
+class Command(CommandBase):
     def get_parser(self, prog_name):
         parser = super(Command, self).get_parser(prog_name)
         parser.add_argument('-u',
@@ -21,7 +30,7 @@ class Command(command.Command):
                         else 'failed: {}'.format(response.reason)])
 
 
-class Lister(command.Command):
+class Lister(CommandBase):
 
     @staticmethod
     def filter_by_name(url, parsed_args):
@@ -35,7 +44,7 @@ class Lister(command.Command):
             else 'Get failed: {}'.format(response.reason)
 
 
-class ShowOne(command.Command):
+class ShowOne(CommandBase):
     def show(self, response):
         print response.json() if response.status_code < 300 \
             else 'Get failed: {}'.format(response.reason)
