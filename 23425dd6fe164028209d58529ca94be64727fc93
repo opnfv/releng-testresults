@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_2c60a431",
+        "filename": "testapi/testapi-client/testapiclient/tests/unit/test_pods.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-03-12T06:39:50Z",
+      "side": 1,
+      "message": "please reorganize the import sections into three as we discussed before:\n\nsection1 standard\n\nsection2 3rd party\n\nsection3 local import\n\nplease reference: https://docs.openstack.org/hacking/latest/user/hacking.html#imports",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 29
+      },
+      "revId": "23425dd6fe164028209d58529ca94be64727fc93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4c5b7087",
+        "filename": "testapi/testapi-client/testapiclient/tests/unit/test_pods.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-03-12T06:39:50Z",
+      "side": 1,
+      "message": "As we discuss before, according to import rules: 1) import module rather than object, 2) i\nmport abstract path rather than relative, please change to\n\nfrom testapiclient.tests.unit import utils",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 29
+      },
+      "revId": "23425dd6fe164028209d58529ca94be64727fc93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6cd8ecef",
+        "filename": "testapi/testapi-client/testapiclient/tests/unit/test_pods.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-03-12T06:39:50Z",
+      "side": 1,
+      "message": "I would suggest decouple PodTest into PodCreateTest, PodGetTest, PodGetOneTest, PodDeleteTest",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 26
+      },
+      "revId": "23425dd6fe164028209d58529ca94be64727fc93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8c545855",
+        "filename": "testapi/testapi-client/testapiclient/tests/unit/test_pods.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-03-12T06:39:50Z",
+      "side": 1,
+      "message": "this api_url will be used in other CLIs as well, I would suggest to put it in TestCommand",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 44
+      },
+      "revId": "23425dd6fe164028209d58529ca94be64727fc93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_6c510c62",
+        "filename": "testapi/testapi-client/testapiclient/tests/unit/test_pods.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-03-12T06:39:50Z",
+      "side": 1,
+      "message": "please organize the base_url based on api_url",
+      "range": {
+        "startLine": 12,
+        "startChar": 16,
+        "endLine": 12,
+        "endChar": 44
+      },
+      "revId": "23425dd6fe164028209d58529ca94be64727fc93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ecccfc37",
+        "filename": "testapi/testapi-client/testapiclient/tests/unit/test_pods.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-03-12T06:39:50Z",
+      "side": 1,
+      "message": "please give dicta a meaningful name",
+      "range": {
+        "startLine": 16,
+        "startChar": 8,
+        "endLine": 16,
+        "endChar": 13
+      },
+      "revId": "23425dd6fe164028209d58529ca94be64727fc93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0cc84821",
+        "filename": "testapi/testapi-client/testapiclient/tests/unit/test_pods.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-03-12T06:39:50Z",
+      "side": 1,
+      "message": "this mock will be used in other CLIs as well, I would suggest putting it into TestCommand.setup()",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 71
+      },
+      "revId": "23425dd6fe164028209d58529ca94be64727fc93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2cd704c3",
+        "filename": "testapi/testapi-client/testapiclient/tests/unit/test_pods.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-03-12T06:39:50Z",
+      "side": 1,
+      "message": "why leverage this human-unfriendly unicode string? why not directly:\nself.pod_json \u003d {\u0027role\u0027: \u0027community-ci\u0027}",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 13
+      },
+      "revId": "23425dd6fe164028209d58529ca94be64727fc93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ace2f49c",
+        "filename": "testapi/testapi-client/testapiclient/tests/unit/test_pods.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-03-12T06:39:50Z",
+      "side": 1,
+      "message": "since this mock is used in every test, I would suggest to put in SetUp()\n\nPodCreateTest(TestCommand):\n    def SetUp(self):\n        super(PodCreateTest, self).SetUp():\n            self.http_post_mock \u003d mock.patch(\u0027testapiclient.cli.pods.client.HTTPClient.post\u0027).start()",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 59
+      },
+      "revId": "23425dd6fe164028209d58529ca94be64727fc93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8cdbb8ec",
+        "filename": "testapi/testapi-client/testapiclient/tests/unit/test_pods.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-03-12T06:39:50Z",
+      "side": 1,
+      "message": "end with \u0027\\\u0027 is not recommended, how about mock to \u0027post\u0027 level, so the line will be so long?",
+      "range": {
+        "startLine": 85,
+        "startChar": 77,
+        "endLine": 85,
+        "endChar": 79
+      },
+      "revId": "23425dd6fe164028209d58529ca94be64727fc93",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
