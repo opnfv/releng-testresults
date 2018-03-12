@@ -24,7 +24,7 @@ class ProjectGet(command.Lister):
         return parser
 
     def take_action(self, parsed_args):
-        self.show(client.get(self.filter_name(projects_url(), parsed_args)))
+        return client.get(self.filter_name(projects_url(), parsed_args))
 
 
 class ProjectGetOne(command.ShowOne):
@@ -38,7 +38,7 @@ class ProjectGetOne(command.ShowOne):
         return parser
 
     def take_action(self, parsed_args):
-        self.show(client.get(project_url(parsed_args)))
+        return client.get(project_url(parsed_args))
 
 
 class ProjectCreate(command.Command):
@@ -54,8 +54,7 @@ class ProjectCreate(command.Command):
 
     @identity.authenticate
     def take_action(self, parsed_args):
-        self.show('Create',
-                  client.post(projects_url(), parsed_args.project))
+        return client.post(projects_url(), parsed_args.project)
 
 
 class ProjectDelete(command.Command):
@@ -70,8 +69,7 @@ class ProjectDelete(command.Command):
 
     @identity.authenticate
     def take_action(self, parsed_args):
-        self.show('Delete',
-                  client.delete(project_url(parsed_args)))
+        return client.delete(project_url(parsed_args))
 
 
 class ProjectPut(command.Command):
@@ -91,5 +89,4 @@ class ProjectPut(command.Command):
 
     @identity.authenticate
     def take_action(self, parsed_args):
-        self.show('Update',
-                  client.put(project_url(parsed_args), parsed_args.project))
+        return client.put(project_url(parsed_args), parsed_args.project)

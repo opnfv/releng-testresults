@@ -1,6 +1,8 @@
+import httplib
 import json
 
 import requests
+import six
 
 from testapiclient.utils import user
 
@@ -25,26 +27,39 @@ class HTTPClient(object):
             HTTPClient.__instance = self
 
     def get(self, url):
-        return requests.get(url)
+        return self._parse_response('Get', requests.get(url))
 
     def post(self, url, data):
-        return self._request('post', url,
-                             data=json.dumps(data),
-                             headers=self.headers)
+        return self._parse_response('Create',
+                                    self._request('post', url,
+                                                  data=json.dumps(data),
+                                                  headers=self.headers))
 
     def put(self, url, data):
-        return self._request('put', url,
-                             data=json.dumps(data),
-                             headers=self.headers)
+        return self._parse_response('Update',
+                                    self._request('put', url,
+                                                  data=json.dumps(data),
+                                                  headers=self.headers))
 
     def delete(self, url, *args):
         data = json.dumps(args[0]) if len(args) > 0 else None
-        return self._request('delete', url,
-                             data=data,
-                             headers=self.headers)
+        return self._parse_response('Delete',
+                                    self._request('delete', url,
+                                                  data=data,
+                                                  headers=self.headers))
 
     def _request(self, method, *args, **kwargs):
         return getattr(user.User.session, method)(*args, **kwargs)
+
+    def _raise_failure(self, op, response):
+        raise Exception('{} failed: {}'.format(op, response.reason))
+
+    def _parse_response(self, op, response):
+        if response.status_code == httplib.OK:
+            return response.json() if op != 'Delete' else None
+        else:
+            self._raise_failure(op, response)
+
 
 
 def _request(method, *args, **kwargs):
