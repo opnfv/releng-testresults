@@ -25,7 +25,7 @@ class PodGet(command.Lister):
         return parser
 
     def take_action(self, parsed_args):
-        self.show(client.get(self.filter_by_name(pods_url(), parsed_args)))
+        self.show(client.get(self.filter_by(pods_url(), parsed_args)))
 
 
 class PodGetOne(command.ShowOne):

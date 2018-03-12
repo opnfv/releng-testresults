@@ -24,7 +24,7 @@ class ProjectGet(command.Lister):
         return parser
 
     def take_action(self, parsed_args):
-        self.show(client.get(self.filter_name(projects_url(), parsed_args)))
+        self.show(client.get(self.filter_by(projects_url(), parsed_args)))
 
 
 class ProjectGetOne(command.ShowOne):

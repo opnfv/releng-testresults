@@ -14,7 +14,7 @@ def path_join(base, *urls):
 
 
 def query_join(base, **queries):
-    return base + '?' + parse.urlencode(queries)
+    return base + parse.urlencode(queries) + '&'
 
 
 def resource_join(url):
