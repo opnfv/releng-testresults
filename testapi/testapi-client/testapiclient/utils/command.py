@@ -24,11 +24,13 @@ class Command(command.Command):
 class Lister(command.Command):
 
     @staticmethod
-    def filter_by_name(url, parsed_args):
-        def query_url():
-            return url_parse.query_join(url, name=parsed_args.name)
-
-        return query_url() if parsed_args.name else url
+    def filter_by(url, parsed_args):
+        queries = {}
+        for key, value in parsed_args.__dict__.items():
+            if value:
+                queries[key] = value
+        url_filtered = url_parse.query_join(url, **queries)
+        return url_filtered
 
     def show(self, response):
         print response.json() if response.status_code < 300 \
