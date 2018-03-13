@@ -142,6 +142,30 @@
       "revId": "96a3d8addfe1cd0bdcb0993ec99dc3446f2df96c",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_98a3f14e",
+        "filename": "testapi/testapi-client/testapiclient/utils/command.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-03-13T07:31:06Z",
+      "side": 1,
+      "message": "no, I hope you can leverage the way I provided in this patch. inappropriate patch shouldn\u0027t be merged",
+      "parentUuid": "5a3f45e8_3821fdfb",
+      "range": {
+        "startLine": 8,
+        "startChar": 8,
+        "endLine": 8,
+        "endChar": 24
+      },
+      "revId": "96a3d8addfe1cd0bdcb0993ec99dc3446f2df96c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
