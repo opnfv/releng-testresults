@@ -79,22 +79,44 @@
                             <table class="table" ng-class="{'hidden' : !ctrl.details}" style="margin:10px">
                             <tbody>
                                 <tr style="padding:9px"></tr>
-                                <tr style="padding:9px">
-                                    <td class="podsTableTd">Failures&nbsp;:</td>
-                                    <td width="90%" class="podsTableLeftTd">{{ctrl.data.details.failures}}</td>
-                                </tr>
-                                <tr style="padding:9px">
-                                    <td class="podsTableTd">Details&nbsp;:</td>
-                                    <td width="90%" class="podsTableLeftTd">{{ctrl.data.details.errors}}</td>
-                                </tr>
-                                <tr style="padding:9px">
-                                    <td class="podsTableTd">Stream&nbsp;:</td>
-                                    <td width="90%" class="podsTableLeftTd"><p>{{ctrl.data.details.stream}}</p></td>
-                                </tr>
-                                <tr style="padding:9px">
-                                    <td class="podsTableTd">TestsRun&nbsp;:</td>
-                                    <td width="90%" class="podsTableLeftTd"><p>{{ctrl.data.details.testsRun}}</p></td>
-                                </tr>
+                                <!-- <div ng-class="{'hidden' : ctrl.detailsArray}"> -->
+                                    <tr ng-class="{'hidden' : ctrl.detailsArray}" ng-repeat-start="(index, detail) in ctrl.data.details" style="padding:9px">
+                                        <td class="podsTableTd">{{index}}&nbsp;:</td>
+                                        <td width="90%" class="podsTableLeftTd">{{detail}}</td>
+                                    </tr>
+                                    <tr ng-repeat-end=>
+                                    </tr>
+                                <!-- </div> -->
+                                <!-- <div ng-class="{'hidden' : !ctrl.detailsArray}"> -->
+                                    <tr ng-class="{'hidden' : !ctrl.detailsArray}" ng-repeat-start="details in ctrl.data.details" style="padding:9px">
+                                        <div>
+                                            <tr ng-repeat-start="(index, detail) in details" style="padding:9px">
+                                                <td class="podsTableTd">{{index}}&nbsp;:</td>
+                                                <div ng-class="{'hidden' : !ctrl.type(detail)}">
+                                                    <td ng-class="{'hidden' : !ctrl.type(detail)}" width="90%" class="podsTableLeftTd">{{detail}}</td>
+                                                </div>
+                                                <!-- <div ng-class="{'hidden' : ctrl.type(detail)}"> -->
+                                                    <td ng-class="{'hidden' : ctrl.type(detail)}" width="90%" class="podsTableLeftTd">
+                                                        <table class="table" ng-class="{'hidden' : !ctrl.details}" style="margin:10px">
+                                                            <tbody>
+                                                                <tr ng-repeat-start="(index_inner, detail_inner) in detail track by $index" style="padding:9px">
+                                                                    <td class="podsTableTd">{{index_inner}}&nbsp;:</td>
+                                                                    <td width="90%" class="podsTableLeftTd">{{detail_inner}}</td>
+                                                                </tr>
+                                                                <tr ng-repeat-end=>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                <!-- </div> -->
+                                            </tr>
+                                            <tr ng-repeat-end=>
+                                            </tr>
+                                        <!-- </div> -->
+                                    </tr>
+                                    <tr ng-repeat-end=>
+                                    </tr>
+                                <!-- </div> -->
                             </tbody>
                         </table>
                     </td>

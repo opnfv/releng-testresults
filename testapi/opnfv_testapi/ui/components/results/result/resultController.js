@@ -37,6 +37,8 @@
         ctrl.loadDetails = loadDetails
         ctrl.showTrustIndicator = showTrustIndicator
         ctrl.showDetails = showDetails
+        ctrl.detailsArray = false
+        ctrl.type = type
 
         /**
          *Contact the testapi and retrevie the result details
@@ -47,6 +49,12 @@
             ctrl.podsRequest =
                 $http.get(resultUrl).success(function (data) {
                     ctrl.data = data;
+                    if(ctrl.data.details instanceof Array){
+                        ctrl.detailsArray = true
+                    }
+                    else{
+                        ctrl.detailsArray = false
+                    }
                 }).catch(function (error) {
                     ctrl.data = null;
                     ctrl.showError = true;
@@ -67,6 +75,15 @@
                 ctrl.details = false
             }else{
                 ctrl.details = true
+            }
+        }
+
+        function type(details){
+            if(typeof details == 'string'){
+                return true
+            }
+            else{
+                return false
             }
         }
         ctrl.loadDetails();
