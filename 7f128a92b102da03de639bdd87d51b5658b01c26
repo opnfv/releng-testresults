@@ -16,6 +16,24 @@
       "revId": "7f128a92b102da03de639bdd87d51b5658b01c26",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5867a925",
+        "filename": "testapi/opnfv_testapi/ui/components/results/result/result.html",
+        "patchSetId": 2
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 6939
+      },
+      "writtenOn": "2018-03-13T07:40:09Z",
+      "side": 1,
+      "message": "I don\u0027t get this point. Could you please elaborate more",
+      "parentUuid": "5a3f45e8_38fd7d3b",
+      "revId": "7f128a92b102da03de639bdd87d51b5658b01c26",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
