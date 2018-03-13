@@ -37,6 +37,9 @@
         ctrl.loadDetails = loadDetails
         ctrl.showTrustIndicator = showTrustIndicator
         ctrl.showDetails = showDetails
+        ctrl.json = {};
+		ctrl.json.string = '{"id": ""}';
+		ctrl.json.object = JSON.parse(ctrl.json.string);
 
         /**
          *Contact the testapi and retrevie the result details
@@ -47,6 +50,14 @@
             ctrl.podsRequest =
                 $http.get(resultUrl).success(function (data) {
                     ctrl.data = data;
+                    if(ctrl.data.details instanceof Array){
+                        ctrl.detailsArray = true
+                    }
+                    else{
+                        ctrl.detailsArray = false
+                    }
+                    ctrl.object=JSON.stringify(ctrl.data.details)
+                    ctrl.json.object = JSON.parse(ctrl.object)
                 }).catch(function (error) {
                     ctrl.data = null;
                     ctrl.showError = true;

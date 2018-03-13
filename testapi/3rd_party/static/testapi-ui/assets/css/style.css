@@ -281,3 +281,15 @@ a.glyphicon {
   border-top:none!important;
   padding-bottom:0px!important;
 }
+
+json-tree .key {
+  color: black!important;
+}
+
+.branch-preview {
+  display: none!important;
+}
+
+json-tree .leaf-value{
+  word-break: normal!important;
+}

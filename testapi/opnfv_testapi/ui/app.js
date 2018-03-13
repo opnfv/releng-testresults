@@ -19,7 +19,7 @@
     angular
         .module('testapiApp', [
             'ui.router','ui.bootstrap', 'cgBusy',
-            'ngResource', 'angular-confirm'
+            'ngResource', 'angular-confirm', 'angular-json-tree'
         ]);
 
     angular

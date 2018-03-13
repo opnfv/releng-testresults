@@ -72,28 +72,17 @@
                 <tr style="padding:9px">
                     <td class="podsTableTd">Details&nbsp;:</td>
                     <td width="90%" class="podsTableLeftTd">
-                            <a ng-click="ctrl.showDetails()">
-                                <p ng-if="ctrl.details">Hide</p>
-                                <p ng-if="!ctrl.details">Show</p>
-                            </a>
-                            <table class="table" ng-class="{'hidden' : !ctrl.details}" style="margin:10px">
-                            <tbody>
-                                <tr style="padding:9px"></tr>
+                        <a ng-click="ctrl.showDetails()">
+                            <p ng-if="ctrl.details">Hide</p>
+                            <p ng-if="!ctrl.details">Show</p>
+                        </a>
+                        <table class="table" ng-class="{'hidden' : !ctrl.details}" style="margin:10px">
+                        <tbody>
+                            <tr style="padding:9px"></tr>
                                 <tr style="padding:9px">
-                                    <td class="podsTableTd">Failures&nbsp;:</td>
-                                    <td width="90%" class="podsTableLeftTd">{{ctrl.data.details.failures}}</td>
-                                </tr>
-                                <tr style="padding:9px">
-                                    <td class="podsTableTd">Details&nbsp;:</td>
-                                    <td width="90%" class="podsTableLeftTd">{{ctrl.data.details.errors}}</td>
-                                </tr>
-                                <tr style="padding:9px">
-                                    <td class="podsTableTd">Stream&nbsp;:</td>
-                                    <td width="90%" class="podsTableLeftTd"><p>{{ctrl.data.details.stream}}</p></td>
-                                </tr>
-                                <tr style="padding:9px">
-                                    <td class="podsTableTd">TestsRun&nbsp;:</td>
-                                    <td width="90%" class="podsTableLeftTd"><p>{{ctrl.data.details.testsRun}}</p></td>
+                                    <td>
+                                        <json-tree object="ctrl.json.object" root-name="'Details'" start-expanded="true"></json-tree>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
