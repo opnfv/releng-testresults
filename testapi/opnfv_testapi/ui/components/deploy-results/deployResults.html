@@ -83,6 +83,7 @@
             <tr>
                 <th>ID</th>
                 <th>Installer</th>
+                <th>Version</th>
                 <th>Scenario</th>
                 <th>Pod</th>
                 <th>Criteria</th>
@@ -95,6 +96,7 @@
             <tr ng-repeat-start="(index, result) in ctrl.data.deployresults">
                 <td><a ng-click="ctrl.viewDeployResult(result._id)">{{ result._id.substr(-8) }}</a></td>
                 <td>{{ result.installer }}</td>
+                <td>{{ result.version }}</td>
                 <td>{{ result.scenario }}</td>
                 <td>{{ result.pod_name }}</td>
                 <td>{{ result.criteria }}</td>
