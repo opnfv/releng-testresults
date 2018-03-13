@@ -14,7 +14,7 @@ def path_join(base, *urls):
 
 
 def query_join(base, **queries):
-    return base + '?' + parse.urlencode(queries)
+    return base + '?' + parse.urlencode(queries) if bool(queries) else base
 
 
 def resource_join(url):
@@ -28,7 +28,7 @@ def get_queries(queries, parsed_args):
 
     return {query: getattr(parsed_args, query)
             for query in queries
-            if hasattr(parsed_args, query)}
+            if hasattr(parsed_args, query) and getattr(parsed_args, query)}
 
 
 def query_by(base, queries, parsed_args):

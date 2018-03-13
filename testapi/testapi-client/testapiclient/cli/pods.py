@@ -20,7 +20,6 @@ class PodGet(command.Lister):
     def get_parser(self, prog_name):
         parser = super(PodGet, self).get_parser(prog_name)
         parser.add_argument('-name',
-                            default='',
                             help='Search pods using name')
         return parser
 
