@@ -79,21 +79,11 @@
                             <table class="table" ng-class="{'hidden' : !ctrl.details}" style="margin:10px">
                             <tbody>
                                 <tr style="padding:9px"></tr>
-                                <tr style="padding:9px">
-                                    <td class="podsTableTd">Failures&nbsp;:</td>
-                                    <td width="90%" class="podsTableLeftTd">{{ctrl.data.details.failures}}</td>
+                                <tr ng-repeat-start="(index, detail) in ctrl.data.details" style="padding:9px">
+                                    <td class="podsTableTd">{{index}}&nbsp;:</td>
+                                    <td width="90%" class="podsTableLeftTd">{{detail}}</td>
                                 </tr>
-                                <tr style="padding:9px">
-                                    <td class="podsTableTd">Details&nbsp;:</td>
-                                    <td width="90%" class="podsTableLeftTd">{{ctrl.data.details.errors}}</td>
-                                </tr>
-                                <tr style="padding:9px">
-                                    <td class="podsTableTd">Stream&nbsp;:</td>
-                                    <td width="90%" class="podsTableLeftTd"><p>{{ctrl.data.details.stream}}</p></td>
-                                </tr>
-                                <tr style="padding:9px">
-                                    <td class="podsTableTd">TestsRun&nbsp;:</td>
-                                    <td width="90%" class="podsTableLeftTd"><p>{{ctrl.data.details.testsRun}}</p></td>
+                                <tr ng-repeat-end=>
                                 </tr>
                             </tbody>
                         </table>
