@@ -8,6 +8,7 @@ from testapiclient.utils import user
 
 
 def _authenticate(username, password):
+    print 'authenticate begin'
     session = requests.Session()
     hostname = '{}{}{}'.format(os.environ.get('testapi_cas_auth_url'),
                                urllib.quote(os.environ.get('testapi_url')),
