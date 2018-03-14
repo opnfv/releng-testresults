@@ -66,21 +66,13 @@ class GenericApiHandler(web.RequestHandler):
         self.set_header("Content-Type", DEFAULT_REPRESENTATION)
         self.finish()
 
-    def _create_response(self, resource):
-        href = self.request.full_url() + '/' + str(resource)
-        return base_models.CreateResponse(href=href).format()
-
-    def format_data(self, data):
-        cls_data = self.table_cls.from_dict(data)
-        return cls_data.format_http()
-
     @web.asynchronous
     @gen.coroutine
     @check.valid_token
     @check.no_body
     @check.miss_fields
-    @check.new_not_exists
     @check.is_authorized
+    @check.new_not_exists
     @check.values_check
     @check.carriers_exist
     def _create(self, **kwargs):
@@ -101,6 +93,14 @@ class GenericApiHandler(web.RequestHandler):
         else:
             resource = _id
         self.finish_request(self._create_response(resource))
+
+    def _create_response(self, resource):
+        href = self.request.full_url() + '/' + str(resource)
+        return base_models.CreateResponse(href=href).format()
+
+    def format_data(self, data):
+        cls_data = self.table_cls.from_dict(data)
+        return cls_data.format_http()
 
     @web.asynchronous
     @gen.coroutine
