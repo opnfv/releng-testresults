@@ -36,7 +36,7 @@ class TestAPIClient(app.App):
 
     def prepare_to_run_command(self, cmd):
         self.LOG.debug('prepare_to_run_command %s', cmd.__class__.__name__)
-        if self.options.u:
+        if self.client_manager.auth_required:
             self.client_manager.auth()
 
     def clean_up(self, cmd, result, err):
