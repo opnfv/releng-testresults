@@ -1,10 +1,6 @@
 {
   "project_name": "functest",
   "scenario": "odl-l2",
-  "trust_indicator": {
-    "current": 0.7,
-    "histories": []
-  },
   "case_name": "vPing",
   "build_tag": "v3.0",
   "public": "true",

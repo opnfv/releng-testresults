@@ -105,18 +105,6 @@ class TestResultCreate(TestResultBase):
         req.details = {'1.name': 'dot_name'}
         return req
 
-    @executor.create(httplib.OK, '_assert_no_ti')
-    def test_no_ti(self):
-        req = copy.deepcopy(self.req_d)
-        req.trust_indicator = rm.TI(0)
-        self.actual_req = req
-        return req
-
-    def _assert_no_ti(self, body):
-        _id = body.href.split('/')[-1]
-        code, body = self.get(_id)
-        self.assert_res(body, self.actual_req)
-
 
 class TestResultGet(TestResultBase):
     def setUp(self):
@@ -158,10 +146,6 @@ class TestResultGet(TestResultBase):
         return self._set_query('scenario')
 
     @executor.query(httplib.OK, '_query_success', 3)
-    def test_queryTrustIndicator(self):
-        return self._set_query('trust_indicator')
-
-    @executor.query(httplib.OK, '_query_success', 3)
     def test_queryCriteria(self):
         return self._set_query('criteria')
 
@@ -190,7 +174,6 @@ class TestResultGet(TestResultBase):
                                'installer',
                                'build_tag',
                                'scenario',
-                               'trust_indicator',
                                'criteria',
                                period=5)
 
@@ -202,7 +185,6 @@ class TestResultGet(TestResultBase):
                                'installer',
                                'build_tag',
                                'scenario',
-                               'trust_indicator',
                                'criteria',
                                pod='notExistPod',
                                period=1)
@@ -244,8 +226,6 @@ class TestResultGet(TestResultBase):
         def get_value(arg):
             if arg in ['pod', 'project', 'case']:
                 return getattr(self.req_d, arg + '_name')
-            elif arg == 'trust_indicator':
-                return self.req_d.trust_indicator.current
             else:
                 return getattr(self.req_d, arg)
 
@@ -255,24 +235,3 @@ class TestResultGet(TestResultBase):
         for k, v in kwargs.iteritems():
             query.append((k, v))
         return urllib.urlencode(query)
-
-
-class TestResultUpdate(TestResultBase):
-    def setUp(self):
-        super(TestResultUpdate, self).setUp()
-        self.req_d_id = self._create_d()
-
-    @executor.update(httplib.OK, '_assert_update_ti')
-    def test_success(self):
-        update_date = str(datetime.now() + timedelta(days=1))
-        update_step = -0.05
-        self.after_update = copy.deepcopy(self.req_d)
-        self.after_update.trust_indicator.current += update_step
-        self.after_update.trust_indicator.histories.append(
-            rm.TIHistory(update_date, update_step))
-        update = rm.ResultUpdateRequest(
-            trust_indicator=self.after_update.trust_indicator)
-        return update, self.req_d_id
-
-    def _assert_update_ti(self, request, body):
-        self.assert_res(body, self.after_update)

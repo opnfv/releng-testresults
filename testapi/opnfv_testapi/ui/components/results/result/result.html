@@ -48,28 +48,6 @@
                     <td width="90%"  class="podsTableLeftTd">{{ctrl.data.stop_date}}</td>
                 </tr>
                 <tr style="padding:9px">
-                    <td class="podsTableTd">Trust&nbsp;Indicator&nbsp;:</td>
-                    <td width="90%"  class="podsTableLeftTd">
-                        <a ng-click="ctrl.showTrustIndicator()">
-                            <p ng-if="ctrl.trust_indicator">Hide</p>
-                            <p ng-if="!ctrl.trust_indicator">Show</p>
-                        </a>
-                        <table class="table" ng-class="{'hidden' : !ctrl.trust_indicator}" style="margin:10px">
-                            <tbody>
-                                <tr style="padding:9px"></tr>
-                                <tr style="padding:9px" >
-                                    <td class="podsTableTd">Current&nbsp;:</td>
-                                    <td width="90%"  class="podsTableLeftTd">{{ctrl.data.trust_indicator.current}}</td>
-                                </tr>
-                                <tr style="padding:9px" >
-                                    <td class="podsTableTd">Histories&nbsp;:</td>
-                                    <td width="90%"  class="podsTableLeftTd">{{ctrl.data.trust_indicator.histories}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                <tr style="padding:9px">
                     <td class="podsTableTd">Details&nbsp;:</td>
                     <td width="90%" class="podsTableLeftTd">
                             <a ng-click="ctrl.showDetails()">

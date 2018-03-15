@@ -48,8 +48,6 @@ class GenericResultHandler(base_handlers.GenericApiHandler):
                     period = datetime.now() - timedelta(days=v)
                     obj = {"$gte": str(period)}
                     query['start_date'] = obj
-            elif k == 'trust_indicator':
-                query[k + '.current'] = float(v)
             elif k == 'from':
                 date_range.update({'$gte': str(v)})
             elif k == 'to':
@@ -108,8 +106,6 @@ class ResultsCLHandler(GenericResultHandler):
                  - to : ending time in 2016-01-01 or 2016-01-01 00:01:23
                  - scenario : the test scenario (previously version)
                  - criteria : the global criteria status passed or failed
-                 - trust_indicator : evaluate the stability of the test case
-                   to avoid running systematically long and stable test case
 
                 GET /results/project=functest&case=vPing&version=Arno-R1 \
                 &pod=pod_name&period=15
@@ -168,10 +164,6 @@ class ResultsCLHandler(GenericResultHandler):
             @type page: L{int}
             @in page: query
             @required page: False
-            @param trust_indicator: must be float
-            @type trust_indicator: L{float}
-            @in trust_indicator: query
-            @required trust_indicator: False
             @param descend: true, newest2oldest; false, oldest2newest
             @type descend: L{string}
             @in descend: query
@@ -228,19 +220,3 @@ class ResultsGURHandler(GenericResultHandler):
         query = dict()
         query["_id"] = objectid.ObjectId(result_id)
         self._get_one(query=query)
-
-    @swagger.operation(nickname="updateTestResultById")
-    def put(self, result_id):
-        """
-            @description: update a single result by _id
-            @param body: fields to be updated
-            @type body: L{ResultUpdateRequest}
-            @in body: body
-            @rtype: L{Result}
-            @return 200: update success
-            @raise 404: result not exist
-            @raise 403: nothing to update
-        """
-        query = {'_id': objectid.ObjectId(result_id)}
-        db_keys = []
-        self._update(query=query, db_keys=db_keys)

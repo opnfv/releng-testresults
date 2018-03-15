@@ -54,14 +54,6 @@
                 });
         }
 
-        function showTrustIndicator(){
-            if(ctrl.trust_indicator){
-                ctrl.trust_indicator = false
-            }else{
-                ctrl.trust_indicator = true
-            }
-        }
-
         function showDetails(){
             if(ctrl.details){
                 ctrl.details = false
