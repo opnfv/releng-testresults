@@ -47,7 +47,7 @@ describe('testing the pods page for anonymous user', function () {
     });
 });
 
-describe('testing the pods page for anonymous user', function () {
+describe('testing the project page for anonymous user', function () {
     beforeEach(function(){
         mock([
             {
@@ -379,6 +379,161 @@ describe('testing the scenarios page for anonymous user', function () {
         var buttonDelete = element(by.xpath('//*[@id="ng-app"]/body/div/div[1]/div/table/tbody/tr[4]/td[2]/div[3]/div/table/tbody/tr[2]/td[2]/div[3]/div/table/tbody/tr[3]/td[2]/div[3]/div/table/tbody[1]/tr[4]/td[2]/table/tbody/tr[1]/td[2]/button'))
         buttonDelete.click()
         expect(buttonDelete.isDisplayed()).toBe(true);
+    });
+});
+
+
+describe('testing the testCases page for anonymous user', function () {
+    beforeEach(function(){
+        mock([
+            {
+                request: {
+                    path: '/api/v1/projects',
+                    method: 'GET'
+                },
+                response: {
+                    data: {
+                        "projects": [
+                            {
+                                "creator": "thuva4",
+                                "_id": "5a0c022f9a07c846d3c2cc94",
+                                "creation_date": "2017-11-15 14:30:31.200259",
+                                "description": "dsfsd",
+                                "name": "testproject"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                request: {
+                    path: '/api/v1/projects/testproject',
+                    method: 'GET'
+                },
+                response: {
+                    data: {
+                        "creator": "thuva4",
+                        "_id": "5a0c022f9a07c846d3c2cc94",
+                        "creation_date": "2017-11-15 14:30:31.200259",
+                        "description": "dsfsd",
+                        "name": "testproject"
+                    }
+                }
+            },
+            {
+                request: {
+                    path: '/api/v1/projects/testproject/cases',
+                    method: 'GET'
+                },
+                response: {
+                    data: {
+                        "testcases": [
+                            {
+                                "project_name": "testproject",
+                                "run": null,
+                                "description": null,
+                                "tags": null,
+                                "creation_date": "2017-12-20 18:47:04.025544",
+                                "dependencies": null,
+                                "tier": null,
+                                "trust": null,
+                                "blocking": null,
+                                "name": "testCase",
+                                "ci_loop": null,
+                                "url": null,
+                                "version": null,
+                                "criteria": null,
+                                "domains": null,
+                                "_id": "5a3a62d09a07c836e06858fb",
+                                "catalog_description": null
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                request: {
+                    path: '/api/v1/projects/testproject/cases/testCase',
+                    method: 'GET'
+                },
+                response: {
+                    data: {
+                            "project_name": "testproject",
+                            "run": null,
+                            "description": null,
+                            "tags": null,
+                            "creation_date": "2017-12-20 18:47:04.025544",
+                            "dependencies": null,
+                            "tier": null,
+                            "trust": null,
+                            "blocking": null,
+                            "name": "testCase",
+                            "ci_loop": null,
+                            "url": null,
+                            "version": null,
+                            "criteria": null,
+                            "domains": null,
+                            "_id": "5a3a62d09a07c836e06858fb",
+                            "catalog_description": null
+                    }
+                }
+            }
+        ]);
+    });
+
+    afterEach(function(){
+        mock.teardown();
+    });
+
+    it( 'should show the testCases for anonymous user', function() {
+        browser.get(baseURL+"#/projects/testproject");
+        var testCases = element(by.linkText('Test Cases'));
+        testCases.click();
+        var row = element.all(by.repeater('(index, testcase) in testCasesCtrl.data.testcases')).first();
+        var cells = row.all(by.tagName('td'));
+        expect(cells.get(1).getText()).toContain("testCase");
+    });
+
+    it( 'navigate anonymous user to testCase page', function() {
+        browser.get(baseURL+"#/projects/testproject");
+        var testCases = element(by.linkText('Test Cases'));
+        testCases.click();
+        var testCase = element(by.linkText('testCase'));
+        testCase.click();
+        var EC = browser.ExpectedConditions;
+        browser.wait(EC.urlContains(baseURL+ '#/projects/testproject/testCase'), 10000);
+    });
+
+    it('create button is not visible for anonymous user ', function () {
+        browser.get(baseURL+"#/projects/testproject");
+        var testCases = element(by.linkText('Test Cases'));
+        testCases.click();
+        var buttonCreate = element(by.buttonText('Create'));
+        expect(buttonCreate.isDisplayed()).toBe(true);
+    });
+
+    it('Delete button is not visible for anonymous user ', function () {
+        browser.get(baseURL+"#/projects/testproject");
+        var testCases = element(by.linkText('Test Cases'));
+        testCases.click();
+        var buttonDelete = element(by.buttonText('Delete'));
+        expect(buttonDelete.isDisplayed()).toBe(true);
+    });
+
+    it('delete Operation is not visible for anonymous user ', function () {
+        browser.get(baseURL+"#/projects/testproject");
+        var testCases = element(by.linkText('Test Cases'));
+        testCases.click();
+        var deleteOperation = element(by.css('a[title=Delete]'));
+        expect(deleteOperation.isDisplayed()).toBe(true);
+    });
+
+    it('Edit Operation is not visible for anonymous user ', function () {
+        browser.get(baseURL+"#/projects/testproject");
+        var testCases = element(by.linkText('Test Cases'));
+        testCases.click();
+        var editOperation = element(by.css('a[title=Edit]'));
+        expect(editOperation.isDisplayed()).toBe(true);
     });
 });
 

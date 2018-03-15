@@ -21,7 +21,7 @@
 
         TestCasesController.$inject = [
         '$scope', '$http', '$filter', '$state', '$window', '$uibModal', 'testapiApiUrl','raiseAlert',
-        'confirmModal'
+        'confirmModal', 'authenticate'
     ];
 
     /**
@@ -31,7 +31,7 @@
      * in them.
      */
     function TestCasesController($scope, $http, $filter, $state, $window, $uibModal, testapiApiUrl,
-        raiseAlert, confirmModal) {
+        raiseAlert, confirmModal, authenticate) {
         var ctrl = this;
         ctrl.loadDetails = loadDetails;
         ctrl.name = $state.params['name'];
