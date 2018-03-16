@@ -41,7 +41,7 @@ if __name__ == '__main__':
                         type=str,
                         required=False,
                         default=('http://testresults.opnfv.org'
-                                 '/test/swagger/resources.json'),
+                                 '/test/swagger/models.json'),
                         help='Resource Listing Spec File')
     parser.add_argument('-au', '--api-declaration-url',
                         type=str,
