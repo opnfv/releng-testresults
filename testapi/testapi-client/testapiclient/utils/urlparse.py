@@ -17,9 +17,9 @@ def query_join(base, **queries):
     return base + '?' + parse.urlencode(queries)
 
 
-def resource_join(url):
+def resource_join(*url):
     testapi_url = os.environ.get('testapi_url')
-    return path_join(testapi_url, url)
+    return path_join(testapi_url, *url)
 
 
 def get_queries(queries, parsed_args):
