@@ -75,6 +75,9 @@ class ClientManager(object):
 
     def _parse_response(self, op, response):
         if response.status_code == httplib.OK:
-            return response.json() if op != 'Delete' else None
+            if op != 'Delete' and response.text != '':
+                return response.json()
+            else:
+                return None
         else:
             self._raise_failure(op, response)

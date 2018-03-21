@@ -45,11 +45,6 @@ class ScenarioGetTest(ScenarioTest):
             args[0],
             self.base_url + '?version=v1&name=s1&installer=i1&project=p1')
 
-    def assert_url(self, actual_url, expected_url):
-        actual_parsed = parse.parse_qs(parse.urlparse(actual_url).query)
-        expected_parsed = parse.parse_qs(parse.urlparse(expected_url).query)
-        assert actual_parsed == expected_parsed
-
     def test_get_all(self):
         self.get_mock.return_value = fk.FakeResponse(data=self.scenarios_rsp)
         scenario_get = scenarios.ScenarioGet(self.app, mock.Mock())

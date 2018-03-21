@@ -1,6 +1,7 @@
 import httplib
 
 from mock import mock
+from six.moves.urllib import parse
 import testtools
 
 from testapiclient.tests.unit import fakes
@@ -50,3 +51,8 @@ class TestCommand(testtools.TestCase):
                 self.assertIn(attr, parsed_args)
                 self.assertEqual(value, getattr(parsed_args, attr))
         return parsed_args
+
+    def assert_url(self, actual_url, expected_url):
+        actual_parsed = parse.parse_qs(parse.urlparse(actual_url).query)
+        expected_parsed = parse.parse_qs(parse.urlparse(expected_url).query)
+        assert actual_parsed == expected_parsed
