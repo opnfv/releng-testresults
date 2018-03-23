@@ -194,3 +194,110 @@ class InstallerPut(command.Command):
             resources_url(
                 parsed_args.scenario_name,
                 'installers'), parsed_args.installer)
+
+
+class VersionCreate(command.Command):
+
+    def get_parser(self, prog_name):
+        parser = super(VersionCreate, self).get_parser(prog_name)
+        parser.add_argument('--scenario-name',
+                            required=True,
+                            help='Create version under scenario name')
+        parser.add_argument('--installer',
+                            required=True,
+                            help='Create version under scenario name')
+        parser.add_argument('version',
+                            type=json.loads,
+                            help='version create request format :\n'
+                                 '\'[{"owner":(string),'
+                                 '"version": (string),'
+                                 '"projects": (array[ScenarioProject])'
+                                 '}]\',\n')
+        return parser
+
+    def take_action(self, parsed_args):
+        return self.app.client_manager.post(
+            urlparse.query_by(
+                resources_url(parsed_args.scenario_name, 'versions'),
+                'installer',
+                parsed_args), parsed_args.version)
+
+
+class VersionDelete(command.Command):
+
+    def get_parser(self, prog_name):
+        parser = super(VersionDelete, self).get_parser(prog_name)
+        parser.add_argument('--scenario-name',
+                            required=True,
+                            type=str,
+                            help='Delete version by scenario name')
+        parser.add_argument('--installer',
+                            required=True,
+                            help='Create version under scenario name')
+        parser.add_argument('name',
+                            nargs='+',
+                            help='Delete version by name')
+        return parser
+
+    def take_action(self, parsed_args):
+        return self.app.client_manager.delete(
+            urlparse.query_by(
+                resources_url(parsed_args.scenario_name, 'versions'),
+                'installer',
+                parsed_args), parsed_args.name)
+
+
+class VersionPut(command.Command):
+
+    def get_parser(self, prog_name):
+        parser = super(VersionPut, self).get_parser(prog_name)
+        parser.add_argument('--scenario-name',
+                            type=str,
+                            required=True,
+                            help='Update installer by scenario name')
+        parser.add_argument('--installer',
+                            required=True,
+                            help='Update version under installer name')
+        parser.add_argument('version',
+                            type=json.loads,
+                            help='version update request format :\n'
+                                 '\'[{"owner":(string),'
+                                 '"version": (string),'
+                                 '"projects": (array[ScenarioProject])'
+                                 '}]\',\n')
+        return parser
+
+    def take_action(self, parsed_args):
+        return self.app.client_manager.put(
+            urlparse.query_by(
+                resources_url(parsed_args.scenario_name, 'versions'),
+                'installer',
+                parsed_args), parsed_args.version)
+
+
+class VersionOwnerPut(command.Command):
+
+    def get_parser(self, prog_name):
+        parser = super(VersionOwnerPut, self).get_parser(prog_name)
+        parser.add_argument('--scenario-name',
+                            type=str,
+                            required=True,
+                            help='Update version by scenario name')
+        parser.add_argument('--installer',
+                            required=True,
+                            help='Update version under scenario name')
+        parser.add_argument('--version',
+                            required=True,
+                            help='Update version under scenario name')
+        parser.add_argument('owner',
+                            type=json.loads,
+                            help='Intaller create request format :\n'
+                                 '\'{"owner": ""}\',\n')
+        return parser
+
+    def take_action(self, parsed_args):
+        return self.app.client_manager.put(
+            urlparse.query_by(
+                resources_url(parsed_args.scenario_name, 'owner'),
+                ['installer', 'version'],
+                parsed_args), parsed_args.owner)
