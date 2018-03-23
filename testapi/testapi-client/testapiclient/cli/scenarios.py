@@ -301,3 +301,92 @@ class VersionOwnerPut(command.Command):
                 resources_url(parsed_args.scenario_name, 'owner'),
                 ['installer', 'version'],
                 parsed_args), parsed_args.owner)
+
+
+class ProjectCreate(command.Command):
+
+    def get_parser(self, prog_name):
+        parser = super(ProjectCreate, self).get_parser(prog_name)
+        parser.add_argument('--scenario-name',
+                            type=str,
+                            required=True,
+                            help='Create project by scenario name')
+        parser.add_argument('--installer',
+                            required=True,
+                            help='Create project under installer name')
+        parser.add_argument('--version',
+                            required=True,
+                            help='Create project under version name')
+        parser.add_argument('project',
+                            type=json.loads,
+                            help='Project create request format :\n'
+                                 '\'[{ "project" (string),'
+                                 '"scores": (array[ScenarioScore]),'
+                                 '"trust_indicators": (array[ScenarioTI]),'
+                                 '"customs": (array[string]) }]\',\n')
+        return parser
+
+    def take_action(self, parsed_args):
+        return self.app.client_manager.post(
+            urlparse.query_by(
+                resources_url(parsed_args.scenario_name, 'projects'),
+                ['installer', 'version'],
+                parsed_args), parsed_args.project)
+
+
+class ProjectDelete(command.Command):
+
+    def get_parser(self, prog_name):
+        parser = super(ProjectDelete, self).get_parser(prog_name)
+        parser.add_argument('--scenario-name',
+                            required=True,
+                            type=str,
+                            help='Delete projects by scenario name')
+        parser.add_argument('--installer',
+                            required=True,
+                            help='Delete projects under installer name')
+        parser.add_argument('--version',
+                            required=True,
+                            help='Delete projects under version name')
+        parser.add_argument('name',
+                            nargs='+',
+                            help='Delete projects by name')
+        return parser
+
+    def take_action(self, parsed_args):
+        return self.app.client_manager.delete(
+            urlparse.query_by(
+                resources_url(parsed_args.scenario_name, 'projects'),
+                ['installer', 'version'],
+                parsed_args), parsed_args.name)
+
+
+class ProjectPut(command.Command):
+
+    def get_parser(self, prog_name):
+        parser = super(ProjectPut, self).get_parser(prog_name)
+        parser.add_argument('--scenario-name',
+                            type=str,
+                            required=True,
+                            help='Update project by scenario name')
+        parser.add_argument('--installer',
+                            required=True,
+                            help='Update project under installer name')
+        parser.add_argument('--version',
+                            required=True,
+                            help='Update project under version name')
+        parser.add_argument('project',
+                            type=json.loads,
+                            help='Project update request format :\n'
+                                 '\'[{ "project" (string),'
+                                 '"scores": (array[ScenarioScore]),'
+                                 '"trust_indicators": (array[ScenarioTI]),'
+                                 '"customs": (array[string]) }]\',\n')
+        return parser
+
+    def take_action(self, parsed_args):
+        return self.app.client_manager.put(
+            urlparse.query_by(
+                resources_url(parsed_args.scenario_name, 'projects'),
+                ['installer', 'version'],
+                parsed_args), parsed_args.project)
