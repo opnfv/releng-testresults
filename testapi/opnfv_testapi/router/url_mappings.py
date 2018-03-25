@@ -19,6 +19,7 @@ from opnfv_testapi.handlers import scenario_handlers
 from opnfv_testapi.handlers import sign_handlers
 from opnfv_testapi.handlers import testcase_handlers
 from opnfv_testapi.handlers import user_handlers
+from opnfv_testapi.handlers import token_handlers
 
 mappings = [
     # GET /versions => GET API version
@@ -82,5 +83,6 @@ mappings = [
      sign_handlers.SigninReturnHandler),
     (r'/api/v1/auth/signout', sign_handlers.SignoutHandler),
     (r'/api/v1/profile', user_handlers.UserHandler),
+    (r'/api/v1/token', token_handlers.TokenHandler)
 
 ]

@@ -5,6 +5,8 @@
 
 import httplib
 import unittest
+import jwt
+import datetime
 
 from tornado import web
 
@@ -24,24 +26,37 @@ class TestTokenCreateResult(test_result.TestResultBase):
             auth=True
         )
 
+    @executor.mock_valid_lfid()
     def setUp(self):
         super(TestTokenCreateResult, self).setUp()
-        fake_pymongo.tokens.insert({"access_token": "12345"})
+        self.current_time = datetime.datetime.utcnow()
+        self.time_extend = datetime.timedelta(seconds=10000)
+        self.token = jwt.encode(
+            {
+                'user': self.user,
+                'a': {2: True},
+                'exp': self.time_extend + self.current_time
+            },
+            'replace_it', algorithm='HS256'
+            )
 
+    @executor.mock_valid_lfid()
     @executor.create(httplib.FORBIDDEN, message.invalid_token())
     def test_resultCreateTokenInvalid(self):
-        self.headers['X-Auth-Token'] = '1234'
+        self.headers['X-Auth-Token'] = 'fdfsfsf'
         return self.req_d
 
+    @executor.mock_valid_lfid()
     @executor.create(httplib.UNAUTHORIZED, message.unauthorized())
     def test_resultCreateTokenUnauthorized(self):
         if 'X-Auth-Token' in self.headers:
             self.headers.pop('X-Auth-Token')
         return self.req_d
 
+    @executor.mock_valid_lfid()
     @executor.create(httplib.OK, '_create_success')
     def test_resultCreateTokenSuccess(self):
-        self.headers['X-Auth-Token'] = '12345'
+        self.headers['X-Auth-Token'] = self.token
         return self.req_d
 
     def _create_success(self, body):

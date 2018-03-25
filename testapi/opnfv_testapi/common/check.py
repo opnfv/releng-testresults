@@ -8,6 +8,7 @@
 ##############################################################################
 import functools
 import re
+import jwt
 
 from tornado import gen
 
@@ -81,14 +82,24 @@ def is_reource_tied(method):
 def valid_token(method):
     @functools.wraps(method)
     def wrapper(self, *args, **kwargs):
+        self.options = {
+            'verify_signature': True,
+            'verify_exp': True
+        }
         if self.auth and self.table == 'results':
             try:
                 token = self.request.headers['X-Auth-Token']
             except KeyError:
                 raises.Unauthorized(message.unauthorized())
-            query = {'access_token': token}
-            check = yield dbapi.db_find_one('tokens', query)
-            if not check:
+            try:
+                query = jwt.decode(
+                    token,
+                    CONF.api_secret,
+                    options=self.options)
+            except Exception:
+                raises.Forbidden(message.invalid_token())
+            check = query['user']['user']
+            if check != self.get_secure_cookie(constants.TESTAPI_ID):
                 raises.Forbidden(message.invalid_token())
         ret = yield gen.coroutine(method)(self, *args, **kwargs)
         raise gen.Return(ret)
