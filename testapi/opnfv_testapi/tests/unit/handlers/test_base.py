@@ -53,19 +53,22 @@ class TestBase(testing.AsyncHTTPTestCase):
 
         self.req_d = None
         self.req_e = None
+        self.user = {
+            'user': 'ValidUser',
+            'email': 'validuser@lf.com',
+            'fullname': 'Valid User',
+            'groups': [
+                'opnfv-testapi-users',
+                'opnfv-gerrit-functest-submitters',
+                'opnfv-gerrit-qtip-submitters',
+                'opnfv-gerrit-qtip-contributors',
+                'opnfv-gerrit-apex-submitters',
+                'opnfv-gerrit-noProject-submitters'
+                ]
+            }
         self.addCleanup(self._clear)
         super(TestBase, self).setUp()
-        fake_pymongo.users.insert({"user": "ValidUser",
-                                   'email': 'validuser@lf.com',
-                                   'fullname': 'Valid User',
-                                   'groups': [
-                                       'opnfv-testapi-users',
-                                       'opnfv-gerrit-functest-submitters',
-                                       'opnfv-gerrit-qtip-submitters',
-                                       'opnfv-gerrit-qtip-contributors',
-                                       'opnfv-gerrit-apex-submitters',
-                                       'opnfv-gerrit-noProject-submitters']
-                                   })
+        fake_pymongo.users.insert(self.user)
 
     def tearDown(self):
         self.db_patcher.stop()
