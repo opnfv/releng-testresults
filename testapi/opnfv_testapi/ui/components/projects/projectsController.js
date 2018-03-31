@@ -167,8 +167,10 @@
             ctrl.resultsRequest =
                 $http.get(content_url).success(function (data) {
                     ctrl.data = data;
-                    keepState.filter.projectFilter = {
-                        'name': ctrl.filterText
+                    if(filterText != undefined){
+                        keepState.filter.projectFilter = {
+                            'name': ctrl.filterText
+                        }
                     }
                 }).catch(function (data)  {
                     ctrl.data = null;
