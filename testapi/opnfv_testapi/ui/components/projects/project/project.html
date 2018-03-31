@@ -16,25 +16,11 @@
                     <div class="table-responsive">
                         <table class="table"  ng-data="ctrl.data.pods">
                             <tbody>
-                                <tr style="padding:9px">
-                                    <td class="podsTableTd">Id&nbsp;:</td>
-                                    <td class="podsTableLeftTd">{{ctrl.data._id}}</td>
+                                <tr ng-repeat-start="(index, detail) in ctrl.data_field"  style="padding:9px">
+                                    <td class="podsTableTd">{{detail | capitalize}}&nbsp;:</td>
+                                    <td width="90%" class="podsTableLeftTd">{{ctrl.data[index]}}</td>
                                 </tr>
-                                <tr style="padding:9px">
-                                    <td class="podsTableTd">Name&nbsp;:</td>
-                                    <td width="90%" class="podsTableLeftTd">{{ctrl.data.name}}</td>
-                                </tr>
-                                <tr style="padding:9px">
-                                    <td class="podsTableTd">Creator&nbsp;:</td>
-                                    <td width="90%" class="podsTableLeftTd">{{ctrl.data.creator}}</td>
-                                </tr>
-                                <tr style="padding:9px">
-                                    <td class="podsTableTd">Created&nbsp;at&nbsp;:</td>
-                                    <td width="90%" class="podsTableLeftTd">{{ctrl.data['creation_date']}}</td>
-                                </tr>
-                                <tr style="padding:9px">
-                                    <td class="podsTableTd">Description&nbsp;:</td>
-                                    <td  width="90%" class="podsTableLeftTd">{{ctrl.data.description}}</td>
+                                <tr ng-repeat-end=>
                                 </tr>
                             </tbody>
                         </table>
