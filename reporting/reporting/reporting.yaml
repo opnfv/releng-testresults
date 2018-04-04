@@ -10,6 +10,7 @@ general:
     versions:
         - master
         - euphrates
+        - fraser
 
     log:
         log_file: reporting.log
