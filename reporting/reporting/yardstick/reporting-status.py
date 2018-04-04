@@ -84,8 +84,11 @@ def generate_page(scenario_data, installer, period, version, architecture):
                                   version=version,
                                   date=date)
 
-    page_file = './display/{}/yardstick/status-{}.html'.format(version,
-                                                               installer)
+    page_dir = './display/{}/yardstick'.format(version)
+    if not os.path.exists(page_dir):
+        os.makedirs(page_dir)
+
+    page_file = '{}/status-{}.html'.format(page_dir, installer)
     with open(page_file, 'wb') as f:
         f.write(output_text)
 
@@ -140,8 +143,7 @@ def generate_reporting_page(version, installer, archi, scenarios, period):
                                                  percent)
 
         LOG.info("--------------------------")
-    if scenario_data:
-        generate_page(scenario_data, installer, period, version, archi)
+    generate_page(scenario_data, installer, period, version, archi)
 
 
 def main():
