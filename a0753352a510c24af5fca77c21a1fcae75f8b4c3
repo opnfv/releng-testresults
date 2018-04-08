@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_5ca487a5",
+        "filename": "testapi/opnfv_testapi/ui/components/scenarios/modals/customModal.html",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-08T08:04:07Z",
+      "side": 1,
+      "message": "please change to: please separate multiple customs with space or comma",
+      "revId": "a0753352a510c24af5fca77c21a1fcae75f8b4c3",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
