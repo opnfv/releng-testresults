@@ -1,3 +1,4 @@
 export testapi_url=http://localhost:8000/api/v1
 export testapi_cas_signin_return=/auth/signin_return
 export testapi_cas_auth_url=https://identity.linuxfoundation.org/user/login?destination=cas/login%3Fservice%3D
+export testapi_token=changeme
