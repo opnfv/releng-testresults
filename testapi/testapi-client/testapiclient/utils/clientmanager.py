@@ -10,7 +10,10 @@ LOG = logging.getLogger(__name__)
 
 
 class ClientManager(object):
-    headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+    headers = {
+        'Content-type': 'application/json',
+        'Accept': 'text/plain',
+        'X-Auth-Token': os.environ.get('testapi_token')}
 
     def __init__(self, cli_options=None):
         self.cli_options = cli_options
