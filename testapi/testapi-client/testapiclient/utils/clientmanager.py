@@ -10,7 +10,9 @@ LOG = logging.getLogger(__name__)
 
 
 class ClientManager(object):
-    headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+    headers = {
+        'Content-type': 'application/json',
+        'Accept': 'text/plain'}
 
     def __init__(self, cli_options=None):
         self.cli_options = cli_options
@@ -49,6 +51,8 @@ class ClientManager(object):
                                                   headers=self.headers))
 
     def post(self, url, data):
+        if 'results' in url or 'deployresults' in url:
+            self.headers['X-Auth-Token'] = os.environ.get('testapi_token')
         return self._parse_response('Create',
                                     self._request('post', url,
                                                   data=json.dumps(data),
