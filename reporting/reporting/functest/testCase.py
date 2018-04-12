@@ -56,7 +56,10 @@ class TestCase(object):
                                'vyos_vrouter': 'vyos (Cloudify)',
                                'barometercollectd': 'Barometer',
                                'odl_netvirt': 'Netvirt',
-                               'security_scan': 'Security'}
+                               'security_scan': 'Security',
+                               'patrole': 'Patrole',
+                               'juju_epc': 'vEPC (Juju)',
+                               'neutron_trunk': 'Neutron trunk'}
         try:
             self.displayName = display_name_matrix[self.name]
         except:
