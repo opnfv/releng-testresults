@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_87498a62",
+        "filename": "testapi/testapi-client/testapiclient/cli/results.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-13T06:35:42Z",
+      "side": 1,
+      "message": "please show the results in the same order as the web portal",
+      "revId": "229da8d5e551b47828daca2f932b955b7c882b41",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
