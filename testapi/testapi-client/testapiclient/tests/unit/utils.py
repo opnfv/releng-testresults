@@ -19,7 +19,7 @@ class TestCommand(testtools.TestCase):
 
     def setUp(self):
         super(TestCommand, self).setUp()
-        env_variables = {
+        self.env_variables = {
             'testapi_url': 'http://localhost:8000/api/v1',
             'testapi_cas_auth_url':
             (
@@ -29,7 +29,7 @@ class TestCommand(testtools.TestCase):
             'testapi_cas_signin_return': '/auth/signin_return'
         }
         self.config_mock = mock.patch.dict(
-            'os.environ', env_variables).start()
+            'os.environ', self.env_variables).start()
         self.fake_stdout = fakes.FakeStdout()
         self.fake_log = fakes.FakeLog()
         self.app = fakes.FakeApp(self.fake_stdout, self.fake_log)
