@@ -1,5 +1,6 @@
 import json
 
+from testapiclient.client import pods
 from testapiclient.utils import command
 from testapiclient.utils import urlparse
 
@@ -67,8 +68,8 @@ class PodCreate(command.ShowOne):
         return parser
 
     def take_action(self, parsed_args):
-        return self.format_output(
-            self.app.client_manager.post(pods_url(), parsed_args.pod))
+        client = pods.PodsClient(client_manager=self.app.client_manager)
+        return self.format_output(client.create(parsed_args.pod))
 
 
 class PodDelete(command.Command):
