@@ -1,0 +1,68 @@
+<section class="container-tablesize">
+    <div class="row  border-bottom white-bg dashboard-header">
+        <div class="row">
+
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>OPNFV Release Gating Reporting </h5>
+                </div>
+
+                <div class="ibox-content row">
+                    <div class="col-md-2" style="margin-top:5px;margin-right: 5px;">
+                        <selectize options="scenarioList" ng-model="selectScenario" config="ScenarioConfig"></selectize>
+                    </div>
+                    <div class="col-md-2" style="margin-top:5px;margin-right: 5px;">
+                        <selectize options="versionList" ng-model="selectVersion" config="VersionConfig"></selectize>
+                    </div>
+
+                    <div class="col-md-2" style="margin-top:5px;margin-right: 5px;">
+                        <selectize options="installerList" ng-model="selectInstaller" config="InstallerConfig"></selectize>
+
+                    </div>
+
+                    <div class="col-md-2" style="margin-top:5px;margin-right: 5px;">
+                        <selectize options="iterationList" ng-model="selectIteration" config="IterationConfig"></selectize>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="table">
+                        <thead class="thead">
+                            <tr>
+                                <th>Scenario</th>
+                                <th>Date</th>
+                                <th>ID</th>
+                                <th>Version</th>
+                                <th>Installer</th>
+                                <th>Deployment</th>
+                                <th>Functest</th>
+                                <th>Yardstick</th>
+                            </tr>
+                        </thead>
+                        <tbody class="tbody" ng-show="selectScenario == 'all' || scenario == selectScenario" ng-repeat="(scenario,value) in scenarios">
+                            <tr ng-repeat="record in value">
+                                <td ng-if="$index == 0">{{ scenario }}</td>
+                                <td ng-if="$index != 0"></td>
+                                <td>{{ record.date }}</td>
+                                <td>{{ record.id }}</td>
+                                <td>{{ record.version }}</td>
+                                <td>{{ record.installer }}</td>
+                                <td>{{ record.projects.deployment.gating }}</td>
+                                <td>{{ record.projects.functest.gating }}</td>
+                                <td>{{ record.projects.yardstick.gating }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>
+<style>
+.selectize-input {
+    width: 200px !important;
+}
+</style>
