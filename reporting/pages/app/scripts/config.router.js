@@ -17,11 +17,11 @@ angular.module('opnfvApp')
     ]).config(['$stateProvider', '$urlRouterProvider',
         function($stateProvider, $urlRouterProvider) {
 
-            $urlRouterProvider.otherwise('/landingpage/table');
+            $urlRouterProvider.otherwise('/home/gating');
 
             $stateProvider
-                .state('landingpage', {
-                    url: "/landingpage",
+                .state('home', {
+                    url: "/home",
                     controller: 'MainController',
                     templateUrl: "views/main.html",
                     data: { pageTitle: '首页', specialClass: 'landing-page' },
@@ -33,7 +33,7 @@ angular.module('opnfvApp')
                         }]
                     }
                 })
-                .state('landingpage.table', {
+                .state('home.table', {
                     url: "/table",
                     controller: 'TableController',
                     templateUrl: "views/commons/table.html",
@@ -42,6 +42,19 @@ angular.module('opnfvApp')
                             return $ocLazyLoad.load([
                                 // 'scripts/controllers/table.controller.js'
 
+
+                            ])
+                        }]
+                    }
+                })
+                .state('home.gating', {
+                    url: "/gating",
+                    controller: 'GatingController',
+                    templateUrl: "views/gating.html",
+                    data: { pageTitle: 'OPNFV Release Gating Page', specialClass: 'landing-page' },
+                    resolve: {
+                        controller: ['$ocLazyLoad', function($ocLazyLoad) {
+                            return $ocLazyLoad.load([
 
                             ])
                         }]
