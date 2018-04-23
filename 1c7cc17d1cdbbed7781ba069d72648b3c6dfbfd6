@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_fa51f236",
+        "filename": "testapi/docs/developer/devguide/web-portal.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-23T01:59:08Z",
+      "side": 1,
+      "message": "\u003d\u003e TestAPI",
+      "range": {
+        "startLine": 9,
+        "startChar": 22,
+        "endLine": 9,
+        "endChar": 35
+      },
+      "revId": "1c7cc17d1cdbbed7781ba069d72648b3c6dfbfd6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3a719ae0",
+        "filename": "testapi/docs/developer/devguide/web-portal.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-23T01:59:08Z",
+      "side": 1,
+      "message": "please mark it as code block, leveraging:\n\n  .. code-block :: shell\n    python setup.py install",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 29
+      },
+      "revId": "1c7cc17d1cdbbed7781ba069d72648b3c6dfbfd6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_9a79ceca",
+        "filename": "testapi/docs/developer/devguide/web-portal.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-23T01:59:08Z",
+      "side": 1,
+      "message": "ditto",
+      "revId": "1c7cc17d1cdbbed7781ba069d72648b3c6dfbfd6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7a7682d8",
+        "filename": "testapi/docs/developer/devguide/web-portal.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-23T01:59:08Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 28
+      },
+      "revId": "1c7cc17d1cdbbed7781ba069d72648b3c6dfbfd6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_da7fd6a9",
+        "filename": "testapi/docs/developer/devguide/web-portal.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-23T01:59:08Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 60,
+        "startChar": 4,
+        "endLine": 60,
+        "endChar": 15
+      },
+      "revId": "1c7cc17d1cdbbed7781ba069d72648b3c6dfbfd6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_1a4dbe9a",
+        "filename": "testapi/docs/developer/devguide/web-portal.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-23T01:59:08Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 64,
+        "startChar": 4,
+        "endLine": 64,
+        "endChar": 13
+      },
+      "revId": "1c7cc17d1cdbbed7781ba069d72648b3c6dfbfd6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
