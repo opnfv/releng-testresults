@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_91e6d0ae",
+        "filename": "testapi/docs/developer/devguide/web-portal.rst",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-25T06:02:39Z",
+      "side": 1,
+      "message": "please specify the submitter only have the privilege to delete/update/create their dedicated projects and test cases",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 58
+      },
+      "revId": "0e363edcf280afeb0a6300c777ce4739cc978136",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
