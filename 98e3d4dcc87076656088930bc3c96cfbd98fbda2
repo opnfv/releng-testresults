@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_f1df54d4",
+        "filename": "testapi/testapi-client/testapiclient/tests/unit/test_app.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-25T05:54:18Z",
+      "side": 1,
+      "message": "no need to use 2 classes, just one class with three test cases will work,\n\nclass MainTest(utils.TestCommand):\n    def setUp():\n        ....;\n    def test_no_auth():\n    def test_auth_success():\n         # mock post to return success for auth\n         self.post_mock.assert_called_with(pod_create_parameters)\n    def test_auth_fail():\n         # mock post to return failure for auth\n         self.post_mock.assert_called_with(auth_request)\n         self.post_mock.assert_not_called_with(pod_create_parameters)",
+      "revId": "98e3d4dcc87076656088930bc3c96cfbd98fbda2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
