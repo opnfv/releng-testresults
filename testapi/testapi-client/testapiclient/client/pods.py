@@ -1,4 +1,7 @@
+import json
+
 from testapiclient.client import base
+from testapiclient.utils import urlparse
 
 
 class PodsClient(base.Client):
@@ -9,3 +12,16 @@ class PodsClient(base.Client):
 
     def create(self, pod_req):
         return self.clientmanager.post(self.url, pod_req)
+
+    def get(self, **queries):
+        return json.dumps(
+            self.clientmanager.get(
+                self.join_queries(**queries))['pods'])
+
+    def get_one(self, name):
+        return json.dumps(self.clientmanager.get(
+            urlparse.path_join(self.url, name)))
+
+    def delete(self, name):
+        return self.clientmanager.delete(
+            urlparse.path_join(self.url, name))

@@ -1,3 +1,5 @@
+from six.moves.urllib import parse
+
 from testapiclient.utils import clientmanager
 from testapiclient.utils import urlparse
 
@@ -21,3 +23,7 @@ class Client(object):
                 AuthOption(user, password))
             if self.clientmanager.auth_required:
                 self.clientmanager.auth()
+
+    def join_queries(self, **queries):
+        return (
+            self.url + '?' + parse.urlencode(queries) if queries else self.url)
