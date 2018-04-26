@@ -10,16 +10,12 @@
           <i class="fa fa-plus"></i>Create</button>
     </div>
 </div>
-<div class='clo-md-12'>
-    <div ng-show="ctrl.showError" class="alert alert-danger" role="alert">
-        <span class="pull-right">&nbsp;{{ctrl.error}}</span>
-        <span class="glyphicon glyphicon-exclamation-sign pull-right" aria-hidden="true" >Error:</span>
-    </div>
-    <div ng-show="ctrl.showCreateSuccess" class="alert alert-success" role="alert">
-        <span class="pull-right">&nbsp;{{ctrl.success}}</span>
-        <span class="glyphicon glyphicon-ok pull-right" aria-hidden="true"></span>
-    </div>
-</div>
+<div ng-class="{'show': ctrl.showError}" id="toast" class="error">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true" ></span>
+    {{ctrl.error}}</div>
+<div ng-class="{'show': ctrl.showSuccess}" id="toast" class="success">
+    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+    {{ctrl.success}}</div>
 <div class='clo-md-12' style="padding-right:0px">
     <div class="table-responsive">
         <table class="table table-bordered table-hover"  ng-data="ctrl.data.scenarios">
