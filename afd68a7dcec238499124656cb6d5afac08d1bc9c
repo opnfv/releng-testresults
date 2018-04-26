@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_2056802a",
+        "filename": "testapi/docs/developer/devguide/web-portal.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-26T07:58:24Z",
+      "side": 1,
+      "message": "remove trailing space",
+      "range": {
+        "startLine": 89,
+        "startChar": 92,
+        "endLine": 89,
+        "endChar": 93
+      },
+      "revId": "afd68a7dcec238499124656cb6d5afac08d1bc9c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_00538439",
+        "filename": "testapi/docs/developer/devguide/web-portal.rst",
+        "patchSetId": 7
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-26T07:58:24Z",
+      "side": 1,
+      "message": "ditto",
+      "range": {
+        "startLine": 91,
+        "startChar": 95,
+        "endLine": 91,
+        "endChar": 96
+      },
+      "revId": "afd68a7dcec238499124656cb6d5afac08d1bc9c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
