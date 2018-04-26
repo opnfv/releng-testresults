@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_4033ccaa",
+        "filename": "testapi/docs/developer/devguide/web-portal.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-26T05:46:38Z",
+      "side": 1,
+      "message": "too long!",
+      "range": {
+        "startLine": 91,
+        "startChar": 100,
+        "endLine": 91,
+        "endChar": 111
+      },
+      "revId": "0dbe466ced37110e12de15d27e760cfa59af54ab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_602ec844",
+        "filename": "testapi/docs/developer/devguide/web-portal.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-26T05:46:38Z",
+      "side": 1,
+      "message": "too long!",
+      "range": {
+        "startLine": 114,
+        "startChar": 95,
+        "endLine": 114,
+        "endChar": 114
+      },
+      "revId": "0dbe466ced37110e12de15d27e760cfa59af54ab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_00fee4ad",
+        "filename": "testapi/docs/developer/devguide/web-portal.rst",
+        "patchSetId": 6
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-26T05:46:38Z",
+      "side": 1,
+      "message": "specific?",
+      "range": {
+        "startLine": 118,
+        "startChar": 15,
+        "endLine": 118,
+        "endChar": 23
+      },
+      "revId": "0dbe466ced37110e12de15d27e760cfa59af54ab",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
