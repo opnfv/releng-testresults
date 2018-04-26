@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_c0235cbb",
+        "filename": "testapi/docs/developer/devguide/testapi-client-import.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-26T08:20:08Z",
+      "side": 1,
+      "message": "I think it is unfinished, right?",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 56,
+        "endChar": 30
+      },
+      "revId": "c71a2919330fab2b063ccd0402d5be28f799f413",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_cb389dd5",
+        "filename": "testapi/testapi-client/testapiclient/client/pods.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-26T08:20:08Z",
+      "side": 1,
+      "message": "please leverage json.dumps() directly",
+      "range": {
+        "startLine": 16,
+        "startChar": 15,
+        "endLine": 16,
+        "endChar": 36
+      },
+      "revId": "c71a2919330fab2b063ccd0402d5be28f799f413",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_cb3ffdb2",
+        "filename": "testapi/testapi-client/testapiclient/models/pods.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-26T08:20:08Z",
+      "side": 1,
+      "message": "PodCreateRequest is leveraged to create a pod, the structure of Pod in database is different from PodCreateRequest, adding _id\u0026creator\u0026creation_date, so there should be 2 different class\nclass PodCreateRequest(object):\nclass Pod(PodCreateRequest)",
+      "range": {
+        "startLine": 5,
+        "startChar": 6,
+        "endLine": 5,
+        "endChar": 9
+      },
+      "revId": "c71a2919330fab2b063ccd0402d5be28f799f413",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_eb3bd9ce",
+        "filename": "testapi/testapi-client/testapiclient/models/pods.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-26T08:20:08Z",
+      "side": 1,
+      "message": "the data structure of Pod/PodCreateRequest must be fixed, please leverage the original way of definition",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 31
+      },
+      "revId": "c71a2919330fab2b063ccd0402d5be28f799f413",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
