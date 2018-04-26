@@ -119,7 +119,7 @@ describe('testing the scenarios page for anonymous user', function () {
 
     it('Sort scenarios', function () {
         browser.get(baseURL+"#/scenarios");
-        var sort = element(by.xpath('//*[@id="ng-app"]/body/div/div[4]/div/table/thead/tr/th[2]/a[2]/span'))
+        var sort = element(by.xpath('//*[@id="ng-app"]/body/div/div[5]/div/table/thead/tr/th[2]/a[2]/span'))
         sort.click();
         var row = element.all(by.repeater('(index, scenario) in ctrl.data.scenarios')).first();
         var cells = row.all(by.tagName('td'));
@@ -284,8 +284,11 @@ describe('testing the scenarios page for user', function () {
         name.sendKeys('test');
         var buttonOK = element(by.buttonText('Ok'));
         buttonOK.click();
-        expect(element(by.cssContainingText(".alert","Scenario is successfully created."))
+        browser.ignoreSynchronization = true;
+        expect(element(by.cssContainingText(".success.show","Scenario is successfully created."))
         .isDisplayed()).toBe(true);
+        browser.sleep(500);
+        browser.ignoreSynchronization = false;
     });
 
     it('create scenarrio by user with installers ', function () {
@@ -304,8 +307,11 @@ describe('testing the scenarios page for user', function () {
         buttonOK.click();
         var buttonOK = element(by.buttonText('Ok'));
         buttonOK.click();
-        expect(element(by.cssContainingText(".alert","Scenario is successfully created."))
+        browser.ignoreSynchronization = true;
+        expect(element(by.cssContainingText(".success.show","Scenario is successfully created."))
         .isDisplayed()).toBe(true);
+        browser.sleep(500);
+        browser.ignoreSynchronization = false;
     });
 
     it('create scenarrio by user with installers with versions ', function () {
@@ -333,8 +339,11 @@ describe('testing the scenarios page for user', function () {
         buttonOK.click();
         var buttonOK = element(by.buttonText('Ok'));
         buttonOK.click();
-        expect(element(by.cssContainingText(".alert","Scenario is successfully created."))
+        browser.ignoreSynchronization = true;
+        expect(element(by.cssContainingText(".success.show","Scenario is successfully created."))
         .isDisplayed()).toBe(true);
+        browser.sleep(500);
+        browser.ignoreSynchronization = false;
     });
 
     it('create scenarrio by user with installers with versions with project', function () {
@@ -369,8 +378,11 @@ describe('testing the scenarios page for user', function () {
         buttonOK.click();
         var buttonOK = element(by.buttonText('Ok'));
         buttonOK.click();
-        expect(element(by.cssContainingText(".alert","Scenario is successfully created."))
+        browser.ignoreSynchronization = true;
+        expect(element(by.cssContainingText(".success.show","Scenario is successfully created."))
         .isDisplayed()).toBe(true);
+        browser.sleep(500);
+        browser.ignoreSynchronization = false;
     });
 
     it('create scenarrio by user with installers with versions with project with custom', function () {
@@ -412,8 +424,11 @@ describe('testing the scenarios page for user', function () {
         buttonOK.click();
         var buttonOK = element(by.buttonText('Ok'));
         buttonOK.click();
-        expect(element(by.cssContainingText(".alert","Scenario is successfully created."))
+        browser.ignoreSynchronization = true;
+        expect(element(by.cssContainingText(".success.show","Scenario is successfully created."))
         .isDisplayed()).toBe(true);
+        browser.sleep(500);
+        browser.ignoreSynchronization = false;
     });
 
     it('view scenarrio by user ', function () {
@@ -443,8 +458,11 @@ describe('testing the scenarios page for user', function () {
         .isDisplayed()).toBe(true);
         var buttonOK = element(by.buttonText('Ok'));
         buttonOK.click();
-        expect(element(by.cssContainingText(".alert","Scenario is successfully deleted."))
+        browser.ignoreSynchronization = true;
+        expect(element(by.cssContainingText(".success.show","Scenario is successfully deleted."))
         .isDisplayed()).toBe(true);
+        browser.sleep(500);
+        browser.ignoreSynchronization = false;
     });
 
     it('Batch Delete the scenarios ', function () {
@@ -455,8 +473,11 @@ describe('testing the scenarios page for user', function () {
         buttonDelete.click();
         var buttonOK = element(by.buttonText('Ok'));
 		buttonOK.click();
-        expect(element(by.cssContainingText(".alert","Scenario is successfully deleted."))
+        browser.ignoreSynchronization = true;
+        expect(element(by.cssContainingText(".success.show","Scenario is successfully deleted."))
         .isDisplayed()).toBe(true);
+        browser.sleep(500);
+        browser.ignoreSynchronization = false;
     });
 
     it('Edit the scenarios ', function () {
@@ -469,8 +490,11 @@ describe('testing the scenarios page for user', function () {
         name.sendKeys('test2');
         var buttonOK = element(by.buttonText('Ok'));
         buttonOK.click()
-        expect(element(by.cssContainingText(".alert","Scenario is successfully Updated."))
+        browser.ignoreSynchronization = true;
+        expect(element(by.cssContainingText(".success.show","Scenario is successfully Updated."))
         .isDisplayed()).toBe(true);
+        browser.sleep(500);
+        browser.ignoreSynchronization = false;
     });
 
 });

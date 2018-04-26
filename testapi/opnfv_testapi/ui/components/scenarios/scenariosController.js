@@ -21,7 +21,7 @@
 
         ScenariosController.$inject = [
         '$scope', '$http', '$filter', '$state', '$window', '$uibModal', 'testapiApiUrl',
-        'raiseAlert', 'confirmModal', 'sortService'
+        'raiseAlert', 'confirmModal', 'sortService', '$timeout'
     ];
 
     /**
@@ -30,7 +30,7 @@
      * through projects declared in TestAPI.
      */
     function ScenariosController($scope, $http, $filter, $state, $window, $uibModal, testapiApiUrl,
-        raiseAlert, confirmModal, sortService) {
+        raiseAlert, confirmModal, sortService, $timeout) {
         var ctrl = this;
         ctrl.url = testapiApiUrl + '/scenarios';
 
@@ -47,6 +47,18 @@
         ctrl.sortBy = sortBy
         ctrl.checkBox = [];
         ctrl.sortName = false
+        ctrl.toastError = toastError
+        ctrl.toastSuccess = toastSuccess
+
+        function toastError() {
+            ctrl.showError = true
+            $timeout(function(){ ctrl.showError = false;}, 3000);
+        }
+
+        function toastSuccess() {
+            ctrl.showSuccess = true
+            $timeout(function(){ ctrl.showSuccess = false;}, 3000);
+        }
 
         function openUpdateModal(name){
             $uibModal.open({
@@ -78,12 +90,12 @@
             var scenarioURL = ctrl.url+"/"+name;
             ctrl.scenarioRequest =
                 $http.delete(scenarioURL).success(function (data){
-                    ctrl.showCreateSuccess = true;
                     ctrl.success = "Scenario is successfully deleted.";
                     ctrl.listScenarios();
+                    ctrl.toastSuccess();
                 }).catch(function (data) {
-                    ctrl.showError = true;
                     ctrl.error = data.statusText;
+                    ctrl.toastError()
                 });
         }
 
@@ -119,12 +131,12 @@
             }
             ctrl.scenarioRequest =
                 $http.put(scenarioURL, body).success(function (data){
-                    ctrl.showCreateSuccess = true;
                     ctrl.success = "Scenario is successfully Updated."
-                    ctrl.listScenarios()
+                    ctrl.listScenarios();
+                    ctrl.toastSuccess();
                 }).catch(function (data) {
-                    ctrl.showError = true;
                     ctrl.error = data.statusText;
+                    ctrl.toastError();
                 });
         }
 
@@ -135,11 +147,11 @@
         function createScenario(scenario) {
             ctrl.scenarioRequest =
                 $http.post(ctrl.url, scenario).success(function (data){
-                    ctrl.showCreateSuccess = true;
-                    ctrl.success = "Scenario is successfully created."
+                    ctrl.success = "Scenario is successfully created.";
+                    ctrl.toastSuccess();
                 }).catch(function (data) {
-                    ctrl.showError = true;
                     ctrl.error = data.statusText;
+                    ctrl.toastError();
                 });
         }
 
@@ -151,8 +163,8 @@
                    ctrl.sortBy()
                }).catch(function (data)  {
                    ctrl.data = null;
-                   ctrl.showError = true;
                    ctrl.error = data.statusText;
+                   ctrl.toastError();
                });
        }
 
