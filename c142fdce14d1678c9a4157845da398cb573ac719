@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_e5cb0a51",
+        "filename": "testapi/testapi-client/testapiclient/tests/unit/test_app.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-26T01:51:09Z",
+      "side": 1,
+      "message": "to make the assert more clear, I would recommend do the following change:\n\n1. place hostname assignment to setUp()\n2. in test_auth_success, replace assert_called_with() with assert_has_calls():\n        self.post_mock.assert_has_calls([\n            call(self.hostname, {\u0027pass\u0027: \u0027test2\u0027,\n                                 \u0027name\u0027: \u0027test1\u0027,\n                                 \u0027form_id\u0027: \u0027user_login\u0027}),\n            call(\u0027http://localhost:8000/api/v1/pods\u0027,\n                 data\u003d\u0027{\"name\": \"asfad\"}\u0027,\n                 headers\u003d{\n                     \u0027Content-type\u0027: \u0027application/json\u0027,\n                     \u0027Accept\u0027: \u0027text/plain\u0027})])\n3. in test_auth_failure, substitue assert_called_with() with assert_called_once_with()\n4. change the username to \u0027user\u0027 rather than \u0027test1\u0027, password to \u0027pass\u0027, instead of \u0027test2\u0027",
+      "revId": "c142fdce14d1678c9a4157845da398cb573ac719",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
