@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_4e065687",
+        "filename": "testapi/docs/developer/devguide/testapi-client-import.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-28T09:58:06Z",
+      "side": 1,
+      "message": "do not use **xxxx**, there are rst schema to identify chapters/section, please study rst and, write real rst files",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 56
+      },
+      "revId": "4649ed011b73936acea5ab6ba272dd0f93362f98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2e0b0a8f",
+        "filename": "testapi/docs/developer/devguide/testapi-client-import.rst",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-28T09:58:06Z",
+      "side": 1,
+      "message": "please specify those 4 methods are used to work on pods, because other resources will be added late, for example\n\npods\n*******\n\nCreate\n--------\n\nGet\n------\n\nprojects\n***********\n\nGet\n------",
+      "revId": "4649ed011b73936acea5ab6ba272dd0f93362f98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_8efcde73",
+        "filename": "testapi/testapi-client/testapiclient/models/pods.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-04-28T09:58:06Z",
+      "side": 1,
+      "message": "as i said, the structure must be fixed, please not use this flexible way",
+      "range": {
+        "startLine": 14,
+        "startChar": 23,
+        "endLine": 14,
+        "endChar": 31
+      },
+      "revId": "4649ed011b73936acea5ab6ba272dd0f93362f98",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
