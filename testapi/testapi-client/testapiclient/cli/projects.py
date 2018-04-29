@@ -2,6 +2,7 @@ import json
 
 from testapiclient.utils import command
 from testapiclient.utils import urlparse
+from testapiclient.models import project
 
 
 def projects_url():
@@ -51,9 +52,11 @@ class ProjectCreate(command.ShowOne):
         parser = super(ProjectCreate, self).get_parser(prog_name)
         parser.add_argument('project',
                             type=json.loads,
-                            help='Project create request format :{'
-                                 ' "name": (required)"", '
-                                 '"description": (optional)""}')
+                            help='Project create request format :"' +
+                                 str(
+                                     project.ProjectCreateRequest().__dict__
+                                     ) +
+                                 '"')
         return parser
 
     def take_action(self, parsed_args):
@@ -83,9 +86,11 @@ class ProjectPut(command.ShowOne):
                             help='Update project by name')
         parser.add_argument('project',
                             type=json.loads,
-                            help='Project Update request format :{'
-                                 '"name": (required)"", '
-                                 '"description": (optional)""}')
+                            help='Project Update request format :"' +
+                                 str(
+                                     project.ProjectCreateRequest().__dict__
+                                     ) + '"'
+                            )
         return parser
 
     def take_action(self, parsed_args):
