@@ -40,3 +40,8 @@ committers:
       email: 'jalausuch@suse.com'
       id: 'jose.lausuch'
       timezone: 'Europe/Madrid'
+    - name: 'Jack Chan'
+      company: 'Huawei'
+      email: 'chenjiankun1@huawei.com'
+      id: 'chenjiankun'
+      timezone: 'China/Shanghai'
