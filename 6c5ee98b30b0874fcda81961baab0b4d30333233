@@ -93,6 +93,30 @@
       "revId": "6c5ee98b30b0874fcda81961baab0b4d30333233",
       "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7fdadd4c",
+        "filename": "testapi/docs/developer/devguide/testapi-client.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-05-02T06:42:05Z",
+      "side": 1,
+      "message": "please reference the comment on https://gerrit.opnfv.org/gerrit/#/c/56617/,\noutline the usages of each resource one by one, other than process it in this kind of mixed way",
+      "parentUuid": "5a3f45e8_4e7bf6f4",
+      "range": {
+        "startLine": 145,
+        "startChar": 0,
+        "endLine": 145,
+        "endChar": 8
+      },
+      "revId": "6c5ee98b30b0874fcda81961baab0b4d30333233",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
     }
   ]
 }
