@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_c5eb6076",
+        "filename": "testapi/testapi-client/testapiclient/cli/pods.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-05-03T01:24:33Z",
+      "side": 1,
+      "message": "pod_help(), the name is not self-evident at all, I would suggest leverage pm.PodCreateRequest().__dict__ directly",
+      "range": {
+        "startLine": 69,
+        "startChar": 37,
+        "endLine": 69,
+        "endChar": 47
+      },
+      "revId": "febabce6ae30c2c3595271f4cd4fcac804183e8f",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
