@@ -2,6 +2,7 @@ import json
 
 from testapiclient.utils import command
 from testapiclient.utils import urlparse
+from testapiclient.models import result
 
 
 def results_url():
@@ -85,13 +86,10 @@ class ResultCreate(command.ShowOne):
         parser = super(ResultCreate, self).get_parser(prog_name)
         parser.add_argument('result',
                             type=json.loads,
-                            help='Result create request format:\n'
-                                 '\'{"project_name" : "","scenario" : "",'
-                                 '"stop_date" : "", "case_name" : "",'
-                                 '"build_tag" : "", "version" : "",'
-                                 '"pod_name" : "" , "criteria" : "",'
-                                 '"installer" : "", "start_date" : "",'
-                                 '"details" : ""}\'')
+                            help='Result create request format:\n "' +
+                                 str(
+                                     result.ResultCreateRequest().__dict__
+                                 ) + '"')
         return parser
 
     def take_action(self, parsed_args):
