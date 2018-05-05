@@ -2,6 +2,7 @@ import json
 
 from testapiclient.utils import command
 from testapiclient.utils import urlparse
+from testapiclient.models import deployresult
 
 
 def deployresults_url():
@@ -84,14 +85,10 @@ class DeployresultCreate(command.ShowOne):
         parser = super(DeployresultCreate, self).get_parser(prog_name)
         parser.add_argument('deployresult',
                             type=json.loads,
-                            help='Deployresult create request format:\n'
-                                 '\'{"job_name" : "","scenario" : "",'
-                                 '"stop_date" : "", "build_id" : "",'
-                                 '"upstream_job_name": "",'
-                                 '"version" : "", "pod_name" : "",'
-                                 '"criteria" : "", "installer" : "",'
-                                 '"upstream_build_id" : "",'
-                                 '"start_date" : "", "details" : ""}\'')
+                            help='Deployresult create request format:\n "' +
+                                 str(
+                                     deployresult.DeployResultCreateRequest(
+                                     ).__dict__) + '"')
         return parser
 
     def take_action(self, parsed_args):
