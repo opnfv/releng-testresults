@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_b48644d9",
+        "filename": "testapi/testapi-client/testapiclient/cli/pods.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-05-07T02:09:12Z",
+      "side": 1,
+      "message": "please reference comment on https://gerrit.opnfv.org/gerrit/#/c/56881",
+      "revId": "8229c65a0785bafeb87b4b8ab6b757c3a7bbccb6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_146f382c",
+        "filename": "testapi/testapi-client/testapiclient/client/base.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-05-07T02:09:12Z",
+      "side": 1,
+      "message": "all the url relevant method should be put in urlparser.py, and this method is so similar to query_join() why bother writing a new one?",
+      "revId": "8229c65a0785bafeb87b4b8ab6b757c3a7bbccb6",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
