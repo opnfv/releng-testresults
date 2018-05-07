@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_74803cc0",
+        "filename": "testapi/testapi-client/testapiclient/cli/testcases.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-05-07T02:05:02Z",
+      "side": 1,
+      "message": "please reference comment on https://gerrit.opnfv.org/gerrit/#/c/56881",
+      "revId": "cd2797f5fa44be3996f7c47c42c8898b8af82935",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
