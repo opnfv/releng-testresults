@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_f4244c0e",
+        "filename": "testapi/testapi-client/testapiclient/cli/results.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-05-07T02:03:40Z",
+      "side": 1,
+      "message": "the format in your impl is:\n  result                Result create request format:\n                        \"{\u0027project_name\u0027: \u0027\u0027, \u0027scenario\u0027: \u0027\u0027, \u0027stop_date\u0027: \u0027\u0027,\n                        \u0027case_name\u0027: \u0027\u0027, \u0027build_tag\u0027: \u0027\u0027, \u0027version\u0027: \u0027\u0027,\n                        \u0027pod_name\u0027: \u0027\u0027, \u0027criteria\u0027: \u0027\u0027, \u0027installer\u0027: \u0027\u0027,\n                        \u0027start_date\u0027: \u0027\u0027, \u0027details\u0027: \u0027\u0027}\"\n\nwhich can not be leveraged directly by user as discussed, the right format should be:\n\n  result                Result create request format:\n                        \u0027{\"project_name\": \"\", \"scenario\": \"\", \"stop_date\": \"\",\n                        \"case_name\": \"\", \"build_tag\": \"\", \"version\": \"\",\n                        \"pod_name\": \"\", \"criteria\": \"\", \"installer\": \"\",\n                        \"start_date\": \"\", \"details\": \"\"}\u0027\n\nRegarding the right implementation, please reference:\n\n        parser.add_argument(\u0027result\u0027,\n                            type\u003djson.loads,\n                            help\u003d\u0027Result create request format: \\n\u0027\n                                 \u0027\\\u0027{}\\\u0027\u0027.format(json.dumps(\n                                result.ResultCreateRequest().__dict__)))",
+      "revId": "99329a61dd75b45b3d89432d95f793ce5ade102c",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
