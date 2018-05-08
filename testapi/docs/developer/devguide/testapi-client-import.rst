@@ -63,3 +63,61 @@ User has to authenticate before running the function.
     pod_client.create({'name': 'test-api', 'mode':'metal',
                     'role':'community_ci', 'details':''}
 
+Project
+^^^^^^^
+
+GET
+"""
+
+User will get the json project objects with the get request.
+
+.. code-block:: shell
+
+    from testapiclient.client import projects
+
+    project_client = projects.ProjectsClient()
+    project_client.get()
+
+User can use search parameters to get projects
+
+.. code-block:: shell
+
+    from testapiclient.client import projects
+
+    project_client = projects.ProjectsClient()
+    project_client.get(name='project1')
+
+GET ONE
+"""""""
+
+User will get the json project object with the get one request.
+
+.. code-block:: shell
+
+    from testapiclient.client import projects
+
+    project_client = projects.ProjectsClient()
+    project_client.get_one('name')
+
+CREATE
+""""""
+User has to authenticate before running the function.
+
+.. code-block:: shell
+
+    from testapiclient.client import projects
+
+    project_client = projects.ProjectsClient(user='test', password='pass')
+    project_client.create({'name': 'functest', 'description':'sample text'}
+
+UPDATE
+""""""
+User has to authenticate before running the function.
+
+.. code-block:: shell
+
+    from testapiclient.client import projects
+
+    project_client = projects.ProjectsClient(user='test', password='pass')
+    project_client.update('functest', {'name': 'functest',
+    'description':'updated text'})
