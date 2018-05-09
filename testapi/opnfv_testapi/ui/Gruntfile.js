@@ -152,6 +152,7 @@ module.exports = function (grunt) {
         makeReport: {
             src: '../tests/UI/coverage/*.json',
             options: {
+                type: 'cobertura',
                 print: 'detail'
             }
         }
