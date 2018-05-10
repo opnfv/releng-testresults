@@ -1,0 +1,7 @@
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Code-Review+2: Serena Feng <feng.xiaowei@zte.com.cn>
+Submitted-by: Serena Feng <feng.xiaowei@zte.com.cn>
+Submitted-at: Thu, 10 May 2018 08:42:12 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/57187
+Project: releng-testresults
+Branch: refs/heads/master
