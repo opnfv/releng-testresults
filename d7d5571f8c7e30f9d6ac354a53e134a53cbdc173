@@ -261,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_727b27f5",
+        "filename": "testapi/docs/developer/devguide/testapi-client-import.rst",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 2651
+      },
+      "writtenOn": "2018-05-10T08:41:56Z",
+      "side": 1,
+      "message": "it means user and password parameters must be provided while instantiating ProjectsClient if authentication is required by the backend",
+      "parentUuid": "5a3f45e8_f73ba9ce",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 53
+      },
+      "revId": "d7d5571f8c7e30f9d6ac354a53e134a53cbdc173",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_7cbc9edc",
         "filename": "testapi/docs/developer/devguide/testapi-client-import.rst",
         "patchSetId": 1
