@@ -23,7 +23,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 #
 
-FROM ubuntu:14.04
+FROM ubuntu:18.04
 MAINTAINER SerenaFeng <feng.xiaowei@zte.com.cn>
 LABEL version="v1" description="OPNFV TestAPI Docker container"
 
@@ -38,8 +38,10 @@ wget \
 python-dev \
 python-pip \
 crudini \
+sudo \
 --no-install-recommends
 
+RUN pip install setuptools wheel
 RUN pip install --upgrade requests
 
 RUN git config --global http.sslVerify false

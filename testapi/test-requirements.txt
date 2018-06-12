@@ -8,4 +8,3 @@ nose  # LGPL
 pytest  # MIT
 pytest-cov  # MIT
 pytest-mock  # MIT
-futures
