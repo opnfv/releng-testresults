@@ -48,5 +48,10 @@ RUN git clone https://gerrit.opnfv.org/gerrit/releng-testresults /home/releng-te
 WORKDIR /home/releng-testresults/testapi
 RUN pip install -r requirements.txt
 
+# bugfix
+# SSLError: hostname 'identity.linuxfoundation.org' doesn't match 'c.sni.fastly.net'
+# hope it is a temprary, try to fix it in upstream python-cas lib
+RUN sed -i '152,152s/)/,\ verify=False)/g' /usr/local/lib/python2.7/dist-packages/cas.py
+
 RUN python setup.py install
 CMD ["bash", "docker/start-server.sh"]
