@@ -58,7 +58,16 @@ class TestCase(object):
                                'odl_netvirt': 'Netvirt',
                                'security_scan': 'Security',
                                'patrole': 'Patrole',
+                               'tenantnetwork1': 'tenant network 1',
+                               'tenantnetwork2': 'tenant network 2',
+                               'vmready1': 'vm ready 1',
+                               'vmready2': 'vm ready 2',
+                               'singlevm1': 'single vm 1',
+                               'singlevm2': 'single vm 2',
+                               'cinder_test': 'cinder tests',
+                               'barbican': 'barbican',
                                'juju_epc': 'vEPC (Juju)',
+                               'shaker': 'shaker',
                                'neutron_trunk': 'Neutron trunk'}
         try:
             self.displayName = display_name_matrix[self.name]
