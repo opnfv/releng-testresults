@@ -25,8 +25,6 @@ Functest reporting status
 LOGGER = rp_utils.getLogger("Functest-Status")
 
 # Initialization
-testValid = []
-otherTestCases = []
 reportingDate = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
 # init just connection_check to get the list of scenarios
@@ -44,8 +42,6 @@ log_level = rp_utils.get_config('general.log.log_level')
 exclude_noha = rp_utils.get_config('functest.exclude_noha')
 exclude_virtual = rp_utils.get_config('functest.exclude_virtual')
 
-functest_yaml_config = rp_utils.getFunctestConfig()
-
 LOGGER.info("*******************************************")
 LOGGER.info("*                                         *")
 LOGGER.info("*   Generating reporting scenario status  *")
@@ -57,38 +53,45 @@ LOGGER.info("*   NOHA scenarios excluded: %s           *", exclude_noha)
 LOGGER.info("*                                         *")
 LOGGER.info("*******************************************")
 
-# Retrieve test cases of Tier 1 (smoke)
-config_tiers = functest_yaml_config.get("tiers")
-
-# we consider Tier 0 (Healthcheck), Tier 1 (smoke),2 (features)
-# to validate scenarios
-# Tier > 2 are not used to validate scenarios but we display the results anyway
-# tricky thing for the API as some tests are Functest tests
-# other tests are declared directly in the feature projects
-for tier in config_tiers:
-    if tier['order'] >= 0 and tier['order'] < 2:
-        for case in tier['testcases']:
-            if case['case_name'] not in blacklist:
-                testValid.append(tc.TestCase(case['case_name'],
-                                             "functest",
-                                             case['dependencies']))
-    elif tier['order'] == 2:
-        for case in tier['testcases']:
-            if case['case_name'] not in blacklist:
-                otherTestCases.append(tc.TestCase(case['case_name'],
-                                                  case['case_name'],
-                                                  case['dependencies']))
-    elif tier['order'] > 2:
-        for case in tier['testcases']:
-            if case['case_name'] not in blacklist:
-                otherTestCases.append(tc.TestCase(case['case_name'],
-                                                  "functest",
-                                                  case['dependencies']))
-
-LOGGER.debug("Functest reporting start")
-
 # For all the versions
 for version in versions:
+    testValid = []
+    otherTestCases = []
+    # Retrieve test cases of Tier 1 (smoke)
+    version_config = ""
+    if version != "master":
+        version_config = "?h=stable/" + version
+    functest_yaml_config = rp_utils.getFunctestConfig(version_config)
+    config_tiers = functest_yaml_config.get("tiers")
+
+    # we consider Tier 0 (Healthcheck), Tier 1 (smoke),2 (features)
+    # to validate scenarios
+    # Tier > 2 are not used to validate scenarios but we display
+    # the results anyway
+    # tricky thing for the API as some tests are Functest tests
+    # other tests are declared directly in the feature projects
+    for tier in config_tiers:
+        if tier['order'] >= 0 and tier['order'] < 2:
+            for case in tier['testcases']:
+                if case['case_name'] not in blacklist:
+                    testValid.append(tc.TestCase(case['case_name'],
+                                                 "functest",
+                                                 case['dependencies']))
+        elif tier['order'] == 2:
+            for case in tier['testcases']:
+                if case['case_name'] not in blacklist:
+                    otherTestCases.append(tc.TestCase(case['case_name'],
+                                                      case['case_name'],
+                                                      case['dependencies']))
+        elif tier['order'] > 2:
+            for case in tier['testcases']:
+                if case['case_name'] not in blacklist:
+                    otherTestCases.append(tc.TestCase(case['case_name'],
+                                                      "functest",
+                                                      case['dependencies']))
+
+    LOGGER.debug("Functest reporting start")
+
     # For all the installers
     scenario_directory = "./display/" + version + "/functest/"
     scenario_file_name = scenario_directory + "scenario_history.txt"
