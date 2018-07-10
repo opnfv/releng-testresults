@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_b7eff6af",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 667
+      },
+      "writtenOn": "2018-07-10T07:56:15Z",
+      "side": 1,
+      "message": "Did you mean \"Ajust\"?",
+      "revId": "fb2ad2a6fbc11c268955a5cb7700e3c22a642619",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
