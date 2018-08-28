@@ -43,10 +43,10 @@ class TestCase(object):
                                'functest-odl-sfc': 'SFC',
                                'onos_sfc': 'SFC',
                                'parser-basics': 'Parser',
-                               'connection_check': 'Health (connection)',
-                               'api_check': 'Health (api)',
+                               'connection_check': 'connectivity',
+                               'api_check': 'api',
                                'snaps_smoke': 'SNAPS',
-                               'snaps_health_check': 'Health (dhcp)',
+                               'snaps_health_check': 'dhcp',
                                'gluon_vping': 'Netready',
                                'fds': 'FDS',
                                'cloudify_ims': 'vIMS (Cloudify)',
@@ -68,7 +68,17 @@ class TestCase(object):
                                'barbican': 'barbican',
                                'juju_epc': 'vEPC (Juju)',
                                'shaker': 'shaker',
-                               'neutron_trunk': 'Neutron trunk'}
+                               'neutron_trunk': 'Neutron trunk',
+                               'tempest_scenario': 'tempest_scenario',
+                               'networking-bgpvpn': 'networking-bgpvpn',
+                               'networking-sfc': 'networking-sfc',
+                               'tempest_full': 'Tempest (full)',
+                               'cloudify': 'cloudify',
+                               'heat_ims': 'vIMS (Heat)',
+                               'vmtp': 'vmtp',
+                               'tempest_smoke': 'Tempest (smoke)',
+                               'neutron-tempest-plugin-api': 'Neutron Tempest plugin api',
+                               'vgpu': 'vgpu'}
         try:
             self.displayName = display_name_matrix[self.name]
         except:
@@ -80,14 +90,14 @@ class TestCase(object):
     def getProject(self):
         return self.project
 
-    def getConstraints(self):
-        return self.constraints
-
     def getCriteria(self):
         return self.criteria
 
     def getTier(self):
         return self.tier
+
+    def getConstraints(self):
+        return self.constraints
 
     def setCriteria(self, criteria):
         self.criteria = criteria
@@ -95,7 +105,7 @@ class TestCase(object):
     def setIsRunnable(self, isRunnable):
         self.isRunnable = isRunnable
 
-    def checkRunnable(self, installer, scenario, config):
+    def checkRunnable(self, installer, scenario, arch, config):
         # Re-use Functest declaration
         # Retrieve Functest configuration file functest_config.yaml
         is_runnable = True
@@ -110,8 +120,14 @@ class TestCase(object):
 
         # Retrieve test constraints
         # Retrieve test execution param
-        test_execution_context = {"installer": installer,
-                                  "scenario": scenario}
+        test_execution_context = {"INSTALLER_TYPE": installer,
+                                  "DEPLOY_SCENARIO": scenario,
+                                  "POD_ARCH": arch}
+
+        # 3 types of constraints
+        # INSTALLER_TYPE
+        # DEPLOY_SCENARIO
+        # POD_ARCH
 
         # By default we assume that all the tests are always runnable...
         # if test_env not empty => dependencies to be checked
@@ -119,18 +135,18 @@ class TestCase(object):
             # possible criteria = ["installer", "scenario"]
             # consider test criteria from config file
             # compare towards CI env through CI en variable
-            for criteria in config_test:
-                if re.search(config_test[criteria],
-                             test_execution_context[criteria]) is None:
+            for criterias in config_test:
+                for criteria_key, criteria_value in criterias.iteritems():
+                    if re.search(criteria_value,
+                                 test_execution_context[criteria_key]) is None:
                     # print "Test "+ test + " cannot be run on the environment"
-                    is_runnable = False
+                        is_runnable = False
         # print is_runnable
         self.isRunnable = is_runnable
 
     def toString(self):
         testcase = ("Name=" + self.name + ";Criteria=" +
                     str(self.criteria) + ";Project=" + self.project +
-                    ";Constraints=" + str(self.constraints) +
                     ";IsRunnable" + str(self.isRunnable))
         return testcase
 

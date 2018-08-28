@@ -25,11 +25,6 @@ cp -Rf 3rd_party/html/* display
 cp -Rf img display
 cp -Rf js display
 
-for i in "${versions[@]}"
-do
-  cp -Rf html/functest.html display/$i/functest
-done
-
 # if nothing is precised run all the reporting generation
 #  projet   |        option
 #   $1      |          $2
