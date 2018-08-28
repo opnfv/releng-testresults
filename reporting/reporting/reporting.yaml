@@ -36,9 +36,11 @@ testapi:
 functest:
     blacklist:
         - odl_netvirt
-        - juju_epc
         - tempest_full_parallel
+        - tempest_full
         - rally_full
+        - heat_ims
+        - tempest_scenario
     max_scenario_criteria: 50
     test_conf: https://git.opnfv.org/cgit/functest/plain/functest/ci/testcases.yaml
     log_level: ERROR

@@ -41,6 +41,7 @@ blacklist = rp_utils.get_config('functest.blacklist')
 log_level = rp_utils.get_config('general.log.log_level')
 exclude_noha = rp_utils.get_config('functest.exclude_noha')
 exclude_virtual = rp_utils.get_config('functest.exclude_virtual')
+tiers_for_scoring = {'healthcheck', 'smoke', 'vnf', 'features'}
 
 LOGGER.info("*******************************************")
 LOGGER.info("*                                         *")
@@ -56,10 +57,9 @@ LOGGER.info("*******************************************")
 # For all the versions
 for version in versions:
     testValid = []
-    otherTestCases = []
     # Retrieve test cases of Tier 1 (smoke)
     version_config = ""
-    if version != "master":
+    if (version != "master" and version != "latest"):
         version_config = "?h=stable/" + version
     functest_yaml_config = rp_utils.getFunctestConfig(version_config)
     config_tiers = functest_yaml_config.get("tiers")
@@ -71,25 +71,17 @@ for version in versions:
     # tricky thing for the API as some tests are Functest tests
     # other tests are declared directly in the feature projects
     for tier in config_tiers:
-        if tier['order'] >= 0 and tier['order'] < 2:
-            for case in tier['testcases']:
-                if case['case_name'] not in blacklist:
-                    testValid.append(tc.TestCase(case['case_name'],
-                                                 "functest",
-                                                 case['dependencies']))
-        elif tier['order'] == 2:
-            for case in tier['testcases']:
-                if case['case_name'] not in blacklist:
-                    otherTestCases.append(tc.TestCase(case['case_name'],
-                                                      case['case_name'],
-                                                      case['dependencies']))
-        elif tier['order'] > 2:
-            for case in tier['testcases']:
-                if case['case_name'] not in blacklist:
-                    otherTestCases.append(tc.TestCase(case['case_name'],
-                                                      "functest",
-                                                      case['dependencies']))
 
+        for case in tier['testcases']:
+            try:
+                dependencies = case['dependencies']
+            except KeyError:
+                dependencies = ""
+            if case['case_name'] not in blacklist:
+                testValid.append(tc.TestCase(case['case_name'],
+                                             "functest",
+                                             dependencies,
+                                             tier=tier['name']))
     LOGGER.debug("Functest reporting start")
 
     # For all the installers
@@ -158,10 +150,8 @@ for version in versions:
                 # Check if test case is runnable / installer, scenario
                 # for the test case used for Scenario validation
                 try:
-                    # 1) Manage the test cases for the scenario validation
-                    # concretely Tiers 0-3
                     for test_case in testValid:
-                        test_case.checkRunnable(installer, s,
+                        test_case.checkRunnable(installer, s, architecture,
                                                 test_case.getConstraints())
                         LOGGER.debug("testcase %s (%s) is %s",
                                      test_case.getDisplayName(),
@@ -172,7 +162,8 @@ for version in versions:
                             name = test_case.getName()
                             displayName = test_case.getDisplayName()
                             project = test_case.getProject()
-                            nb_test_runnable_for_this_scenario += 1
+                            if test_case.getTier() in tiers_for_scoring:
+                                nb_test_runnable_for_this_scenario += 1
                             LOGGER.info(" Searching results for case %s ",
                                         displayName)
                             if "fuel" in installer:
@@ -188,53 +179,18 @@ for version in versions:
                             LOGGER.info(" >>>> Test score = " + str(result))
                             test_case.setCriteria(result)
                             test_case.setIsRunnable(True)
-                            testCases2BeDisplayed.append(tc.TestCase(name,
-                                                                     project,
-                                                                     "",
-                                                                     result,
-                                                                     True,
-                                                                     1))
-                            scenario_score = scenario_score + result
-
-                    # 2) Manage the test cases for the scenario qualification
-                    # concretely Tiers > 3
-                    for test_case in otherTestCases:
-                        test_case.checkRunnable(installer, s,
-                                                test_case.getConstraints())
-                        LOGGER.debug("testcase %s (%s) is %s",
-                                     test_case.getDisplayName(),
-                                     test_case.getName(),
-                                     test_case.isRunnable)
-                        time.sleep(1)
-                        if test_case.isRunnable:
-                            name = test_case.getName()
-                            displayName = test_case.getDisplayName()
-                            project = test_case.getProject()
-                            LOGGER.info(" Searching results for case %s ",
-                                        displayName)
-                            if "fuel" in installer:
-                                result = rp_utils.getCaseScoreFromBuildTag(
-                                    name,
-                                    s_result)
-                            else:
-                                result = rp_utils.getCaseScore(name, installer,
-                                                               s, version)
-                            # at least 1 result for the test
-                            if result > -1:
-                                test_case.setCriteria(result)
-                                test_case.setIsRunnable(True)
-                                testCases2BeDisplayed.append(tc.TestCase(
-                                    name,
-                                    project,
-                                    "",
-                                    result,
-                                    True,
-                                    4))
-                            else:
-                                LOGGER.debug("No results found")
+                            testCases2BeDisplayed.append(
+                                tc.TestCase(name,
+                                            project,
+                                            "",
+                                            result,
+                                            True,
+                                            tier=test_case.getTier()))
+                            if test_case.getTier() in tiers_for_scoring:
+                                scenario_score = scenario_score + result
 
                     items[s] = testCases2BeDisplayed
-                except Exception:  # pylint: disable=broad-except
+                except KeyError:  # pylint: disable=broad-except
                     LOGGER.error("Error installer %s, version %s, scenario %s",
                                  installer, version, s)
                     LOGGER.error("No data available: %s", sys.exc_info()[0])
@@ -261,6 +217,12 @@ for version in versions:
                     k_score = 1
                 else:
                     k_score = 2
+
+                # TODO for the scoring we should consider 3 tiers
+                # - Healthcheck
+                # - Smoke
+                # - Vnf
+                # components
 
                 scenario_criteria = nb_test_runnable_for_this_scenario*k_score
 

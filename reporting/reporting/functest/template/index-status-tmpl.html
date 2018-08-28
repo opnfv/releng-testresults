@@ -144,33 +144,32 @@ $(document).ready(function (){
                         <span class="panel-header-item">
                         </span>
                     </div>
+                    {% for tier in ['healthcheck', 'smoke', 'vnf', 'features'] -%}
                     <table class="table">
                         <tr>
+                        <h2>{{tier}}</h2>
                             {% for test in items[scenario] -%}
-                            <th>
-                            {% if test.getCriteria() > -1 -%}
-                            {{test.getDisplayName() }}
+                            {% if test.getCriteria() > -1 and test.getTier() == tier -%}
+                            <th>{{test.getDisplayName() }}</th>
                             {%- endif %}
-                            {% if test.getTier() > 3 -%}
-                            *
-                            {%- endif %}
-                             </th>
-                            {%- endfor %}
+                             {%- endfor %}
                         </tr>
                         <tr class="tr-weather-weather">
-                            {% for test in items[scenario] -%}
-                            {% if test.getCriteria() > 2 -%}
+                          {% for test in items[scenario] -%}
+                            {% if test.getCriteria() > 2 and test.getTier() == tier -%}
                                 <td><img src="../../img/weather-clear.png"></td>
-                            {%- elif test.getCriteria() > 1 -%}
+                            {%- elif test.getCriteria() > 1 and test.getTier() == tier -%}
                                 <td><img src="../../img/weather-few-clouds.png"></td>
-                            {%- elif test.getCriteria() > 0 -%}
+                            {%- elif test.getCriteria() > 0 and test.getTier() == tier -%}
                                 <td><img src="../../img/weather-overcast.png"></td>
-                            {%- elif test.getCriteria() > -1 -%}
+                            {%- elif test.getCriteria() > -1 and test.getTier() == tier -%}
                                 <td><img src="../../img/weather-storm.png"></td>
                             {%- endif %}
                             {%- endfor %}
                         </tr>
                     </table>
+                    <br><hr>
+                    {%- endfor %}
                 </div>
         </div>
         {%- endfor %}
