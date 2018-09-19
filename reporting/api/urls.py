@@ -9,6 +9,7 @@
 from api.handlers import landing
 from api.handlers import projects
 from api.handlers import testcases
+from api.handlers import scenarios
 
 mappings = [
     (r"/landing-page/filters", landing.FiltersHandler),
@@ -16,5 +17,7 @@ mappings = [
 
     (r"/projects-page/projects", projects.Projects),
     (r"/projects/([^/]+)/cases", testcases.TestCases),
-    (r"/projects/([^/]+)/cases/([^/]+)", testcases.TestCase)
+    (r"/projects/([^/]+)/cases/([^/]+)", testcases.TestCase),
+
+    (r"/scenarios/results", scenarios.Result)
 ]

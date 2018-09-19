@@ -6,7 +6,7 @@
 angular.module('opnfvApp')
     .factory('TableFactory', function($resource, $rootScope, $http) {
 
-        var BASE_URL = 'http://testresults.opnfv.org/reporting2';
+        var BASE_URL = ' http://testresults.opnfv.org/testing';
         $.ajax({
           url: 'config.json',
           async: false,
@@ -15,11 +15,19 @@ angular.module('opnfvApp')
               BASE_URL = response.url;
           },
           error: function (response){
-              alert('fail to get api url, using default: http://testresults.opnfv.org/reporting2')
+              alert('fail to get api url, using default: http://testresults.opnfv.org/testing')
           }
         });
 
         return {
+            getScenarioResult: function() {
+                return $resource(BASE_URL + '/scenarios/results', {'scenario': '@scenario', 'version': '@version', 'installer': '@installer', 'iteration': '@iteration'}, {
+                    'get': {
+                        method: 'GET',
+
+                    }
+                });
+            },
             getFilter: function() {
                 return $resource(BASE_URL + '/landing-page/filters', {}, {
                     'get': {
