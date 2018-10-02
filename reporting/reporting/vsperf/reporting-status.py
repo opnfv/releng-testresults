@@ -127,7 +127,7 @@ def main():
                                         period=50)
     version_data = _get_version_data(data['vsperf'])
 
-    for version in {'master', 'euphrates', 'fraser'}:
+    for version in {'master', 'euphrates', 'fraser', 'gambia'}:
         _generate_reporting(version, version_data.get(version, []))
 
     LOG.info("End")
