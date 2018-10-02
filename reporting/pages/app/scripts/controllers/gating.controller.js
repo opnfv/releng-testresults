@@ -12,7 +12,7 @@ angular.module('opnfvApp')
             $scope.scenarios = {};
 
             $scope.scenarioList = _toSelectList(['all']);
-            $scope.versionList = _toSelectList(['master', 'euphrates', 'fraser']);
+            $scope.versionList = _toSelectList(['master', 'fraser', 'gambia']);
             $scope.installerList = _toSelectList(['all', 'apex', 'compass', 'daisy', 'fuel', 'joid']);
             $scope.iterationList = _toSelectList([10, 20, 30]);
 
