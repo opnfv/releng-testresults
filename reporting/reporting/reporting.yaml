@@ -9,7 +9,7 @@ general:
 
     versions:
         - master
-        - fraser
+        - gambia
 
     log:
         log_file: reporting.log

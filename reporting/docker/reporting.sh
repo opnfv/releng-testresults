@@ -3,7 +3,7 @@
 export PYTHONPATH="${PYTHONPATH}:./reporting"
 export CONFIG_REPORTING_YAML=./reporting/reporting.yaml
 
-declare -a versions=(fraser euphrates master)
+declare -a versions=(gambia fraser master)
 declare -a projects=(functest storperf yardstick qtip vsperf bottlenecks)
 
 project=$1
