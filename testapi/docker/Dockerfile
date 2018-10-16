@@ -38,6 +38,8 @@ wget \
 python-dev \
 python-pip \
 crudini \
+libxslt-dev \
+zlib1g-dev \
 --no-install-recommends
 
 RUN pip install --upgrade requests
