@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_293b7e3b",
+        "filename": "reporting/3rd_party/html/index.html",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-10-18T13:48:35Z",
+      "side": 1,
+      "message": "Due to the fact that some projects don\u0027t run Fraser jobs on a regular basis since the last release (6.2.0), I question the value of keeping it here.  Going to the older release links still attempt to show the past 10 days of results.\n\nsee: http://testresults.opnfv.org/reporting/fraser/functest/functest.html",
+      "revId": "04ac6665e4687495656b0d5295abae3612b824e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_893f3225",
+        "filename": "reporting/api/conf.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-10-18T13:48:35Z",
+      "side": 1,
+      "message": "Should we remove euphrates from here too?",
+      "revId": "04ac6665e4687495656b0d5295abae3612b824e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_693c5630",
+        "filename": "reporting/docker/reporting.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-10-18T13:48:35Z",
+      "side": 1,
+      "message": "Ditto - should we remove euphrates?",
+      "revId": "04ac6665e4687495656b0d5295abae3612b824e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_c9492ad2",
+        "filename": "reporting/pages/app/scripts/controllers/gating.controller.js",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-10-18T13:48:35Z",
+      "side": 1,
+      "message": "Ditto re: euphrates.",
+      "revId": "04ac6665e4687495656b0d5295abae3612b824e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_091322b9",
+        "filename": "reporting/reporting/vsperf/reporting-status.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 2034
+      },
+      "writtenOn": "2018-10-18T13:48:35Z",
+      "side": 1,
+      "message": "ditto: euphrates",
+      "revId": "04ac6665e4687495656b0d5295abae3612b824e2",
+      "serverId": "bbac25d2-bf60-4904-9ba8-a72fc000d6c5",
+      "unresolved": false
+    }
+  ]
+}
