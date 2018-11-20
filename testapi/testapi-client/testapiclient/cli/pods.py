@@ -64,8 +64,8 @@ class PodCreate(command.ShowOne):
                             help='Pod create request format :\n'
                                  '\'{}\''.format(json.dumps(
                                      pm.PodCreateRequest().__dict__
-                                     )) +
-                                 '\n role should be either '
+                                     ))
+                                 + '\n role should be either '
                                  '"community-ci" or "production-ci", and '
                                  'mode should be either "metal" or "virtual.')
         return parser
