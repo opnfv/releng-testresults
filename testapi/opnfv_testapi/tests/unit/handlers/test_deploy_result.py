@@ -35,7 +35,7 @@ class DeployResultBase(base.TestBase):
     def assert_res(self, deploy_result, req=None):
         if req is None:
             req = self.req_d
-        print req.format()
+        print(req.format())
         self.assertEqual(deploy_result, req)
         self.assertIsNotNone(deploy_result._id)
 
