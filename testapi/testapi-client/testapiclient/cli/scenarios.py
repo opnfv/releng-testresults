@@ -555,7 +555,7 @@ class TrustIndicatorCreate(command.Command):
         return parser
 
     def take_action(self, parsed_args):
-        print parsed_args
+        print(parsed_args)
         return self.app.client_manager.post(
             urlparse.query_by(
                 resources_url(

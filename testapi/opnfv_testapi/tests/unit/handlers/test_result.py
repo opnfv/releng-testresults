@@ -9,7 +9,7 @@
 import copy
 from datetime import datetime
 from datetime import timedelta
-import httplib
+import http.client
 import urllib
 
 from opnfv_testapi.common import message
@@ -48,58 +48,58 @@ class TestResultBase(base.TestBase):
 
 
 class TestResultCreate(TestResultBase):
-    @executor.create(httplib.BAD_REQUEST, message.no_body())
+    @executor.create(http.client.BAD_REQUEST, message.no_body())
     def test_nobody(self):
         return None
 
-    @executor.create(httplib.BAD_REQUEST, message.missing('pod_name'))
+    @executor.create(http.client.BAD_REQUEST, message.missing('pod_name'))
     def test_podNotProvided(self):
         req = self.req_d
         req.pod_name = None
         return req
 
-    @executor.create(httplib.BAD_REQUEST, message.missing('project_name'))
+    @executor.create(http.client.BAD_REQUEST, message.missing('project_name'))
     def test_projectNotProvided(self):
         req = self.req_d
         req.project_name = None
         return req
 
-    @executor.create(httplib.BAD_REQUEST, message.missing('case_name'))
+    @executor.create(http.client.BAD_REQUEST, message.missing('case_name'))
     def test_testcaseNotProvided(self):
         req = self.req_d
         req.case_name = None
         return req
 
-    @executor.create(httplib.BAD_REQUEST,
+    @executor.create(http.client.BAD_REQUEST,
                      message.invalid_value('criteria', ['PASS', 'FAIL']))
     def test_invalid_criteria(self):
         req = self.req_d
         req.criteria = 'invalid'
         return req
 
-    @executor.create(httplib.FORBIDDEN, message.not_found_base)
+    @executor.create(http.client.FORBIDDEN, message.not_found_base)
     def test_noPod(self):
         req = self.req_d
         req.pod_name = 'notExistPod'
         return req
 
-    @executor.create(httplib.FORBIDDEN, message.not_found_base)
+    @executor.create(http.client.FORBIDDEN, message.not_found_base)
     def test_noProject(self):
         req = self.req_d
         req.project_name = 'notExistProject'
         return req
 
-    @executor.create(httplib.FORBIDDEN, message.not_found_base)
+    @executor.create(http.client.FORBIDDEN, message.not_found_base)
     def test_noTestcase(self):
         req = self.req_d
         req.case_name = 'notExistTestcase'
         return req
 
-    @executor.create(httplib.OK, 'assert_href')
+    @executor.create(http.client.OK, 'assert_href')
     def test_success(self):
         return self.req_d
 
-    @executor.create(httplib.OK, 'assert_href')
+    @executor.create(http.client.OK, 'assert_href')
     def test_key_with_doc(self):
         req = copy.deepcopy(self.req_d)
         req.details = {'1.name': 'dot_name'}
@@ -113,59 +113,59 @@ class TestResultGet(TestResultBase):
         self.req_d_id = self._create_d()
         self.req_10d_later = self._create_changed_date(days=10)
 
-    @executor.get(httplib.OK, 'assert_res')
+    @executor.get(http.client.OK, 'assert_res')
     def test_getOne(self):
         return self.req_d_id
 
-    @executor.query(httplib.OK, '_query_success', 3)
+    @executor.query(http.client.OK, '_query_success', 3)
     def test_queryPod(self):
         return self._set_query('pod')
 
-    @executor.query(httplib.OK, '_query_success', 3)
+    @executor.query(http.client.OK, '_query_success', 3)
     def test_queryProject(self):
         return self._set_query('project')
 
-    @executor.query(httplib.OK, '_query_success', 3)
+    @executor.query(http.client.OK, '_query_success', 3)
     def test_queryTestcase(self):
         return self._set_query('case')
 
-    @executor.query(httplib.OK, '_query_success', 3)
+    @executor.query(http.client.OK, '_query_success', 3)
     def test_queryVersion(self):
         return self._set_query('version')
 
-    @executor.query(httplib.OK, '_query_success', 3)
+    @executor.query(http.client.OK, '_query_success', 3)
     def test_queryInstaller(self):
         return self._set_query('installer')
 
-    @executor.query(httplib.OK, '_query_success', 3)
+    @executor.query(http.client.OK, '_query_success', 3)
     def test_queryBuildTag(self):
         return self._set_query('build_tag')
 
-    @executor.query(httplib.OK, '_query_success', 3)
+    @executor.query(http.client.OK, '_query_success', 3)
     def test_queryScenario(self):
         return self._set_query('scenario')
 
-    @executor.query(httplib.OK, '_query_success', 3)
+    @executor.query(http.client.OK, '_query_success', 3)
     def test_queryCriteria(self):
         return self._set_query('criteria')
 
-    @executor.query(httplib.BAD_REQUEST, message.must_int('period'))
+    @executor.query(http.client.BAD_REQUEST, message.must_int('period'))
     def test_queryPeriodNotInt(self):
         return self._set_query(period='a')
 
-    @executor.query(httplib.OK, '_query_period_one', 1)
+    @executor.query(http.client.OK, '_query_period_one', 1)
     def test_queryPeriodSuccess(self):
         return self._set_query(period=5)
 
-    @executor.query(httplib.BAD_REQUEST, message.must_int('last'))
+    @executor.query(http.client.BAD_REQUEST, message.must_int('last'))
     def test_queryLastNotInt(self):
         return self._set_query(last='a')
 
-    @executor.query(httplib.OK, '_query_last_one', 1)
+    @executor.query(http.client.OK, '_query_last_one', 1)
     def test_queryLast(self):
         return self._set_query(last=1)
 
-    @executor.query(httplib.OK, '_query_period_one', 1)
+    @executor.query(http.client.OK, '_query_period_one', 1)
     def test_combination(self):
         return self._set_query('pod',
                                'project',
@@ -177,7 +177,7 @@ class TestResultGet(TestResultBase):
                                'criteria',
                                period=5)
 
-    @executor.query(httplib.OK, '_query_success', 0)
+    @executor.query(http.client.OK, '_query_success', 0)
     def test_notFound(self):
         return self._set_query('project',
                                'case',
@@ -189,7 +189,7 @@ class TestResultGet(TestResultBase):
                                pod='notExistPod',
                                period=1)
 
-    @executor.query(httplib.OK, '_query_success', 1)
+    @executor.query(http.client.OK, '_query_success', 1)
     def test_filterErrorStartdate(self):
         self._create_error_start_date(None)
         self._create_error_start_date('None')

@@ -23,37 +23,27 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 #
 
-FROM ubuntu:14.04
-MAINTAINER SerenaFeng <feng.xiaowei@zte.com.cn>
-LABEL version="v1" description="OPNFV TestAPI Docker container"
+FROM python:3.9.2-alpine3.13
+MAINTAINER="Morgan Richomme <morgan.richomme@orange.com>"
+LABEL version="v1.1" description="OPNFV TestAPI Docker container"
 
 ENV HOME /home
 
 # Packaged dependencies
-RUN apt-get update && apt-get install -y \
-curl \
-git \
-gcc \
-wget \
-python-dev \
-python-pip \
-crudini \
-libxslt-dev \
-zlib1g-dev \
---no-install-recommends
+ENV CRYPTOGRAPHY_DONT_BUILD_RUST=1
+
+COPY requirements.txt requirements.txt
+RUN apk --no-cache add --update openssl bash && \
+    apk --no-cache add --virtual .build-deps --update \
+    gcc musl-dev linux-headers libressl-dev libffi-dev git
 
 RUN pip install --upgrade requests
 
-RUN git config --global http.sslVerify false
-RUN git clone https://gerrit.opnfv.org/gerrit/releng-testresults /home/releng-testresults
+RUN git clone https://gerrit.opnfv.org/gerrit/releng-testresults
 
-WORKDIR /home/releng-testresults/testapi
+WORKDIR /releng-testresults/testapi
 RUN pip install -r requirements.txt
-
-# bugfix
-# SSLError: hostname 'identity.linuxfoundation.org' doesn't match 'c.sni.fastly.net'
-# hope it is a temprary, try to fix it in upstream python-cas lib
-RUN sed -i '152,152s/)/,\ verify=False)/g' /usr/local/lib/python2.7/dist-packages/cas.py
 
 RUN python setup.py install
 CMD ["bash", "docker/start-server.sh"]
+

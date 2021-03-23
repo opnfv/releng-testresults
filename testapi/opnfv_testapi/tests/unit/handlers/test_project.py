@@ -6,7 +6,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-import httplib
+import http.client
 import unittest
 import urllib
 
@@ -44,32 +44,32 @@ class TestProjectBase(base.TestBase):
 
 class TestProjectCreate(TestProjectBase):
 
-    @executor.create(httplib.BAD_REQUEST, message.not_login())
+    @executor.create(http.client.BAD_REQUEST, message.not_login())
     def test_notlogin(self):
         return self.req_d
 
     @executor.mock_valid_lfid()
-    @executor.create(httplib.BAD_REQUEST, message.no_body())
+    @executor.create(http.client.BAD_REQUEST, message.no_body())
     def test_withoutBody(self):
         return None
 
     @executor.mock_valid_lfid()
-    @executor.create(httplib.BAD_REQUEST, message.missing('name'))
+    @executor.create(http.client.BAD_REQUEST, message.missing('name'))
     def test_emptyName(self):
         return project_models.ProjectCreateRequest('')
 
     @executor.mock_valid_lfid()
-    @executor.create(httplib.BAD_REQUEST, message.missing('name'))
+    @executor.create(http.client.BAD_REQUEST, message.missing('name'))
     def test_noneName(self):
         return project_models.ProjectCreateRequest(None)
 
     @executor.mock_valid_lfid()
-    @executor.create(httplib.OK, 'assert_create_body')
+    @executor.create(http.client.OK, 'assert_create_body')
     def test_success(self):
         return self.req_d
 
     @executor.mock_valid_lfid()
-    @executor.create(httplib.FORBIDDEN, message.exist_base)
+    @executor.create(http.client.FORBIDDEN, message.exist_base)
     def test_alreadyExist(self):
         self.create_d()
         return self.req_d
@@ -83,19 +83,19 @@ class TestProjectGet(TestProjectBase):
         self.create_d()
         self.create_e()
 
-    @executor.get(httplib.NOT_FOUND, message.not_found_base)
+    @executor.get(http.client.NOT_FOUND, message.not_found_base)
     def test_notExist(self):
         return 'notExist'
 
-    @executor.get(httplib.OK, 'assert_body')
+    @executor.get(http.client.OK, 'assert_body')
     def test_getOne(self):
         return self.req_d.name
 
-    @executor.get(httplib.OK, '_assert_list')
+    @executor.get(http.client.OK, '_assert_list')
     def test_list(self):
         return None
 
-    @executor.query(httplib.OK, '_query_success', 1)
+    @executor.query(http.client.OK, '_query_success', 1)
     def test_queryName(self):
         return self._set_query('name')
 
@@ -129,32 +129,32 @@ class TestProjectUpdate(TestProjectBase):
         self.index_d = get_res._id
         self.create_e()
 
-    @executor.update(httplib.BAD_REQUEST, message.not_login())
+    @executor.update(http.client.BAD_REQUEST, message.not_login())
     def test_notlogin(self):
         req = project_models.ProjectUpdateRequest('apex', 'apex test')
         return req, self.req_d.name
 
-    @executor.update(httplib.BAD_REQUEST, message.no_body())
+    @executor.update(http.client.BAD_REQUEST, message.no_body())
     def test_withoutBody(self):
         return None, 'noBody'
 
     @executor.mock_valid_lfid()
-    @executor.update(httplib.NOT_FOUND, message.not_found_base)
+    @executor.update(http.client.NOT_FOUND, message.not_found_base)
     def test_notFound(self):
         return self.req_e, 'notFound'
 
     @executor.mock_valid_lfid()
-    @executor.update(httplib.FORBIDDEN, message.exist_base)
+    @executor.update(http.client.FORBIDDEN, message.exist_base)
     def test_newNameExist(self):
         return self.req_e, self.req_d.name
 
     @executor.mock_valid_lfid()
-    @executor.update(httplib.FORBIDDEN, message.no_update())
+    @executor.update(http.client.FORBIDDEN, message.no_update())
     def test_noUpdate(self):
         return self.req_d, self.req_d.name
 
     @executor.mock_valid_lfid()
-    @executor.update(httplib.UNAUTHORIZED, message.tied_with_resource())
+    @executor.update(http.client.UNAUTHORIZED, message.tied_with_resource())
     def test_updateNotAllowed(self):
         self.create_help('/api/v1/projects/%s/cases',
                          self.testcase_d,
@@ -163,7 +163,7 @@ class TestProjectUpdate(TestProjectBase):
         return req, self.req_d.name
 
     @executor.mock_valid_lfid()
-    @executor.update(httplib.OK, '_assert_update')
+    @executor.update(http.client.OK, '_assert_update')
     def test_success(self):
         req = project_models.ProjectUpdateRequest('apex', 'apex test')
         return req, self.req_d.name
@@ -182,16 +182,16 @@ class TestProjectDelete(TestProjectBase):
         super(TestProjectDelete, self).setUp()
         self.create_d()
 
-    @executor.delete(httplib.BAD_REQUEST, message.not_login())
+    @executor.delete(http.client.BAD_REQUEST, message.not_login())
     def test_notlogin(self):
         return self.req_d.name
 
-    @executor.delete(httplib.NOT_FOUND, message.not_found_base)
+    @executor.delete(http.client.NOT_FOUND, message.not_found_base)
     def test_notFound(self):
         return 'notFound'
 
     @executor.mock_valid_lfid()
-    @executor.delete(httplib.UNAUTHORIZED, message.tied_with_resource())
+    @executor.delete(http.client.UNAUTHORIZED, message.tied_with_resource())
     def test_deleteNotAllowed(self):
         self.create_help('/api/v1/projects/%s/cases',
                          self.testcase_d,
@@ -199,14 +199,14 @@ class TestProjectDelete(TestProjectBase):
         return self.req_d.name
 
     @executor.mock_valid_lfid()
-    @executor.delete(httplib.OK, '_assert_delete')
+    @executor.delete(http.client.OK, '_assert_delete')
     def test_success(self):
         return self.req_d.name
 
     def _assert_delete(self, body):
         self.assertEqual(body, '')
         code, body = self.get(self.req_d.name)
-        self.assertEqual(code, httplib.NOT_FOUND)
+        self.assertEqual(code, http.client.NOT_FOUND)
 
 
 if __name__ == '__main__':

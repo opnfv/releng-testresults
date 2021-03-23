@@ -3,7 +3,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 
-import httplib
+import http.client
 import unittest
 
 from tornado import web
@@ -28,18 +28,18 @@ class TestTokenCreateResult(test_result.TestResultBase):
         super(TestTokenCreateResult, self).setUp()
         fake_pymongo.tokens.insert({"access_token": "12345"})
 
-    @executor.create(httplib.FORBIDDEN, message.invalid_token())
+    @executor.create(http.client.FORBIDDEN, message.invalid_token())
     def test_resultCreateTokenInvalid(self):
         self.headers['X-Auth-Token'] = '1234'
         return self.req_d
 
-    @executor.create(httplib.UNAUTHORIZED, message.unauthorized())
+    @executor.create(http.client.UNAUTHORIZED, message.unauthorized())
     def test_resultCreateTokenUnauthorized(self):
         if 'X-Auth-Token' in self.headers:
             self.headers.pop('X-Auth-Token')
         return self.req_d
 
-    @executor.create(httplib.OK, '_create_success')
+    @executor.create(http.client.OK, '_create_success')
     def test_resultCreateTokenSuccess(self):
         self.headers['X-Auth-Token'] = '12345'
         return self.req_d

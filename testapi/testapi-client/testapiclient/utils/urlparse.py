@@ -1,6 +1,7 @@
 import os
 
 from six.moves.urllib import parse
+from functools import reduce
 
 
 def path_join(base, *urls):
