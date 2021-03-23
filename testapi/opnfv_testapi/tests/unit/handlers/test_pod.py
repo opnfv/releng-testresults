@@ -6,7 +6,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-import httplib
+import http.client
 
 from opnfv_testapi.common import message
 from opnfv_testapi.models import pod_models as pm
@@ -36,43 +36,43 @@ class TestPodBase(base.TestBase):
 
 
 class TestPodCreate(TestPodBase):
-    @executor.create(httplib.BAD_REQUEST, message.not_login())
+    @executor.create(http.client.BAD_REQUEST, message.not_login())
     def test_notlogin(self):
         return self.req_d
 
     @executor.mock_invalid_lfid()
-    @executor.create(httplib.BAD_REQUEST, message.not_lfid())
+    @executor.create(http.client.BAD_REQUEST, message.not_lfid())
     def test_invalidLfid(self):
         return self.req_d
 
     @executor.mock_valid_lfid()
-    @executor.create(httplib.BAD_REQUEST, message.no_body())
+    @executor.create(http.client.BAD_REQUEST, message.no_body())
     def test_withoutBody(self):
         return None
 
     @executor.mock_valid_lfid()
-    @executor.create(httplib.BAD_REQUEST, message.missing('name'))
+    @executor.create(http.client.BAD_REQUEST, message.missing('name'))
     def test_emptyName(self):
         return pm.PodCreateRequest('')
 
     @executor.mock_valid_lfid()
-    @executor.create(httplib.BAD_REQUEST, message.missing('name'))
+    @executor.create(http.client.BAD_REQUEST, message.missing('name'))
     def test_noneName(self):
         return pm.PodCreateRequest(None)
 
     @executor.mock_valid_lfid()
-    @executor.create(httplib.OK, 'assert_create_body')
+    @executor.create(http.client.OK, 'assert_create_body')
     def test_success(self):
         return self.req_d
 
     @executor.mock_valid_lfid()
-    @executor.create(httplib.FORBIDDEN, message.exist_base)
+    @executor.create(http.client.FORBIDDEN, message.exist_base)
     def test_alreadyExist(self):
         fake_pymongo.pods.insert(self.pod_d.format())
         return self.req_d
 
     @executor.mock_valid_lfid()
-    @executor.create(httplib.FORBIDDEN, message.exist_base)
+    @executor.create(http.client.FORBIDDEN, message.exist_base)
     def test_alreadyExistCaseInsensitive(self):
         fake_pymongo.pods.insert(self.pod_d.format())
         self.req_d.name = self.req_d.name.upper()
@@ -85,15 +85,15 @@ class TestPodGet(TestPodBase):
         fake_pymongo.pods.insert(self.pod_d.format())
         fake_pymongo.pods.insert(self.pod_e.format())
 
-    @executor.get(httplib.NOT_FOUND, message.not_found_base)
+    @executor.get(http.client.NOT_FOUND, message.not_found_base)
     def test_notExist(self):
         return 'notExist'
 
-    @executor.get(httplib.OK, 'assert_get_body')
+    @executor.get(http.client.OK, 'assert_get_body')
     def test_getOne(self):
         return self.req_d.name
 
-    @executor.get(httplib.OK, '_assert_list')
+    @executor.get(http.client.OK, '_assert_list')
     def test_list(self):
         return None
 
@@ -116,26 +116,26 @@ class TestPodDelete(TestPodBase):
             'name': self.results_d.case_name,
             'project_name': self.results_d.project_name})
 
-    @executor.delete(httplib.BAD_REQUEST, message.not_login())
+    @executor.delete(http.client.BAD_REQUEST, message.not_login())
     def test_notlogin(self):
         return self.pod_d.name
 
-    @executor.delete(httplib.NOT_FOUND, message.not_found_base)
+    @executor.delete(http.client.NOT_FOUND, message.not_found_base)
     def test_notFound(self):
         return 'notFound'
 
     @executor.mock_valid_lfid()
-    @executor.delete(httplib.UNAUTHORIZED, message.tied_with_resource())
+    @executor.delete(http.client.UNAUTHORIZED, message.tied_with_resource())
     def test_deleteNotAllowed(self):
         self.create_help('/api/v1/results', self.results_d)
         return self.pod_d.name
 
     @executor.mock_valid_lfid()
-    @executor.delete(httplib.OK, '_assert_delete')
+    @executor.delete(http.client.OK, '_assert_delete')
     def test_success(self):
         return self.pod_d.name
 
     def _assert_delete(self, body):
         self.assertEqual(body, '')
         code, body = self.get(self.pod_d.name)
-        self.assertEqual(code, httplib.NOT_FOUND)
+        self.assertEqual(code, http.client.NOT_FOUND)
