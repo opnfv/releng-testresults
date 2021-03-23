@@ -41,7 +41,7 @@ class ModelBase(object):
 
         attr_parser = cls.attr_parser()
         t = cls()
-        for k, v in a_dict.iteritems():
+        for k, v in a_dict.items():
             if k in t.__dict__:
                 value = v
                 if isinstance(v, dict) and k in attr_parser:
@@ -62,7 +62,7 @@ class ModelBase(object):
 
         attr_parser = cls.attr_parser()
         t = cls()
-        for k, v in a_dict.iteritems():
+        for k, v in a_dict.items():
             if k not in t.__dict__:
                 raise AttributeError(
                     '{} has no attribute {}'.format(cls.__name__, k))
@@ -95,7 +95,7 @@ class ModelBase(object):
     def _obj_format(self, obj):
         if self._has_format(obj):
             obj = obj.format()
-        elif isinstance(obj, unicode):
+        elif isinstance(obj, str):
             try:
                 obj = self._obj_format(ast.literal_eval(obj))
             except Exception:
@@ -114,7 +114,9 @@ class ModelBase(object):
 
     @staticmethod
     def _has_format(obj):
-        return not isinstance(obj, (str, unicode)) and hasattr(obj, 'format')
+        return not isinstance(
+            obj,
+            (str, str)) and hasattr(obj, 'format')
 
 
 @swagger.model()

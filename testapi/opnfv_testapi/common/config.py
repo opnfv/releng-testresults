@@ -7,7 +7,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 # feng.xiaowei@zte.com.cn remove prepare_put_request            5-30-2016
 ##############################################################################
-import ConfigParser
+import configparser as ConfigParser
 import argparse
 import os
 import sys

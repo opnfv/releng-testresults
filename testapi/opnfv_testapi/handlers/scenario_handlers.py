@@ -18,7 +18,7 @@ class GenericScenarioHandler(base_handlers.GenericApiHandler):
     def set_query(self, locators):
         query = dict()
         elem_query = dict()
-        for k, v in locators.iteritems():
+        for k, v in locators.items():
             if k == 'scenario':
                 query['name'] = v
             elif k == 'installer':
@@ -341,7 +341,7 @@ class GenericScenarioUpdateHandler(GenericScenarioHandler):
     def do_update(self, item, action, locators):
         self.item = item
         self.action = action
-        for k, v in locators.iteritems():
+        for k, v in locators.items():
             if not v:
                 v = self.get_query_argument(k)
                 setattr(self, k, v)

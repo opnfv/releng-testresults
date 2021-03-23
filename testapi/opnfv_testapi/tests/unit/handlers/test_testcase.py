@@ -6,7 +6,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-import httplib
+import http.client
 
 from opnfv_testapi.common import message
 from opnfv_testapi.models import testcase_models as tcm
@@ -76,38 +76,38 @@ class TestCaseBase(base.TestBase):
 
 
 class TestCaseCreate(TestCaseBase):
-    @executor.create(httplib.BAD_REQUEST, message.no_body())
+    @executor.create(http.client.BAD_REQUEST, message.no_body())
     def test_noBody(self):
         return None
 
-    @executor.create(httplib.FORBIDDEN, message.no_permission())
+    @executor.create(http.client.FORBIDDEN, message.no_permission())
     def test_unauthorized(self):
         self.project = 'newProject'
         return self.req_d
 
-    @executor.create(httplib.FORBIDDEN, message.not_found_base)
+    @executor.create(http.client.FORBIDDEN, message.not_found_base)
     def test_noProject(self):
         self.project = 'noProject'
         return self.req_d
 
-    @executor.create(httplib.BAD_REQUEST, message.missing('name'))
+    @executor.create(http.client.BAD_REQUEST, message.missing('name'))
     def test_emptyName(self):
         req_empty = tcm.TestcaseCreateRequest('')
         return req_empty
 
-    @executor.create(httplib.BAD_REQUEST, message.missing('name'))
+    @executor.create(http.client.BAD_REQUEST, message.missing('name'))
     def test_noneName(self):
         req_none = tcm.TestcaseCreateRequest(None)
         return req_none
 
-    @executor.create(httplib.OK, '_assert_success')
+    @executor.create(http.client.OK, '_assert_success')
     def test_success(self):
         return self.req_d
 
     def _assert_success(self, body):
         self.assert_create_body(body, self.req_d, self.project)
 
-    @executor.create(httplib.FORBIDDEN, message.exist_base)
+    @executor.create(http.client.FORBIDDEN, message.exist_base)
     def test_alreadyExist(self):
         self.create_d()
         return self.req_d
@@ -119,15 +119,15 @@ class TestCaseGet(TestCaseBase):
         self.create_d()
         self.create_e()
 
-    @executor.get(httplib.NOT_FOUND, message.not_found_base)
+    @executor.get(http.client.NOT_FOUND, message.not_found_base)
     def test_notExist(self):
         return 'notExist'
 
-    @executor.get(httplib.OK, 'assert_body')
+    @executor.get(http.client.OK, 'assert_body')
     def test_getOne(self):
         return self.req_d.name
 
-    @executor.get(httplib.OK, '_list')
+    @executor.get(http.client.OK, '_list')
     def test_list(self):
         return None
 
@@ -144,37 +144,37 @@ class TestCaseUpdate(TestCaseBase):
         super(TestCaseUpdate, self).setUp()
         self.create_d()
 
-    @executor.update(httplib.BAD_REQUEST, message.no_body())
+    @executor.update(http.client.BAD_REQUEST, message.no_body())
     def test_noBody(self):
         return None, 'noBody'
 
-    @executor.update(httplib.NOT_FOUND, message.not_found_base)
+    @executor.update(http.client.NOT_FOUND, message.not_found_base)
     def test_notFound(self):
         update = tcm.TestcaseUpdateRequest(description='update description')
         return update, 'notFound'
 
-    @executor.update(httplib.FORBIDDEN, message.exist_base)
+    @executor.update(http.client.FORBIDDEN, message.exist_base)
     def test_newNameExist(self):
         self.create_e()
         return self.update_req, self.req_d.name
 
-    @executor.update(httplib.FORBIDDEN, message.no_permission())
+    @executor.update(http.client.FORBIDDEN, message.no_permission())
     def test_unauthorized(self):
         update_req_e = tcm.TestcaseUpdateRequest(project_name="newProject",
                                                  **self.req_e.format())
         return update_req_e, self.req_d.name
 
-    @executor.update(httplib.FORBIDDEN, message.no_update())
+    @executor.update(http.client.FORBIDDEN, message.no_update())
     def test_noUpdate(self):
         update = tcm.TestcaseUpdateRequest(project_name=self.project,
                                            **self.req_d.format())
         return update, self.req_d.name
 
-    @executor.update(httplib.OK, '_update_success')
+    @executor.update(http.client.OK, '_update_success')
     def test_success(self):
         return self.update_req, self.req_d.name
 
-    @executor.update(httplib.OK, '_update_success')
+    @executor.update(http.client.OK, '_update_success')
     def test_with_dollar(self):
         self.update_req.description = {'2. change': 'dollar change'}
         return self.update_req, self.req_d.name
@@ -198,24 +198,24 @@ class TestCaseDelete(TestCaseBase):
             'name': 'newCase',
             'project_name': 'newProject'})
 
-    @executor.delete(httplib.NOT_FOUND, message.not_found_base)
+    @executor.delete(http.client.NOT_FOUND, message.not_found_base)
     def test_notFound(self):
         return 'notFound', self.project
 
-    @executor.delete(httplib.FORBIDDEN, message.no_permission())
+    @executor.delete(http.client.FORBIDDEN, message.no_permission())
     def test_unauthorized(self):
         return 'newCase', 'newProject'
 
-    @executor.delete(httplib.UNAUTHORIZED, message.tied_with_resource())
+    @executor.delete(http.client.UNAUTHORIZED, message.tied_with_resource())
     def test_deleteNotAllowed(self):
         self.create_help('/api/v1/results', self.results_d)
         return self.results_d.case_name, self.project
 
-    @executor.delete(httplib.OK, '_delete_success')
+    @executor.delete(http.client.OK, '_delete_success')
     def test_success(self):
         return self.req_d.name, self.project
 
     def _delete_success(self, body):
         self.assertEqual(body, '')
         code, body = self.get(self.req_d.name)
-        self.assertEqual(code, httplib.NOT_FOUND)
+        self.assertEqual(code, http.client.NOT_FOUND)

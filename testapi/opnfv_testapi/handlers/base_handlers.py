@@ -89,7 +89,7 @@ class GenericApiHandler(web.RequestHandler):
         :param db_checks: [(table, exist, query, error)]
         """
         data = self.table_cls.from_dict(self.json_args)
-        for k, v in kwargs.iteritems():
+        for k, v in kwargs.items():
             if k != 'query':
                 data.__setattr__(k, v)
 
@@ -212,7 +212,7 @@ class GenericApiHandler(web.RequestHandler):
 
     def _update_requests(self, data):
         request = dict()
-        for k, v in self.json_args.iteritems():
+        for k, v in self.json_args.items():
             request = self._update_request(request, k, v,
                                            data.__getattribute__(k))
         if not request:
