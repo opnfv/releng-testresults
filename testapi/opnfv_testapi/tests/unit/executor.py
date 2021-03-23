@@ -18,9 +18,9 @@ O_get_secure_cookie = (
 
 
 def thread_execute(method, *args, **kwargs):
-        with ThreadPoolExecutor(max_workers=2) as executor:
-            result = executor.submit(method, *args, **kwargs)
-        return result
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        result = executor.submit(method, *args, **kwargs)
+    return result
 
 
 def mock_invalid_lfid():

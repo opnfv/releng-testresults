@@ -95,7 +95,7 @@ class ModelBase(object):
     def _obj_format(self, obj):
         if self._has_format(obj):
             obj = obj.format()
-        elif isinstance(obj, unicode):
+        elif isinstance(obj, str):
             try:
                 obj = self._obj_format(ast.literal_eval(obj))
             except Exception:
@@ -114,7 +114,9 @@ class ModelBase(object):
 
     @staticmethod
     def _has_format(obj):
-        return not isinstance(obj, (str, unicode)) and hasattr(obj, 'format')
+        return not isinstance(
+            obj,
+            (str, str)) and hasattr(obj, 'format')
 
 
 @swagger.model()

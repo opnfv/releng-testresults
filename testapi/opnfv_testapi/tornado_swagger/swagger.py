@@ -6,11 +6,10 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-from HTMLParser import HTMLParser
+from html.parser import HTMLParser
 from functools import wraps
 import inspect
 
-import epydoc.markup
 import tornado.web
 
 from opnfv_testapi.tornado_swagger import handlers
@@ -53,17 +52,6 @@ class DocParser(object):
     def parse_docstring(self, text):
         if text is None:
             return
-
-        errors = []
-        doc = epydoc.markup.parse(text, markup='epytext', errors=errors)
-        _, fields = doc.split_fields(errors)
-
-        for field in fields:
-            tag = field.tag()
-            arg = field.arg()
-            body = field.body()
-            self._get_parser(tag)(arg=arg, body=body)
-        return doc
 
     def _get_parser(self, tag):
         parser = {
