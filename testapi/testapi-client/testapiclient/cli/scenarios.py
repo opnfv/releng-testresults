@@ -68,30 +68,30 @@ class ScenarioCreate(command.ShowOne):
                                  '\'{}\''.format(json.dumps(
                                      scenario.ScenarioCreateRequest(
                                      ).__dict__
-                                     )) +
-                                 '\n Intaller create request format :\n'
+                                     ))
+                                 + '\n Intaller create request format :\n'
                                  '\'{}\''.format(json.dumps(
                                      scenario.ScenarioInstallerCreateRequest(
                                      ).__dict__
-                                     )) +
-                                 '\n Version create request format :\n'
+                                     ))
+                                 + '\n Version create request format :\n'
                                  '\'{}\''.format(json.dumps(
                                      scenario.ScenarioVersionCreateRequest(
                                      ).__dict__
-                                     )) +
-                                 '\n Project create request format :\n'
+                                     ))
+                                 + '\n Project create request format :\n'
                                  '\'{}\''.format(json.dumps(
                                      scenario.ScenarioProjectCreateRequest(
                                      ).__dict__
-                                     )) +
-                                 '\n Custom create request format :\n'
+                                     ))
+                                 + '\n Custom create request format :\n'
                                  '\'["asf","saf"]\',\n'
                                  '\n Score create request format :\n'
                                  '\'{}\''.format(json.dumps(
                                      scenario.ScenarioScoreCreateRequest(
                                      ).__dict__
-                                     )) +
-                                 '\nTrustIndicator create request format:\n'
+                                     ))
+                                 + '\nTrustIndicator create request format:\n'
                                  '\'{}\''.format(json.dumps(
                                      scenario.ScenarioTICreateRequest(
                                      ).__dict__
@@ -126,34 +126,29 @@ class ScenarioPut(command.ShowOne):
                             help='Update scenario by name')
         parser.add_argument('scenario',
                             type=json.loads,
-                            help='Scenario create request format :\n' +
-                                 '\'{}\''.format(json.dumps(
+                            help='Scenario create request format :\n'
+                                 + '\'{}\''.format(json.dumps(
                                      scenario.ScenarioCreateRequest(
-                                     ).__dict__
-                                     )) +
-                                 '\n Intaller create request format :\n'
+                                     ).__dict__))
+                                 + '\n Intaller create request format :\n'
                                  '\'{}\''.format(json.dumps(
                                      scenario.ScenarioInstallerCreateRequest(
-                                     ).__dict__
-                                     )) +
-                                 '\n Version create request format :\n'
+                                     ).__dict__))
+                                 + '\n Version create request format :\n'
                                  '\'{}\''.format(json.dumps(
                                      scenario.ScenarioVersionCreateRequest(
-                                     ).__dict__
-                                     )) +
-                                 '\n Project create request format :\n'
+                                     ).__dict__))
+                                 + '\n Project create request format :\n'
                                  '\'{}\''.format(json.dumps(
                                      scenario.ScenarioProjectCreateRequest(
-                                     ).__dict__
-                                     )) +
-                                 '\n Custom create request format :\n'
+                                     ).__dict__))
+                                 + '\n Custom create request format :\n'
                                  '\'["asf","saf"]\',\n'
                                  '\n Score create request format :\n'
                                  '\'{}\''.format(json.dumps(
                                      scenario.ScenarioScoreCreateRequest(
-                                     ).__dict__
-                                     )) +
-                                 '\nTrustIndicator create request format:\n'
+                                     ).__dict__))
+                                 + '\nTrustIndicator create request format:\n'
                                  '\'{}\''.format(json.dumps(
                                      scenario.ScenarioTICreateRequest(
                                      ).__dict__
@@ -555,7 +550,7 @@ class TrustIndicatorCreate(command.Command):
         return parser
 
     def take_action(self, parsed_args):
-        print parsed_args
+        print(parsed_args)
         return self.app.client_manager.post(
             urlparse.query_by(
                 resources_url(

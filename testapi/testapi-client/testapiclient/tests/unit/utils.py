@@ -23,8 +23,8 @@ class TestCommand(testtools.TestCase):
             'testapi_url': 'http://localhost:8000/api/v1',
             'testapi_cas_auth_url':
             (
-                'https://identity.linuxfoundation.org/user' +
-                '/login?destination=cas/login%3Fservice%3D'
+                'https://identity.linuxfoundation.org/user'
+                + '/login?destination=cas/login%3Fservice%3D'
             ),
             'testapi_cas_signin_return': '/auth/signin_return'
         }

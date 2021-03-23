@@ -7,7 +7,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
 import functools
-import httplib
+import http.client
 
 from concurrent.futures import ThreadPoolExecutor
 import mock
@@ -18,9 +18,9 @@ O_get_secure_cookie = (
 
 
 def thread_execute(method, *args, **kwargs):
-        with ThreadPoolExecutor(max_workers=2) as executor:
-            result = executor.submit(method, *args, **kwargs)
-        return result
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        result = executor.submit(method, *args, **kwargs)
+    return result
 
 
 def mock_invalid_lfid():
@@ -49,7 +49,7 @@ def create(excepted_status, excepted_response):
         def wrap(self):
             request = create_request(self)
             status, body = self.create(request)
-            if excepted_status == httplib.OK:
+            if excepted_status == http.client.OK:
                 getattr(self, excepted_response)(body)
             else:
                 self.assertIn(excepted_response, body)
@@ -63,7 +63,7 @@ def get(excepted_status, excepted_response):
         def wrap(self):
             request = get_request(self)
             status, body = self.get(request)
-            if excepted_status == httplib.OK:
+            if excepted_status == http.client.OK:
                 getattr(self, excepted_response)(body)
             else:
                 self.assertIn(excepted_response, body)
@@ -77,7 +77,7 @@ def update(excepted_status, excepted_response):
         def wrap(self):
             request, resource = update_request(self)
             status, body = self.update(request, resource)
-            if excepted_status == httplib.OK:
+            if excepted_status == http.client.OK:
                 getattr(self, excepted_response)(request, body)
             else:
                 self.assertIn(excepted_response, body)
@@ -94,7 +94,7 @@ def delete(excepted_status, excepted_response):
                 status, body = self.delete(*request)
             else:
                 status, body = self.delete(request)
-            if excepted_status == httplib.OK:
+            if excepted_status == http.client.OK:
                 getattr(self, excepted_response)(body)
             else:
                 self.assertIn(excepted_response, body)
@@ -108,7 +108,7 @@ def query(excepted_status, excepted_response, number=0):
         def wrap(self):
             request = get_request(self)
             status, body = self.query(request)
-            if excepted_status == httplib.OK:
+            if excepted_status == http.client.OK:
                 getattr(self, excepted_response)(body, number)
             else:
                 self.assertIn(excepted_response, body)

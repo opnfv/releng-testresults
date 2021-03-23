@@ -63,8 +63,8 @@ class CustomClientDeleteTest(CustomClientTest):
         args, kwargs = kall
         self.assert_url(
             args[0],
-            self.base_url +
-            '?installer=installer&version=version&project=project')
+            self.base_url
+            + '?installer=installer&version=version&project=project')
 
     def test_delete_failure(self):
         with testtools.ExpectedException(Exception, 'Delete failed: Error'):
@@ -92,8 +92,8 @@ class CustomClientUpdateTest(CustomClientTest):
         args, kwargs = kall
         self.assert_url(
             args[0],
-            self.base_url +
-            '?installer=installer&version=version&project=project')
+            self.base_url
+            + '?installer=installer&version=version&project=project')
 
     def test_update_failure(self):
         with testtools.ExpectedException(Exception, 'Update failed: Error'):
