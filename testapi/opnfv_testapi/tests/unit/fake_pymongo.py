@@ -15,9 +15,9 @@ from concurrent.futures import ThreadPoolExecutor
 
 
 def thread_execute(method, *args, **kwargs):
-        with ThreadPoolExecutor(max_workers=2) as executor:
-            result = executor.submit(method, *args, **kwargs)
-        return result
+    with ThreadPoolExecutor(max_workers=2) as executor:
+        result = executor.submit(method, *args, **kwargs)
+    return result
 
 
 class MemCursor(object):
@@ -38,7 +38,7 @@ class MemCursor(object):
         return self.collection.pop()
 
     def sort(self, key_or_list):
-        for k, v in key_or_list.iteritems():
+        for k, v in key_or_list.items():
             if v == -1:
                 reverse = True
             else:
@@ -124,7 +124,7 @@ class MemDb(object):
     def _compare_date(spec, value):
         gte = True
         lt = False
-        for k, v in spec.iteritems():
+        for k, v in spec.items():
             if k == '$gte' and value < v:
                 gte = False
             elif k == '$lt' and value < v:
@@ -165,10 +165,10 @@ class MemDb(object):
 
     def _in_scenarios(self, content, *args):
         for arg in args:
-            for k, v in arg.iteritems():
+            for k, v in arg.items():
                 if k == 'installers':
                     for inner in v.values():
-                        for i_k, i_v in inner.iteritems():
+                        for i_k, i_v in inner.items():
                             if i_k == 'installer':
                                 return self._in_scenarios_installer(i_v,
                                                                     content)
@@ -188,7 +188,7 @@ class MemDb(object):
 
     def _in_others(self, content, *args):
         for arg in args:
-            for k, v in arg.iteritems():
+            for k, v in arg.items():
                 if k == 'start_date':
                     if not MemDb._compare_date(v, content.get(k)):
                         return False
@@ -217,12 +217,12 @@ class MemDb(object):
     def _aggregate(self, *args, **kwargs):
         res = self.contents
         for arg in args[0]:
-            for k, v in arg.iteritems():
+            for k, v in arg.items():
                 if k == '$match':
                     res = self._find(v)
         cursor = MemCursor(res)
         for arg in args[0]:
-            for k, v in arg.iteritems():
+            for k, v in arg.items():
                 if k == '$sort':
                     cursor = cursor.sort(v)
                 elif k == '$skip':
@@ -243,7 +243,7 @@ class MemDb(object):
         for index in range(len(self.contents)):
             content = self.contents[index]
             if self._in(content, spec):
-                for k, v in document.iteritems():
+                for k, v in document.items():
                     updated = True
                     content[k] = v
             self.contents[index] = content

@@ -6,7 +6,7 @@
 # which accompanies this distribution, and is available at
 # http://www.apache.org/licenses/LICENSE-2.0
 ##############################################################################
-import httplib
+import http.client
 import unittest
 
 from opnfv_testapi.models import base_models
@@ -22,7 +22,7 @@ class TestVersionBase(base.TestBase):
 
 
 class TestVersion(TestVersionBase):
-    @executor.get(httplib.OK, '_get_success')
+    @executor.get(http.client.OK, '_get_success')
     def test_success(self):
         return None
 
