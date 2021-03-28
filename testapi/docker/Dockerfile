@@ -23,11 +23,14 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 #
 
-FROM ubuntu:14.04
+FROM ubuntu:18.04
 MAINTAINER SerenaFeng <feng.xiaowei@zte.com.cn>
 LABEL version="v1" description="OPNFV TestAPI Docker container"
 
 ENV HOME /home
+
+ARG user=ubuntu
+ARG group=ubuntu
 
 # Packaged dependencies
 RUN apt-get update && apt-get install -y \
@@ -37,6 +40,7 @@ gcc \
 wget \
 python-dev \
 python-pip \
+python-setuptools \
 crudini \
 libxslt-dev \
 zlib1g-dev \
@@ -44,10 +48,14 @@ zlib1g-dev \
 
 RUN pip install --upgrade requests
 
-RUN git config --global http.sslVerify false
-RUN git clone https://gerrit.opnfv.org/gerrit/releng-testresults /home/releng-testresults
+RUN groupadd -r $group && useradd -ms /bin/bash $user -g $group && \
+    mkdir -p /home/ubuntu/releng-testresults && \
+    chown -R $user:$group /home/ubuntu/releng-testresults
 
-WORKDIR /home/releng-testresults/testapi
+RUN git config --global http.sslVerify false
+
+RUN git clone https://gerrit.opnfv.org/gerrit/releng-testresults /home/ubuntu/releng-testresults
+WORKDIR /home/ubuntu/releng-testresults/testapi
 RUN pip install -r requirements.txt
 
 # bugfix

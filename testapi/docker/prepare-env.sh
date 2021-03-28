@@ -8,12 +8,12 @@ FILE=/etc/opnfv_testapi/config.ini
 
 auth_server=`echo ${auth:0:1} | tr '[:lower:]' '[:upper:]'``echo ${auth:1} | tr '[:upper:]' '[:lower:]'`
 auth_web=`echo ${auth} | tr '[:upper:]' '[:lower:]'`
-sudo crudini --set --existing ${FILE} mongo url ${mongodb_url}
-sudo crudini --set --existing ${FILE} api url ${base_url}/api/v1
-sudo crudini --set --existing ${FILE} ui url ${base_url}
-sudo crudini --set --existing ${FILE} api authenticate ${auth_server}
+crudini --set --existing ${FILE} mongo url ${mongodb_url}
+crudini --set --existing ${FILE} api url ${base_url}/api/v1
+crudini --set --existing ${FILE} ui url ${base_url}
+crudini --set --existing ${FILE} api authenticate ${auth_server}
 
-sudo cat > /usr/local/share/opnfv_testapi/testapi-ui/config.json << EOF
+cat > /usr/local/share/opnfv_testapi/testapi-ui/config.json << EOF
 {
   "testapiApiUrl": "${base_url}/api/v1",
   "authenticate": ${auth_web}
