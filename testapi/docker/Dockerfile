@@ -40,6 +40,7 @@ gcc \
 wget \
 python-dev \
 python-pip \
+python-wheel \
 python-setuptools \
 crudini \
 libxslt-dev \
