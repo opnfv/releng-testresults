@@ -1,0 +1,7 @@
+Code-Review+2: Cedric Ollivier <cedric.ollivier@orange.com>
+Verified+1: jenkins-ci <jenkins-opnfv-ci@opnfv.org>
+Submitted-by: Cedric Ollivier <cedric.ollivier@orange.com>
+Submitted-at: Sun, 28 Mar 2021 22:36:31 +0000
+Reviewed-on: https://gerrit.opnfv.org/gerrit/c/releng-testresults/+/72283
+Project: releng-testresults
+Branch: refs/heads/master
