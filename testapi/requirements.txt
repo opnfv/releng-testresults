@@ -8,7 +8,7 @@ epydoc>=0.3.1
 six==1.11.0  # MIT
 motor==1.2.2  # Apache-2.0
 python-cas==1.2.0
-requests==2.19.1
+requests==2.20.0
 futures==3.2.0
 argparse==1.2.1
 backports-abc==0.5
