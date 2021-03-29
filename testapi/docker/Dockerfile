@@ -30,7 +30,6 @@ LABEL version="v1" description="OPNFV TestAPI Docker container"
 ARG user=ubuntu
 ARG group=ubuntu
 
-# Packaged dependencies
 RUN apt-get update && apt-get install -y \
     curl git gcc wget python-dev python-pip python-wheel python-setuptools \
     crudini libxslt-dev zlib1g-dev --no-install-recommends && \
@@ -39,7 +38,9 @@ RUN apt-get update && apt-get install -y \
   chown -R $user:$group /home/ubuntu/releng-testresults && \
   git clone https://gerrit.opnfv.org/gerrit/releng-testresults \
     /home/ubuntu/releng-testresults && \
-  pip install -r /home/ubuntu/releng-testresults/testapi/requirements.txt && \
+  pip install -r /home/ubuntu/releng-testresults/testapi/requirements.txt \
+    -c /home/ubuntu/releng-testresults/testapi/upper-constraints.txt \
+    -c https://raw.githubusercontent.com/openstack/requirements/stable/ussuri/upper-constraints.txt && \
   sed -i '152,152s/)/,\ verify=False)/g' \
     /usr/local/lib/python2.7/dist-packages/cas.py && \
   cd /home/ubuntu/releng-testresults/testapi/ && python setup.py install && \

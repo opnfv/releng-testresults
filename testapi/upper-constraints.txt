@@ -1,0 +1,9 @@
+epydoc===3.0.1
+motor===1.2.2
+python-cas===1.2.0
+argparse===1.2.1
+backports-abc===0.5
+backports.ssl-match-hostname===3.5.0.1
+html5lib===0.999
+singledispatch===3.4.0.3
+wsgiref===0.1.2
