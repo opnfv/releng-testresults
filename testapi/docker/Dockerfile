@@ -27,42 +27,23 @@ FROM ubuntu:18.04
 MAINTAINER SerenaFeng <feng.xiaowei@zte.com.cn>
 LABEL version="v1" description="OPNFV TestAPI Docker container"
 
-ENV HOME /home
-
 ARG user=ubuntu
 ARG group=ubuntu
 
 # Packaged dependencies
 RUN apt-get update && apt-get install -y \
-curl \
-git \
-gcc \
-wget \
-python-dev \
-python-pip \
-python-wheel \
-python-setuptools \
-crudini \
-libxslt-dev \
-zlib1g-dev \
---no-install-recommends
-
-RUN pip install --upgrade requests
-
-RUN groupadd -r $group && useradd -ms /bin/bash $user -g $group && \
-    mkdir -p /home/ubuntu/releng-testresults && \
-    chown -R $user:$group /home/ubuntu/releng-testresults
-
-RUN git config --global http.sslVerify false
-
-RUN git clone https://gerrit.opnfv.org/gerrit/releng-testresults /home/ubuntu/releng-testresults
+    curl git gcc wget python-dev python-pip python-wheel python-setuptools \
+    crudini libxslt-dev zlib1g-dev --no-install-recommends && \
+  groupadd -r $group && useradd -ms /bin/bash $user -g $group && \
+  mkdir -p /home/ubuntu/releng-testresults && \
+  chown -R $user:$group /home/ubuntu/releng-testresults && \
+  git clone https://gerrit.opnfv.org/gerrit/releng-testresults \
+    /home/ubuntu/releng-testresults && \
+  pip install -r /home/ubuntu/releng-testresults/testapi/requirements.txt && \
+  sed -i '152,152s/)/,\ verify=False)/g' \
+    /usr/local/lib/python2.7/dist-packages/cas.py && \
+  cd /home/ubuntu/releng-testresults/testapi/ && python setup.py install && \
+  apt-get remove --purge -y python-dev libxslt-dev zlib1g-dev && \
+  apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/*
 WORKDIR /home/ubuntu/releng-testresults/testapi
-RUN pip install -r requirements.txt
-
-# bugfix
-# SSLError: hostname 'identity.linuxfoundation.org' doesn't match 'c.sni.fastly.net'
-# hope it is a temprary, try to fix it in upstream python-cas lib
-RUN sed -i '152,152s/)/,\ verify=False)/g' /usr/local/lib/python2.7/dist-packages/cas.py
-
-RUN python setup.py install
 CMD ["bash", "docker/start-server.sh"]
