@@ -36,6 +36,10 @@ RUN apt-get update && apt-get install -y \
   groupadd -r $group && useradd -ms /bin/bash $user -g $group && \
   mkdir -p /home/ubuntu/releng-testresults && \
   chown -R $user:$group /home/ubuntu/releng-testresults && \
+  mkdir -p /etc/opnfv_testapi && \
+  chown -R $user:$group /etc/opnfv_testapi && \
+  mkdir -p /usr/local/share/opnfv_testapi && \
+  chown -R $user:$group /usr/local/share/opnfv_testapi && \
   git clone https://gerrit.opnfv.org/gerrit/releng-testresults \
     /home/ubuntu/releng-testresults && \
   pip install -r /home/ubuntu/releng-testresults/testapi/requirements.txt \
