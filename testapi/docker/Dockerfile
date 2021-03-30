@@ -34,12 +34,6 @@ RUN apt-get update && apt-get install -y \
     curl git gcc wget python-dev python-pip python-wheel python-setuptools \
     crudini libxslt-dev zlib1g-dev --no-install-recommends && \
   groupadd -r $group && useradd -ms /bin/bash $user -g $group && \
-  mkdir -p /home/ubuntu/releng-testresults && \
-  chown -R $user:$group /home/ubuntu/releng-testresults && \
-  mkdir -p /etc/opnfv_testapi && \
-  chown -R $user:$group /etc/opnfv_testapi && \
-  mkdir -p /usr/local/share/opnfv_testapi && \
-  chown -R $user:$group /usr/local/share/opnfv_testapi && \
   git clone https://gerrit.opnfv.org/gerrit/releng-testresults \
     /home/ubuntu/releng-testresults && \
   pip install -r /home/ubuntu/releng-testresults/testapi/requirements.txt \
@@ -48,7 +42,10 @@ RUN apt-get update && apt-get install -y \
   sed -i '152,152s/)/,\ verify=False)/g' \
     /usr/local/lib/python2.7/dist-packages/cas.py && \
   cd /home/ubuntu/releng-testresults/testapi/ && python setup.py install && \
+  for i in /home/ubuntu/releng-testresults /etc/opnfv_testapi /usr/local/share/opnfv_testapi; do \
+    mkdir -p $i && chown -R $user:$group $i; done && \
   apt-get remove --purge -y python-dev libxslt-dev zlib1g-dev && \
   apt-get autoremove --purge -y && apt-get clean && rm -rf /var/lib/apt/lists/*
 WORKDIR /home/ubuntu/releng-testresults/testapi
+USER ubuntu
 CMD ["bash", "docker/start-server.sh"]
