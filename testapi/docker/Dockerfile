@@ -43,7 +43,7 @@ RUN apt-get update && apt-get install -y \
     /usr/local/lib/python2.7/dist-packages/cas.py && \
   cd /home/ubuntu/releng-testresults/testapi/ && python setup.py install && \
   for i in /home/ubuntu/releng-testresults /etc/opnfv_testapi /usr/local/share/opnfv_testapi; do \
-    mkdir -p $i && chown -R $user:$group $i; done && \
+    mkdir -p $i && chown -R $user:$group $i; find $i -type f -exec chmod 777 \{\} \\; done && \
   apt-get remove --purge -y python-dev libxslt-dev zlib1g-dev && \
   apt-get autoremove --purge -y && apt-get clean && rm -rf /var/lib/apt/lists/*
 WORKDIR /home/ubuntu/releng-testresults/testapi
